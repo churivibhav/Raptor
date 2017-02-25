@@ -17,8 +17,8 @@ public abstract class AbstractDao<T> {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public void persist(T entity) {
-		getSession().save(entity);
+	public long persist(T entity) {
+		return (long) getSession().save(entity);
 	}
 
 	public void update(T entity) {
@@ -27,11 +27,12 @@ public abstract class AbstractDao<T> {
 
 	public T findByID(Long id) {
 		@SuppressWarnings("unchecked")
-		T T = (T) getSession().get(getEntityName(), id);
+		T T = (T) getSession().get(getEntityClass(), id);
 		return T;
 	}
 
 	abstract public String getEntityName();
+	abstract public Class getEntityClass();
 
 	public void delete(T entity) {
 		getSession().delete(entity);
@@ -49,5 +50,6 @@ public abstract class AbstractDao<T> {
 			delete(entity);
 		}
 	}
+
 
 }

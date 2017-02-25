@@ -11,5 +11,10 @@ public class TablesDAO extends AbstractDao<Tables> {
 	public String getEntityName() {
 		return "Tables";
 	}
+	
+	@Override
+	public Class getEntityClass() {
+		return Tables.class;
+	}
 
 }
