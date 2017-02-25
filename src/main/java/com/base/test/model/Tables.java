@@ -8,17 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Tables")
+@Table(name = "Tables")
 public class Tables {
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String tableNumber;
 	private String type;
-	private String capacity;
-	private boolean isActive;
+	private int capacity;
+	private String isActive;
 
 	public Long getId() {
 		return id;
@@ -44,19 +44,19 @@ public class Tables {
 		this.type = type;
 	}
 
-	public String getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(String capacity) {
+	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
 
 	public boolean isActive() {
-		return isActive;
+		return (isActive.equals("1")) ? true : false;
 	}
 
 	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+		this.isActive = (isActive == true) ? "1" : "0";
 	}
 }

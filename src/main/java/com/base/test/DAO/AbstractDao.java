@@ -2,6 +2,8 @@ package com.base.test.DAO;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,12 @@ public abstract class AbstractDao<T> {
 	}
 
 	public T findByID(Long id) {
+		@SuppressWarnings("unchecked")
 		T T = (T) getSession().get(getEntityName(), id);
 		return T;
 	}
 
-	abstract public Class getEntityName();
+	abstract public String getEntityName();
 
 	public void delete(T entity) {
 		getSession().delete(entity);
@@ -36,7 +39,7 @@ public abstract class AbstractDao<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		List<T> Ts = (List<T>) getSession().createQuery("from T").list();
+		List<T> Ts = (List<T>) getSession().createQuery("from " + getEntityName()).list();
 		return Ts;
 	}
 
