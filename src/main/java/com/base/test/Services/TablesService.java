@@ -21,14 +21,17 @@ public class TablesService {
 		return tablesDAO.findAll();
 	}
 
+	@Transactional
 	public Tables findByID(Long id) {
 		return tablesDAO.findByID(id);
 	}
 
+	@Transactional
 	public void create(Tables tables) {
 		tablesDAO.persist(tables);
 	}
 
+	@Transactional
 	public Tables delete(Long id) {
 		Tables table = findByID(id);
 		if (table == null) {
@@ -38,6 +41,7 @@ public class TablesService {
 		return table;
 	}
 
+	@Transactional
 	public Tables update(Long id, Tables tables) {
 		tablesDAO.update(tables);
 		return findByID(id);

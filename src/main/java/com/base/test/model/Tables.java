@@ -18,7 +18,7 @@ public class Tables {
 	private String tableNumber;
 	private String type;
 	private int capacity;
-	private String isActive;
+	private int isActive;
 
 	public Long getId() {
 		return id;
@@ -53,10 +53,10 @@ public class Tables {
 	}
 
 	public boolean isActive() {
-		return (isActive.equals("1")) ? true : false;
+		return (isActive == 1) ? true : false;
 	}
 
 	public void setActive(boolean isActive) {
-		this.isActive = (isActive == true) ? "1" : "0";
+		this.isActive = (isActive == true) ? 1 : 0;
 	}
 }

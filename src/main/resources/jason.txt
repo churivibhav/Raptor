@@ -1,0 +1,6 @@
+{
+"tableNumber":"42",
+"type":"VIP",
+"capacity":"6",
+"isActive":"0"
+}
