@@ -2,19 +2,19 @@ package com.base.test.DAO;
 
 import org.springframework.stereotype.Repository;
 
-import com.base.test.model.Tables;
+import com.base.test.model.Waiter;
 
-@Repository("tablesDAO")
-public class TablesDAO extends AbstractDao<Tables> {
+@Repository("waiterDAO")
+public class WaiterDAO extends AbstractDao<Waiter> {
 
 	@Override
 	public String getEntityName() {
-		return "Tables";
+		return "Waiter";
 	}
 
 	@Override
 	public Class getEntityClass() {
-		return Tables.class;
+		return Waiter.class;
 	}
 
 }

@@ -3,7 +3,6 @@ package com.base.test.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,47 +13,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.base.test.Services.ServiceInterface;
-import com.base.test.model.Tables;
+import com.base.test.model.Waiter;
 
 @RestController
-@Configurable
-public class TablesRestController extends AbstractRestController<Tables> {
+public class WaiterRestController extends AbstractRestController<Waiter> {
 
 	@Autowired
-	private ServiceInterface<Tables> tablesService;
+	private ServiceInterface<Waiter> waiterService;
 
 	@Override
-	public ServiceInterface<Tables> getEntityService() {
-		return tablesService;
+	public ServiceInterface<Waiter> getEntityService() {
+		return waiterService;
 	}
 
 	@Override
-	@GetMapping("/tablesAll")
-	public List<Tables> getEntity() {
+	@GetMapping("/waiterAll")
+	public List<Waiter> getEntity() {
 		return super.getEntity();
 	}
 
 	@Override
-	@GetMapping("/tables/{id}")
+	@GetMapping("/waiter/{id}")
 	public ResponseEntity getEntityByID(@PathVariable("id") Long id) {
 		return super.getEntityByID(id);
 	}
 
 	@Override
-	@PostMapping(value = "/tables")
-	public ResponseEntity createEntity(@RequestBody Tables tables) {
-		return super.createEntity(tables);
+	@PostMapping(value = "/waiter")
+	public ResponseEntity createEntity(@RequestBody Waiter waiter) {
+		return super.createEntity(waiter);
 	}
 
 	@Override
-	@DeleteMapping("/tables/{id}")
+	@DeleteMapping("/waiter/{id}")
 	public ResponseEntity deleteEntity(@PathVariable Long id) {
 		return super.deleteEntity(id);
 	}
 
 	@Override
-	@PutMapping("/tables/{id}")
-	public ResponseEntity updateEntity(@PathVariable Long id, @RequestBody Tables tables) {
-		return super.updateEntity(id, tables);
+	@PutMapping("/waiter/{id}")
+	public ResponseEntity updateEntity(@PathVariable Long id, @RequestBody Waiter waiter) {
+		return super.updateEntity(id, waiter);
 	}
 }
