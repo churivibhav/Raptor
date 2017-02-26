@@ -17,18 +17,12 @@ CREATE TABLE `Tables` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `Raptor`.`Customer`
-(`id`,
-`firstName`,
-`lastName`,
-`email`,
-`mobile`,
-`dateOfBirth`)
-VALUES
-(<{id: }>,
-<{firstName: }>,
-<{lastName: }>,
-<{email: }>,
-<{mobile: }>,
-<{dateOfBirth: }>);
+CREATE TABLE `Waiter` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(20) NOT NULL DEFAULT '',
+  `middleName` varchar(20) NOT NULL DEFAULT '',
+  `lastName` varchar(20) NOT NULL DEFAULT '',
+  `tableNumber` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

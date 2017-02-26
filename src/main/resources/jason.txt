@@ -1,6 +1,12 @@
-{
+TABLES:{
 "tableNumber":"42",
 "type":"VIP",
 "capacity":"6",
 "isActive":"0"
+}
+WAITER:{
+"firstName":"Alex",
+"middleName":"middle",
+"lastName":"last",
+"tableNumber":"43"
 }
