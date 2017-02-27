@@ -26,3 +26,14 @@ CREATE TABLE `Waiter` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `Bill` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tableNumber` varchar(20) NOT NULL DEFAULT '',
+  `amount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `taxAmount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `totalAmount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `paymentMode` varchar(20) NOT NULL DEFAULT '',
+  `cardNumber` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
