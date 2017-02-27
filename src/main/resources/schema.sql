@@ -37,3 +37,23 @@ CREATE TABLE `Bill` (
   `cardNumber` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `Order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `orderItem` varchar(20) NOT NULL DEFAULT '',
+  `cost` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `quantity` int(50) NOT NULL DEFAULT '0',
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `kot` varchar(20) NOT NULL DEFAULT '',
+  `bill_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+  
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `Order`
+ADD CONSTRAINT `order_fk1`
+FOREIGN KEY (`bill_id`)
+REFERENCES `Bill`(`id`)
+ON DELETE CASCADE ON UPDATE CASCADE;

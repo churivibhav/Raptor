@@ -10,3 +10,6 @@ WAITER:{
 "lastName":"last",
 "tableNumber":"43"
 }
+
+Bill
+{"id":1,"tableNumber":"42","amount":1564.0,"taxAmount":153.2,"totalAmount":1649.32,"paymentMode":"Cash","cardNumber":"4587"}
