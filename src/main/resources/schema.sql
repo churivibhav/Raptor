@@ -1,13 +1,3 @@
-CREATE TABLE `Customer` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(20) NOT NULL DEFAULT '',
-  `lastName` varchar(20) NOT NULL DEFAULT '',
-  `email` varchar(20) NOT NULL DEFAULT '',
-  `mobile` varchar(20) NOT NULL DEFAULT '',
-  `dateOfBirth` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
 CREATE TABLE `Tables` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tableNumber` varchar(20) NOT NULL DEFAULT '',
@@ -23,6 +13,14 @@ CREATE TABLE `Waiter` (
   `middleName` varchar(20) NOT NULL DEFAULT '',
   `lastName` varchar(20) NOT NULL DEFAULT '',
   `tableNumber` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `User` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userName` varchar(20) NOT NULL DEFAULT '',
+  `password` varchar(20) NOT NULL DEFAULT '',
+  `userType` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

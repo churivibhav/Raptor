@@ -14,4 +14,8 @@ public interface ServiceInterface<T> {
 
 	public T update(Long id, T entity);
 
+	public default T getByName(String userName) {
+		return null;
+	}
+
 }

@@ -1,17 +1,17 @@
 package com.base.test.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 
 public interface RestControllerInterface<T> {
-	public List<T> getEntity();
+	public ResponseEntity getEntity(HttpServletRequest request);
 
-	public ResponseEntity getEntityByID(Long id);
+	public ResponseEntity getEntityByID(Long id, HttpServletRequest request);
 
-	public ResponseEntity createEntity(T tables);
+	public ResponseEntity createEntity(T tables, HttpServletRequest request);
 
-	public ResponseEntity deleteEntity(Long id);
+	public ResponseEntity deleteEntity(Long id, HttpServletRequest request);
 
-	public ResponseEntity updateEntity(Long id, T tables);
+	public ResponseEntity updateEntity(Long id, T tables, HttpServletRequest request);
 }
