@@ -1,10 +1,14 @@
 package com.base.test.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,7 @@ public class Bill {
 	private double totalAmount;
 	private String paymentMode;
 	private String cardNumber;
+	private Set<Orders> orders;
 
 	public long getId() {
 		return id;
@@ -83,4 +88,9 @@ public class Bill {
 		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
 				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber + "]";
 	}
+	
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+    public Set<Orders> getOrders() {
+        return orders;
+    }
 }
