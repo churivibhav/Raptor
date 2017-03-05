@@ -22,8 +22,10 @@ public class Orders {
 	int quantity;
 	String type;
 	String kot;
-	long bill_id;
 	
+	
+	@ManyToOne
+    @JoinColumn(name = "bill_id")
 	private Bill bill;
 	
 	public long getId() {
@@ -62,20 +64,14 @@ public class Orders {
 	public void setKot(String kot) {
 		this.kot = kot;
 	}
-	public long getBill_id() {
-		return bill_id;
-	}
-	public void setBill_id(long bill_id) {
-		this.bill_id = bill_id;
-	}
+	
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", orderItem=" + orderItem + ", cost=" + cost + ", quantity=" + quantity + ", type="
-				+ type + ", kot=" + kot + ", bill_id=" + bill_id + "]";
+				+ type + ", kot=" + kot + ", bill_id=" +  "]";
 	}
 	
-	@ManyToOne
-    @JoinColumn(name = "id")
+	
     public Bill getCategory() {
         return bill;
     }

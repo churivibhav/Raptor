@@ -25,6 +25,8 @@ public class Bill {
 	private double totalAmount;
 	private String paymentMode;
 	private String cardNumber;
+	
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
 
 	public long getId() {
@@ -89,7 +91,7 @@ public class Bill {
 				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber + "]";
 	}
 	
-	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+	
     public Set<Orders> getOrders() {
         return orders;
     }
