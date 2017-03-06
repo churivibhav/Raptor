@@ -1,10 +1,12 @@
 package com.base.test.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +17,9 @@ import javax.persistence.Table;
 @Table(name = "Bill")
 public class Bill {
 	@Id
-	@Column(name = "id")
+	@Column(name = "billID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	private String tableNumber;
 	private double amount;
@@ -25,8 +27,8 @@ public class Bill {
 	private double totalAmount;
 	private String paymentMode;
 	private String cardNumber;
-	
-	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
 
 	public long getId() {
@@ -90,9 +92,16 @@ public class Bill {
 		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
 				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber + "]";
 	}
-	
-	
-    public Set<Orders> getOrders() {
-        return orders;
-    }
+
+	public Set<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
+	}
+
+	public void addOrder(Orders order) {
+		this.orders.add(order);
+	}
 }

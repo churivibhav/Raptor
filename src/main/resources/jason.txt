@@ -11,5 +11,33 @@ WAITER:{
 "tableNumber":"43"
 }
 
-Bill
-{"id":1,"tableNumber":"42","amount":1564.0,"taxAmount":153.2,"totalAmount":1649.32,"paymentMode":"Cash","cardNumber":"4587"}
+Bill:
+{
+	"tableNumber":"42",
+ 	"amount":"200",
+    "totalAmount":"200",
+    "payementMode":"credit",
+    "orders":[
+    		{
+      			"orderItem":"Paneer Masala",
+        		"cost":"100",
+        		"quantity":"1",
+        		"type":"Food",
+        		"kot":"true"
+            },
+            {
+      			"orderItem":"Taqeela",
+        		"cost":"100",
+        		"quantity":"1",
+        		"type":"Bar",
+        		"kot":"true"
+    		}
+    ]
+}
+
+Login:
+{
+  "userName":"gaurav",
+  "userType":"admin",
+  "password":"pass"
+}
