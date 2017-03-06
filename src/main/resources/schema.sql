@@ -6,6 +6,11 @@ CREATE TABLE `Tables` (
   `isActive` varchar(2) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+INSERT INTO Tables(tableNumber,type,capacity,isActive)
+VALUES ('43','Bar','5','1');
+UPDATE Tables
+SET tableNumber = 42
+where id = 3;
 
 CREATE TABLE `Waiter` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

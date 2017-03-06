@@ -82,155 +82,12 @@
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
 										<!--<div class="table-row">-->
-										<span class="table"> <span
-											class="table-header text-center">B1</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B2</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B3</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B4</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B5</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B6</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B7</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B8</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B9</span> <span
-											class="table-content"></span>
-										</span>
-										<!--</div>-->
-										<!--<div class="table-row">-->
-										<span class="table"> <span
-											class="table-header text-center">B10</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B11</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B12</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B13</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B14</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B15</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B16</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B17</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B18</span> <span
-											class="table-content"></span>
-										</span>
-										<!--</div>-->
-										<!--<div class="table-row">-->
-										<span class="table"> <span
-											class="table-header text-center">B19</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B20</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B21</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B22</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B23</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B24</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B25</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B26</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B27</span> <span
-											class="table-content"></span>
-										</span>
-										<!--</div>-->
-										<!--<div class="table-row">-->
-										<span class="table"> <span
-											class="table-header text-center">B28</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B29</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B30</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B31</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B32</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B33</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B34</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B35</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B36</span> <span
-											class="table-content"></span>
-										</span>
-										<!--</div>-->
-										<!--<div class="table-row">-->
-										<span class="table"> <span
-											class="table-header text-center">B37</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B38</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B39</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B40</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B41</span> <span
-											class="table-content"></span>
-										</span> <span class="table occupied"> <span
-											class="table-header text-center">B42</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B43</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B44</span> <span
-											class="table-content"></span>
-										</span> <span class="table"> <span
-											class="table-header text-center">B45</span> <span
-											class="table-content"></span>
-										</span>
-										<!--</div>-->
+										<c:forEach items="${allTables}" var="allTables">
+											<span class="table"> 
+												<span class="table-header text-center">${allTables.tableNumber}</span>
+												<span class="table-content"></span>
+											</span>
+										</c:forEach>
 									</div>
 									<div class="table-layout-container lounge"
 										style="display: none;">
@@ -530,13 +387,19 @@
 
 </html>
 
+<spring:url value="/resources/core/js/lib/jquery.nicescroll.js"
+	var="nicescrollJs" />
+<spring:url value="/resources/core/js/lib/bootstrap-treeview.js"
+	var="treeviewJs" />
+<spring:url value="/resources/core/js/lib/jquery.dataTables.min.js"
+	var="dataTableJs" />
+<spring:url value="/resources/core/js/lib/dataTables.bootstrap.min.js"
+	var="dataBootJs" />
 
-
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/jquery.nicescroll.js"></script>
-<script src="js/lib/bootstrap-treeview.js"></script>
-<script src="js/lib/jquery.dataTables.min.js"></script>
-<script src="js/lib/dataTables.bootstrap.min.js"></script>
+<script src="${nicescrollJs}"></script>
+<script src="${treeviewJs}"></script>
+<script src="${dataTableJs}"></script>
+<script src="${dataBootJs}"></script>
 
 
 
