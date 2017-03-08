@@ -26,6 +26,7 @@ CREATE TABLE `User` (
   `userName` varchar(20) NOT NULL DEFAULT '',
   `password` varchar(20) NOT NULL DEFAULT '',
   `userType` varchar(20) NOT NULL DEFAULT '',
+  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

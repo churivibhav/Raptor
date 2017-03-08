@@ -48,7 +48,7 @@
 					<div class="login-form-container">
 						<div class="login-form">
 							<div class="login">
-								<form class="form-horizontal">
+								<form class="form-horizontal" action="home" method="post">
 									<div class="form-group">
 										<div class="col-sm-12">
 											<select class="form-control">
@@ -63,7 +63,7 @@
 
 									<div class="form-group">
 										<div class="col-sm-12">
-											<input type="text" class="form-control" name="userName" id="name"
+											<input type="text" class="form-control" name="username" id="name"
 												placeholder="Username" />
 										</div>
 									</div>
@@ -90,7 +90,7 @@
 									</div>
 
 									<div class="form-group text-center">
-										<a href="homepage.jsp" class="btn btn-lg login-button">Login</a>
+										<input type="submit" value="Login" class="btn btn-lg login-button"/>
 									</div>
 
 									<div class="form-group incorrect-msg">
