@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "Users")
+public class Users {
 
 	@Id
 	@Column(name = "id")
@@ -51,4 +51,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", userName=" + userName + ", userType=" + userType + ", password=" + password + "]";
+	}
+	
+	
 }

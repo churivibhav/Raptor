@@ -48,7 +48,7 @@
 					<div class="login-form-container">
 						<div class="login-form">
 							<div class="login">
-								<form class="form-horizontal" action="home" method="post">
+								<form class="form-horizontal" action="authorize" method="post">
 									<div class="form-group">
 										<div class="col-sm-12">
 											<select class="form-control">
