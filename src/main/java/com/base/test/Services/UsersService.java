@@ -4,23 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.base.test.DAO.DaoInterface;
-import com.base.test.DAO.UserDAO;
-import com.base.test.model.User;
+import com.base.test.DAO.UsersDAO;
+import com.base.test.model.Users;
 
-@Service("userService")
-public class UserService extends AbstractService<User> {
+@Service("usersService")
+public class UsersService extends AbstractService<Users> {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UsersDAO usersDAO;
 
 	@Override
-	public DaoInterface<User> getEntityDAO() {
+	public DaoInterface<Users> getEntityDAO() {
 		// TODO Auto-generated method stub
-		return userDAO;
+		return usersDAO;
 	}
-	
-	public User getByName(String userName){
-		return userDAO.getByName(userName);
+
+	public Users getByName(String userName) {
+		return usersDAO.getByName(userName);
 	}
 
 }

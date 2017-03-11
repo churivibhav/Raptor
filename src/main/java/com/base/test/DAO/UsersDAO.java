@@ -2,23 +2,23 @@ package com.base.test.DAO;
 
 import org.springframework.stereotype.Repository;
 
-import com.base.test.model.User;
+import com.base.test.model.Users;
 
-@Repository("userDAO")
-public class UserDAO extends AbstractDao<User> {
+@Repository("usersDAO")
+public class UsersDAO extends AbstractDao<Users> {
 
 	@Override
 	public String getEntityName() {
-		return "User";
+		return "Users";
 	}
 
 	@Override
 	public Class getEntityClass() {
-		return User.class;
+		return Users.class;
 	}
 
-	public User getByName(String userName) {
-		return (User) getSession().createQuery("from " + getEntityName() + " where userName = '" + userName + "'")
+	public Users getByName(String userName) {
+		return (Users) getSession().createQuery("from " + getEntityName() + " where userName = '" + userName + "'")
 				.uniqueResult();
 	}
 
