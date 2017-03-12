@@ -21,15 +21,3 @@ public class CardDAO extends AbstractDao<Card> {
 				.uniqueResult();
 	}
 }
-
-
-
-
-
-	 
-
-
-	
-
-	
-}
