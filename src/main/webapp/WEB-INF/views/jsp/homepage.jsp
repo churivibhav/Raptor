@@ -45,8 +45,8 @@
 
 <body>
 	<%
-		String sessionID = (String)session.getAttribute("sessionID");
-		if(!Utils.checkSession(sessionID))
+		String sessionID = (String) session.getAttribute("sessionID");
+		if (!Utils.checkSession(sessionID))
 			response.sendRedirect("/Raptor");
 	%>
 	<div class="main">
@@ -58,16 +58,17 @@
 						<a href="index.html"><span
 							style="color: white; font-size: 40px;">LOGO</span></a>
 					</div>
-
 					<div class="project-title hidden-xs hidden-sm hidden-md">
-						YOYO Bar and Grill</div>
-
-
+						YOYO Bar and Gril</div>
+					<div class="pull-right logout-btn">
+						<a href="#" title="Logout" data-toggle="tooltip"
+							data-placement="left" title="Logout"><i
+							class="fa fa-power-off fa-lg fa-2x"></i></a>
+					</div>
 				</div>
 				<div class="main-content">
 					<div class="project-title mobile  hidden-lg">YOYO Bar and
 						Grill</div>
-
 					<div class="container-fluid main-container">
 						<div class="section-selection">
 							<div class="form-inline form-horizontal">
@@ -87,7 +88,6 @@
 								<div class="table-layout-section">
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
-										<!--<div class="table-row">-->
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Bar'}">
 												<span class="table"> <span
@@ -258,6 +258,15 @@
 					<h4 class="modal-title">Generate Bill</h4>
 				</div>
 				<div class="modal-body">
+					<div class="modal-top row">
+						<div class="col-sm-6 modal-top-title">
+							<span class="title">Section : </span> <span class="order-type">Bar</span>
+						</div>
+						<div class="col-sm-6 modal-top-title text-right">
+							<span class="title">Table : </span> <span
+								class="section-order-table">B1</span>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">

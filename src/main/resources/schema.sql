@@ -29,12 +29,14 @@ CREATE TABLE `Users` (
   `userName` varchar(20) NOT NULL DEFAULT '',
   `password` varchar(20) NOT NULL DEFAULT '',
   `userType` varchar(20) NOT NULL DEFAULT '',
-  
+  `sessionID` varchar(64) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO Users(userName,userType,password)
 VALUES ('gaurav','admin','pass');
+ALTER TABLE Users
+  modify `sessionID` varchar(64) DEFAULT '';
 
 CREATE TABLE `BarMenu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
