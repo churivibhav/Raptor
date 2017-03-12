@@ -21,14 +21,6 @@ CREATE TABLE `Waiter` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `User` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `userName` varchar(20) NOT NULL DEFAULT '',
-  `password` varchar(20) NOT NULL DEFAULT '',
-  `userType` varchar(20) NOT NULL DEFAULT '',
-  
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO User(userName,userType,password)
 VALUES ('gaurav','admin','pass');
@@ -85,3 +77,16 @@ ADD CONSTRAINT `order_fk1`
 FOREIGN KEY (`bill_id`)
 REFERENCES `Bill`(`id`)
 ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE `Users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userName` varchar(20) NOT NULL DEFAULT '',
+  `password` varchar(64) NOT NULL DEFAULT '',
+  `userType` varchar(20) NOT NULL DEFAULT '',
+  `sessionID` varchar(64) 
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+Insert into Users(userName, password, userType) values('a', 'b', 'c');
+
+

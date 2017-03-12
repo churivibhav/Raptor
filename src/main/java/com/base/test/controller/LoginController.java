@@ -1,5 +1,9 @@
 	package com.base.test.controller;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,44 +41,28 @@ public class LoginController {
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-	
-		logger.info(username + " " + password);
+		
 		Users user = userService.getByName(username);
 		
-		
+		if(username == null || password == null || username.equals("") || password.equals(""))
+			return new ModelAndView("login");
 		
 		if(password.equals(user.getPassword())){
+			
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			String sessionID = UUID.randomUUID().toString().replaceAll("-", "") + timestamp.getTime();
+			logger.info(sessionID + " " +username);
+			user.setSessionID(sessionID);
+			session.setAttribute("sessionID", sessionID);
+			Long userId = user.getId();
+			userService.update(userId, user);
+			logger.info(username + " logged in");
 			return new ModelAndView("redirect:/home");
 		}else if(username == null || username.equals("") || user == null || 
 				password == null || password.equals("") || !(password.equals(user.getPassword()))){
+			
 			return new ModelAndView("login");
 		}
 		return new ModelAndView("login");
-		/*if(!username.equals("") && username != null && username.equals("ameya") &&
-		   !password.equals("") && password != null && password.equals("ameya")){
-			return new ModelAndView("homepage");
-		}else{ 
-			return new ModelAndView("login");
-		}*/
-		
-		//return new ModelAndView("login");
 	}
-	
-	/*public boolean checkInputFields(String username, String password, Users user){
-		if(username == null || username.equals("") || user == null || 
-				password == null || password.equals("") || !(password.equals(user.getPassword()))){
-			return false;
-		}else
-			
-	}*/
-	
-	/*@RequestMapping(value = "/homepage")
-	public ModelAndView getHomePage() {
-
-		ModelAndView model = new ModelAndView("homepage");
-	
-		return model;
-
-	}*/
-
 }

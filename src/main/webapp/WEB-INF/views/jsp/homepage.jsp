@@ -1,3 +1,4 @@
+<%@page import="com.base.test.Utils.Utils"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
@@ -43,6 +44,11 @@
 </head>
 
 <body>
+	<%
+		String sessionID = (String)session.getAttribute("sessionID");
+		if(!Utils.checkSession(sessionID))
+			response.sendRedirect("/Raptor");
+	%>
 	<div class="main">
 		<header class="bg-img header inside">
 
