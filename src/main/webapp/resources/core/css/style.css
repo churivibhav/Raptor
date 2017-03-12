@@ -550,9 +550,18 @@ span.specs-title {
 }
 
 .incorrect-msg{
-	color:red;
+	color:red;                    /* incorrect passowrd **/
 	text-align:center;
-	display:none;
+	/*display:none;*/
+	font-size:18px;
+}
+
+.logout-btn{
+	margin-top:20px;
+}
+
+.logout-btn a,.logout-btn a:hover,.logout-btn a:visited{
+	color:red;
 }
 
 .view-btn,.edit-btn{
@@ -916,10 +925,21 @@ a.fa	{
 	color:black;
 }
 
-.table-layout-container .table.occupied{
-	background-color:red !important;
+.modal-top{
+	margin-bottom:10px;
 }
 
+.table-layout-container .table.occupied{
+	background-color:red;
+}
+
+.yoyo-card-payment-details{              /** yoyo card payment details **/
+	display:none;
+}
+
+.yoyo-card-payment-details .form-inline{
+	margin-bottom:10px;
+}
 
 
 .table-header{
@@ -945,7 +965,11 @@ a.fa	{
 }
 
 .lounge-box.occupied,.vip-box.occupied{
-	background-color:red !important;
+	background-color:red;
+}
+
+.occupied.selected{
+	background-color:yellow !important;
 }
 
 .padding-left-0{
@@ -990,3 +1014,11 @@ label{
 	margin-right:10px;
 }
 
+.search-tree{
+	margin-bottom:10px;
+}
+
+.modal-body{
+	max-height:600px;
+	overflow:auto;
+}

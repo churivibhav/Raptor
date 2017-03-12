@@ -95,7 +95,7 @@
 									</div>
 
 									<div class="form-group incorrect-msg">
-										<span>Incorrect Username or Password, Please try again.</span>
+										<span><i class="fa fa-warning fa-lg"></i> Incorrect Username or Password, Please try again.</span>
 									</div>
 								</form>
 							</div>

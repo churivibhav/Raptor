@@ -90,7 +90,7 @@
 									<div class="table-layout-container bar">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Bar'}">
-												<span class="table"> <span
+												<span class="table" id="${allTables.id}"> <span
 													class="table-header text-center">${allTables.tableNumber}</span>
 													<span class="table-content"></span>
 												</span>
@@ -462,20 +462,7 @@
 					},
 				</c:forEach>	
 			]
-		}, {
-			text : "Normal",
-			nodes : [ {
-				text : "Rum",
-				tags : [ '500' ]
-			/*state: { 
-				checked: true,    //for default check on edit order
-				
-			},*/
-			}, {
-				text : "Vodka",
-				tags : [ '700' ]
-			} ]
-		} ]
+		}]
 	} ];
 
 	/*** new code *********/
