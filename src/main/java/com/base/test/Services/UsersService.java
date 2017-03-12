@@ -7,20 +7,24 @@ import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.UsersDAO;
 import com.base.test.model.Users;
 
+
 @Service("userService")
 public class UsersService extends AbstractService<Users> {
 
 	@Autowired
-	private UsersDAO userDAO;
+	private UsersDAO usersDAO;
+
 
 	@Override
 	public DaoInterface<Users> getEntityDAO() {
 		// TODO Auto-generated method stub
-		return userDAO;
+		return usersDAO;
 	}
+
 	
-	public Users getByName(String userName){
-		return userDAO.getByName(userName);
+	public Users getByName(String userName) {
+		return usersDAO.getByName(userName);
+
 	}
 
 }

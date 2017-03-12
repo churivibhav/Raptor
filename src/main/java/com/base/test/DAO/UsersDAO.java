@@ -3,8 +3,6 @@ package com.base.test.DAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
-
 import com.base.test.model.Users;
 
 @Repository("usersDAO")
@@ -25,6 +23,4 @@ public class UsersDAO extends AbstractDao<Users> {
 		return (Users) getSession().createQuery("from " + getEntityName() + " where userName = '" + userName + "'")
 				.uniqueResult();
 	}
-	
-	
 }

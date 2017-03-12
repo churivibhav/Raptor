@@ -88,73 +88,35 @@
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
 										<!--<div class="table-row">-->
-										<c:forEach items="${allTables}" var="allTables">
-											<span class="table"> 
-												<span class="table-header text-center">${allTables.tableNumber}</span>
-												<span class="table-content"></span>
-											</span>
+										<c:forEach items="${model.allTables}" var="allTables">
+											<c:if test="${allTables.type == 'Bar'}">
+												<span class="table"> <span
+													class="table-header text-center">${allTables.tableNumber}</span>
+													<span class="table-content"></span>
+												</span>
+											</c:if>
 										</c:forEach>
 									</div>
 									<div class="table-layout-container lounge"
 										style="display: none;">
-										<div class="row">
-											<div class="col-sm-3">
-												<div class="lounge-box occupied">L1</div>
-											</div>
-											<div class="col-sm-3">
-												<div class="lounge-box">L2</div>
-
-											</div>
-											<div class="col-sm-3">
-												<div class="lounge-box">L3</div>
-
-											</div>
-											<div class="col-sm-3">
-												<div class="lounge-box">L4</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-6">
-												<div class="lounge-box">L5</div>
-
-											</div>
-											<div class="col-sm-6">
-												<div class="lounge-box">L6</div>
-
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="lounge-box">L7</div>
-
-											</div>
-											<div class="col-sm-4">
-												<div class="lounge-box">L8</div>
-
-											</div>
-											<div class="col-sm-4">
-												<div class="lounge-box">L9</div>
-
-											</div>
-										</div>
-										<div class="table-row"></div>
-										<div class="table-row"></div>
+										<c:forEach items="${model.allTables}" var="allTables">
+											<c:if test="${allTables.type == 'Lounge'}">
+												<span class="table"> <span
+													class="table-header text-center">${allTables.tableNumber}</span>
+													<span class="table-content"></span>
+												</span>
+											</c:if>
+										</c:forEach>
 									</div>
 									<div class="table-layout-container vip" style="display: none;">
-										<div class="row">
-											<div class="col-sm-12">
-												<div class="vip-box occupied">VIP1</div>
-											</div>
-											<div class="col-sm-12">
-												<div class="vip-box">VIP2</div>
-											</div>
-											<div class="col-sm-12">
-												<div class="vip-box">VIP3</div>
-											</div>
-											<div class="col-sm-12">
-												<div class="vip-box">VIP4</div>
-											</div>
-										</div>
+										<c:forEach items="${model.allTables}" var="allTables">
+											<c:if test="${allTables.type == 'VIP'}">
+												<span class="table"> <span
+													class="table-header text-center">${allTables.tableNumber}</span>
+													<span class="table-content"></span>
+												</span>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -216,12 +178,9 @@
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
-								<!-- new code -->
-								<option value="0">Option 1</option>
-								<option value="1">Option 2</option>
-								<option value="2">Option 3</option>
-								<option value="3">Option 4</option>
-								<option value="4">Option 5</option>
+								<c:forEach items="${model.allWaiter}" var="allWaiter">
+									<option value="0">${allWaiter.firstName}</option>
+								</c:forEach>
 							</select>
 						</div>
 						<div class="col-sm-6 text-right">
@@ -459,34 +418,41 @@
 		text : "Food Menu",
 		nodes : [ {
 			text : "Veg",
-			nodes : [ {
-				text : "Paneer Tikka Masala",
-				tags : [ '100' ]
-			}, {
-				text : "Veg Kolhapuri",
-				tags : [ '200' ]
-			} ]
+			nodes : [
+				<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+					<c:if test="${allFoodMenu.veg == 'true'}">
+						{
+							text : "${allFoodMenu.itemName}",
+							tags : [${allFoodMenu.cost}]
+						},
+					</c:if>
+				</c:forEach>
+			]
 		}, {
 			text : "Non Veg",
-			nodes : [ {
-				text : "Chicken Tikka Masala",
-				tags : [ '220' ]
-			}, {
-				text : "Chicken Tandoori",
-				tags : [ '400' ]
-			} ]
+			nodes : [ 
+				<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+					<c:if test="${allFoodMenu.veg == 'false'}">
+						{
+							text : "${allFoodMenu.itemName}",
+							tags : [${allFoodMenu.cost}]
+						},
+					</c:if>
+				</c:forEach>
+			]
 		} ]
 	}, {
 		text : "Bar Mneu",
 		nodes : [ {
 			text : "Special",
-			nodes : [ {
-				text : "Takeela",
-				tags : [ '1000' ]
-			}, {
-				text : "Jack Daniel",
-				tags : [ '2000' ]
-			} ]
+			nodes : [ 
+				<c:forEach items="${model.allBarMenu}" var="allBarMenu">
+					{
+						text : "${allBarMenu.itemName}",
+						tags : [${allBarMenu.cost}]
+					},
+				</c:forEach>	
+			]
 		}, {
 			text : "Normal",
 			nodes : [ {

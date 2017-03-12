@@ -63,8 +63,8 @@
 
 									<div class="form-group">
 										<div class="col-sm-12">
-											<input type="text" class="form-control" name="username" id="name"
-												placeholder="Username" />
+											<input type="text" class="form-control" name="username"
+												id="name" placeholder="Username" />
 										</div>
 									</div>
 
@@ -90,7 +90,8 @@
 									</div>
 
 									<div class="form-group text-center">
-										<input type="submit" value="Login" class="btn btn-lg login-button"/>
+										<input type="submit" value="Login"
+											class="btn btn-lg login-button" />
 									</div>
 
 									<div class="form-group incorrect-msg">
