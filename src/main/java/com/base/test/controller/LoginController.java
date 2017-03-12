@@ -29,7 +29,7 @@ public class LoginController {
 	private ServiceInterface<Users> userService;  
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView getData() {
+	public ModelAndView login() {
 
 		ModelAndView model = new ModelAndView("login");
 	
@@ -53,8 +53,11 @@ public class LoginController {
 			String sessionID = UUID.randomUUID().toString().replaceAll("-", "") + timestamp.getTime();
 			logger.info(sessionID + " " +username);
 			user.setSessionID(sessionID);
-			session.setAttribute("sessionID", sessionID);
 			Long userId = user.getId();
+			
+			session.setAttribute("sessionID", sessionID);
+			session.setAttribute("username", username);
+			
 			userService.update(userId, user);
 			logger.info(username + " logged in");
 			return new ModelAndView("redirect:/home");
