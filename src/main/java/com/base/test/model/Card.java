@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "Card")
 public class Card {
 
 	@Id
@@ -17,7 +17,7 @@ public class Card {
 	private long id;
 	
 	private String cardNumber;
-	private double cost;
+	private double balance;
 	
 	public long getId() {
 		return id;
@@ -31,10 +31,10 @@ public class Card {
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-	public double getCost() {
-		return cost;
+	public double getBalance() {
+		return balance;
 	}
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 }
