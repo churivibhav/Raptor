@@ -24,9 +24,6 @@
 	</Appenders>
 
 	<Loggers>
-		<category name="org.springframework.security">
-			<priority value="ALL" />
-		</category>
 		<Root level="TRACE">
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="ROLLINGFILE" />

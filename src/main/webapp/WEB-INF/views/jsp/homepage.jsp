@@ -90,8 +90,8 @@
 									<div class="table-layout-container bar">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Bar'}">
-												<span class="table" id="${allTables.id}"> <span
-													class="table-header text-center">${allTables.tableNumber}</span>
+												<span class="table tableSelect" id="${allTables.id}">
+													<span class="table-header text-center">${allTables.tableNumber}</span>
 													<span class="table-content"></span>
 												</span>
 											</c:if>
@@ -155,7 +155,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
+	<div id="myModal" class="modal fade myModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -170,10 +170,10 @@
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
-							<span class="title">Table : </span> <span class="order-table">B1</span>
+							<span class="title">Table : </span> <span
+								class="order-table tableNumber">B1</span>
 						</div>
 					</div>
-					<hr />
 					<div class="form-inline row person-count">
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
@@ -220,17 +220,13 @@
 											<th class="sort-hide">Delete</th>
 										</tr>
 									</thead>
-
 									<tbody>
-
 									</tbody>
 								</table>
-
 								<div class="text-right form-inline total-price">
 									<label>Total : </label> <input type="text"
 										class="form-control total-cost" value="0" disabled />
 								</div>
-
 								<div class="buttons text-center">
 									<button class="btn btn-success give-order">Order</button>
 									<button class="btn btn-danger discard-order">Abort</button>
@@ -243,7 +239,6 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
@@ -264,7 +259,7 @@
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
 							<span class="title">Table : </span> <span
-								class="section-order-table">B1</span>
+								class="section-order-table tableNumber">B1</span>
 						</div>
 					</div>
 					<div class="row">
@@ -491,12 +486,12 @@
 						if (input.attr('max') == undefined
 								|| parseInt(input.val()) < parseInt(input
 										.attr('max'))) {
-							input.val(parseInt(input.val(), 10));
+							input.val(parseInt(input.val(), 10) + 1);
 						} else {
 							btn.next("disabled", true);
 						}
 						var row = $(this).closest('tr');
-						fnChangeRowPrice(row, parseInt(input.val()) + 1);
+						fnChangeRowPrice(row, parseInt(input.val()));
 					});
 
 	$(document)
@@ -509,12 +504,12 @@
 						if (input.attr('min') == undefined
 								|| parseInt(input.val()) > parseInt(input
 										.attr('min'))) {
-							input.val(parseInt(input.val(), 10));
+							input.val(parseInt(input.val(), 10) - 1);
 						} else {
 							btn.prev("disabled", true);
 						}
 						var row = $(this).closest('tr');
-						fnChangeRowPrice(row, parseInt(input.val()) - 1);
+						fnChangeRowPrice(row, parseInt(input.val()));
 					});
 
 	$(document).on(
@@ -573,13 +568,9 @@
 
 	function fnChangeRowPrice(row, val) {
 		var totalRowPrice = "";
-
 		var unitPrice = $(row).attr('data-unit-price');
-
 		totalRowPrice = unitPrice * val;
-
 		$(row).find('.total-row-price').text(totalRowPrice);
-
 		fnCalculateTotalPrice();
 	}
 
@@ -591,7 +582,6 @@
 			var rowTotalPrice = $(row).find('.total-row-price').text();
 			totalPrice += parseInt(rowTotalPrice);
 		}
-
 		$('.total-cost').val(totalPrice);
 	}
 
@@ -610,12 +600,9 @@
 							if (node.nodes == undefined) {
 								var item = node.text;
 								var price = node.tags[0];
-
 								var className = (item).replace(/ /g, '-');
-								;
-
 								var tr = "";
-								tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td>'
+								tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
 										+ item
 										+ '</td>'
 										+ '<td>'
@@ -633,9 +620,7 @@
 										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 
 								$('#mainTable tbody').append(tr);
-
 								fnCalculateTotalPrice();
-
 							}
 						},
 						onNodeUnchecked : function(event, node) {
@@ -643,23 +628,65 @@
 							if (node.nodes == undefined) {
 								var item = node.text;
 								var price = node.tags[0];
-
 								var className = (item).replace(/ /g, '-');
-
 								$('.' + className).remove();
-
 								fnCalculateTotalPrice();
 							}
 						}
-
 					});
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.give-order', function () {
+	    	var tableNumber = $('.tableNumber').text();
+	    	var totalAmount = $('.total-cost').val();
+	    	var data = {
+		    		"tableNumber":tableNumber,
+		    	 	"amount":totalAmount,
+		    	    "totalAmount":totalAmount,
+		    	    "payementMode":"credit"
+		    	};
+	    	data.orders = [];
+	    	$('#mainTable tbody tr').each(function() {
+	    		  $this = $(this)
+	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var cost = $this.find("td.total-row-price").html();
+	    		  data.orders.push({"orderItem":orderItem,
+	    			 	"cost":cost,
+	        			"quantity":quantity,
+	        			"type":"Food",
+	        			"kot":"false"	
+	    			  }	);
+	    	});
+	    	alert(JSON.stringify(data));
+	        return true;
+	    });
+	}); 
 
 	function search() {
 		var pattern = $('#searchTree').val();
 		var options = {
-
 		};
 		var results = tree.treeview('search', [ pattern, options ]);
-
 	}
+	
+	$( "div" ).data( "tables", 
+			{ 
+				<c:forEach items="${model.allTables}" var="allTables">
+					${allTables.id}: {tableNumber: "${allTables.tableNumber}", type: "${allTables.type}"},
+				</c:forEach>
+			}
+	);
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.tableSelect', function () {
+	        var tableid = $(this).attr('id');
+	        $.each($( "div" ).data( "tables" ), function(key, item){
+	            if(key == tableid){
+	            	$('.tableNumber').text(item.tableNumber);
+	            }
+	        });
+	        return true;
+	    });
+	}); 
 </script>

@@ -8,6 +8,10 @@ CREATE TABLE `Tables` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
 VALUES ('43','Bar','5','1');
+INSERT INTO Tables(tableNumber,type,capacity,isActive)
+VALUES ('44','Bar','5','1');
+INSERT INTO Tables(tableNumber,type,capacity,isActive)
+VALUES ('45','Bar','5','1');
 UPDATE Tables
 SET tableNumber = 42
 where id = 3;
