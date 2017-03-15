@@ -171,7 +171,7 @@
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
 							<span class="title">Table : </span> <span
-								class="order-table tableNumber">B1</span>
+								class="order-table newOrderTableNumber">B1</span>
 						</div>
 					</div>
 					<div class="form-inline row person-count">
@@ -637,7 +637,7 @@
 	
 	$(document).ready(function () {
 	    $(document).on('click', '.give-order', function () {
-	    	var tableNumber = $('.tableNumber').text();
+	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
 	    	var data = {
 		    		"tableNumber":tableNumber,
@@ -659,6 +659,19 @@
 	    			  }	);
 	    	});
 	    	alert(JSON.stringify(data));
+	    	
+	    	$.ajax({
+	            url: 'saveOrder',
+	            data: JSON.stringify(data),
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){ 
+	                alert(JSON.stringify(data));
+	            }
+	        });
 	        return true;
 	    });
 	}); 
@@ -683,7 +696,7 @@
 	        var tableid = $(this).attr('id');
 	        $.each($( "div" ).data( "tables" ), function(key, item){
 	            if(key == tableid){
-	            	$('.tableNumber').text(item.tableNumber);
+	            	$('.newOrderTableNumber').text(item.tableNumber);
 	            }
 	        });
 	        return true;
