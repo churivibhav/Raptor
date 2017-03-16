@@ -81,6 +81,7 @@ CREATE TABLE `Bill` (
   `totalAmount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
   `paymentMode` varchar(20) DEFAULT '',
   `cardNumber` varchar(20) DEFAULT '',
+  `isActive` varchar(2) NOT NULL DEFAULT '',
   PRIMARY KEY (`billID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -89,6 +90,11 @@ ALTER TABLE Bill
   
 ALTER TABLE Bill
   add billID int(11) unsigned NOT NULL AUTO_INCREMENT;
+ALTER TABLE Bill
+  add `isActive` varchar(2) NOT NULL DEFAULT '';
+UPDATE Bill
+SET isActive = 1
+where billID = 7;
 
 
 CREATE TABLE `Orders` (

@@ -127,9 +127,10 @@
 											<div class="box-header">Order Management</div>
 											<div class="box-content">
 												<button class="btn btn-lg login-button new-order"
-													data-toggle="modal" data-target="#myModal">New
+													data-toggle="modal" data-target="#newModal">New
 													Order</button>
-												<button class="btn btn-lg login-button edit-order">Edit
+												<button class="btn btn-lg login-button edit-order"
+													data-toggle="modal" data-target="#editModal">Edit
 													Order</button>
 											</div>
 										</div>
@@ -155,7 +156,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="myModal" class="modal fade myModal" role="dialog">
+	<div id="newModal" class="modal fade newModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -241,6 +242,92 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="editModal" class="modal fade editModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Order</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-top row">
+						<div class="col-sm-6 modal-top-title">
+							<span class="title">Section : </span> <span class="order-type">Bar</span>
+						</div>
+						<div class="col-sm-6 modal-top-title text-right">
+							<span class="title">Table : </span> <span
+								class="order-table editOrderTableNumber">B1</span>
+						</div>
+					</div>
+					<div class="form-inline row person-count">
+						<div class="col-sm-6">
+							<label>Waiter Name : </label> <select
+								class="form-control waiter-select">
+								<c:forEach items="${model.allWaiter}" var="allWaiter">
+									<option value="0">${allWaiter.firstName}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="col-sm-6 text-right">
+							<label>No. Of Persons : </label>
+							<div class="input-group spinner">
+								<input type="text" class="form-control" value="1" min="0"
+									max="250">
+								<div class="input-group-btn-vertical">
+									<button class="btn btn-default" type="button">
+										<i class="fa fa-caret-up"></i>
+									</button>
+									<button class="btn btn-default" type="button">
+										<i class="fa fa-caret-down"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row modal-main-content">
+						<div class="col-sm-6 tree-view">
+							<div class="search-tree">
+								<input type="text" class="form-control" id="searchTree"
+									placeholder="Search..." />
+							</div>
+							<div id="editTree"></div>
+						</div>
+						<div class="col-sm-6 order-table">
+							<div class="table-responsive">
+								<table id="mainTable"
+									class="table table-striped table-bordered hover"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Item</th>
+											<th>Quantity</th>
+											<th>Price</th>
+											<th class="sort-hide">Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="text-right form-inline total-price">
+									<label>Total : </label> <input type="text"
+										class="form-control total-cost" value="0" disabled />
+								</div>
+								<div class="buttons text-center">
+									<button class="btn btn-success add-order">Order</button>
+									<button class="btn btn-danger discard-order">Abort</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal -->
 	<div id="bill" class="modal fade" role="dialog">
@@ -275,47 +362,39 @@
 											<th>Price</th>
 										</tr>
 									</thead>
-
 									<tbody>
 										<tr>
 											<td>Chicken Tikka Masala</td>
 											<td>1</td>
 											<td>100</td>
-
 										</tr>
 										<tr>
 											<td>Beer</td>
 											<td>1</td>
 											<td>200</td>
-
 										</tr>
 										<tr>
 											<td>Chicken Tikka Masala</td>
 											<td>1</td>
 											<td>100</td>
-
 										</tr>
 										<tr>
 											<td>Beer</td>
 											<td>1</td>
 											<td>200</td>
-
 										</tr>
 										<tr>
 											<td>Chicken Tikka Masala</td>
 											<td>1</td>
 											<td>100</td>
-
 										</tr>
 										<tr>
 											<td>Beer</td>
 											<td>1</td>
 											<td>200</td>
-
 										</tr>
 									</tbody>
 								</table>
-
 								<div class="text-right form-inline total-price">
 									<label>Total : </label> <input type="text"
 										class="form-control bill-total-cost" value="900" disabled />
@@ -334,7 +413,6 @@
 								</select>
 						</div>
 					</div>
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success save-bill"
@@ -344,16 +422,10 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
-
-
-
 	<div class="menu-overlay"></div>
-
 </body>
-
 </html>
 
 <spring:url value="/resources/core/js/lib/jquery.nicescroll.js"
@@ -370,10 +442,6 @@
 <script src="${dataTableJs}"></script>
 <script src="${dataBootJs}"></script>
 
-
-
-
-
 <script>
 	$('.bg-img').css("min-height", $(window).height() + "px");
 	$(window).resize(function() {
@@ -383,7 +451,6 @@
 	$('.sec-select').change(
 			function() {
 				var section = $(".sec-select option:selected").val();
-
 				if (section == "bar") {
 					$('.table-layout-container.bar').siblings(
 							'.table-layout-container').fadeOut(
@@ -393,7 +460,6 @@
 									$('.table-layout-container.bar').fadeIn(
 											"slow");
 								}, 600)
-
 							})
 				} else if (section == "lounge") {
 					$('.table-layout-container.lounge').siblings(
@@ -415,10 +481,9 @@
 											"slow");
 								}, 600)
 							})
-
 			});
 
-	var tree = [ {
+	var treeData = [ {
 		text : "Food Menu",
 		nodes : [ {
 			text : "Veg",
@@ -525,10 +590,8 @@
 										.addClass('glyphicon-unchecked');
 							})
 				}
-
 				var item = $(this).closest('tr').attr('class').replace(/-/g,
 						' ');
-
 				$('.node-tree').each(
 						function() {
 							var text = $(this).contents().filter(function() {
@@ -540,7 +603,6 @@
 										'glyphicon-check').addClass(
 										'glyphicon-unchecked');
 						})
-
 				fnCalculateTotalPrice();
 			});
 
@@ -556,7 +618,6 @@
 										.addClass('glyphicon-unchecked');
 							})
 				}
-
 				$('.total-cost').val('0');
 			});
 
@@ -591,7 +652,7 @@
 			.treeview(
 					{
 						showTags : true, //newly added for tags as price
-						data : tree,
+						data : treeData,
 						onhoverColor : "#eee",
 						showCheckbox : true,
 						showIcon : true,
@@ -619,6 +680,54 @@
 										+ '</td>'
 										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 
+								$('#mainTable tbody').append(tr);
+								fnCalculateTotalPrice();
+							}
+						},
+						onNodeUnchecked : function(event, node) {
+							console.log(node);
+							if (node.nodes == undefined) {
+								var item = node.text;
+								var price = node.tags[0];
+								var className = (item).replace(/ /g, '-');
+								$('.' + className).remove();
+								fnCalculateTotalPrice();
+							}
+						}
+					});
+	
+	var tree = $('#editTree')
+			.treeview(
+					{
+						showTags : true, //newly added for tags as price
+						data : treeData,
+						onhoverColor : "#eee",
+						showCheckbox : true,
+						showIcon : true,
+						selectable : true,
+						onNodeChecked : function(event, node) {
+							if (node.nodes == undefined) {
+								var item = node.text;
+								var price = node.tags[0];
+								var className = (item).replace(/ /g, '-');
+								var tr = "";
+								tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+										+ item
+										+ '</td>'
+										+ '<td>'
+										+ '<div class="input-group spinner">'
+										+ '<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'
+										+ '<div class="input-group-btn-vertical">'
+										+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
+										+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
+										+ '</div>'
+										+ '</div>'
+										+ '</td>'
+										+ '<td class="total-row-price">'
+										+ price
+										+ '</td>'
+										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+		
 								$('#mainTable tbody').append(tr);
 								fnCalculateTotalPrice();
 							}
@@ -697,9 +806,39 @@
 	        $.each($( "div" ).data( "tables" ), function(key, item){
 	            if(key == tableid){
 	            	$('.newOrderTableNumber').text(item.tableNumber);
+	            	$('.editOrderTableNumber').text(item.tableNumber);
 	            }
 	        });
 	        return true;
 	    });
 	}); 
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.edit-order', function () {
+	    	var tableNumber = $('.editOrderTableNumber').text();
+	    	var data = {
+		    		"tableNumber":tableNumber
+		    	};
+	    	alert(JSON.stringify(data));
+	    	
+	    	$.ajax({
+	            url: 'getOrder',
+	            data: tableNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){ 
+	                alert(JSON.stringify(data));
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+	        return true;
+	    });
+	}); 
+
 </script>

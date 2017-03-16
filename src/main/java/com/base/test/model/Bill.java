@@ -27,6 +27,7 @@ public class Bill {
 	private double totalAmount;
 	private String paymentMode;
 	private String cardNumber;
+	private int isActive;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
@@ -103,5 +104,13 @@ public class Bill {
 
 	public void addOrder(Orders order) {
 		this.orders.add(order);
+	}
+	
+	public boolean isActive() {
+		return (isActive == 1) ? true : false;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = (isActive == true) ? 1 : 0;
 	}
 }

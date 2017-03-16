@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Configuration status="WARN">
+<Configuration status="ALL">
 	<Properties>
 		<Property name="log-path">logs</Property>
 	</Properties>
@@ -24,9 +24,15 @@
 	</Appenders>
 
 	<Loggers>
+		<category name="org.springframework">
+			<AppenderRef ref="CONSOLE" />
+			<priority value="ALL" />
+		</category>
+		<logger name="org.springframework" level="ALL">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
 		<Root level="TRACE">
 			<AppenderRef ref="CONSOLE" />
-			<AppenderRef ref="ROLLINGFILE" />
 		</Root>
 	</Loggers>
 </Configuration>

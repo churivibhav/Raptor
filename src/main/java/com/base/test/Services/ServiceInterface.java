@@ -18,4 +18,8 @@ public interface ServiceInterface<T> {
 		return null;
 	}
 
+	public default T getByTableNumber(String tableNumber) {
+		return null;
+	}
+
 }
