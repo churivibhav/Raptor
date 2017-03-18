@@ -106,11 +106,11 @@ public class Bill {
 		this.orders.add(order);
 	}
 	
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return (isActive == 1) ? true : false;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = (isActive == true) ? 1 : 0;
 	}
 }

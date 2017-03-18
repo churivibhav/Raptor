@@ -58,7 +58,10 @@ public class HomeController {
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("-------------------");
-		System.out.println(bill);
+		System.out.println(bill.getIsActive());
+		for (Orders order : bill.getOrders()) {
+			order.setBill(bill);
+		}
 		billService.create(bill);
 		return bill;
 	}
