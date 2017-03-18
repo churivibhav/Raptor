@@ -104,13 +104,8 @@ CREATE TABLE `Orders` (
   `quantity` int(50) NOT NULL DEFAULT '0',
   `type` varchar(20) NOT NULL DEFAULT '',
   `kot` varchar(20) NOT NULL DEFAULT '',
-  `bill_id` int(11),
-  PRIMARY KEY (`id`)
+  `billID` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `billID` (`billID`),
+  CONSTRAINT `orders_fk1` FOREIGN KEY (billID) REFERENCES Bill(billID)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
-ALTER TABLE `Order`
-ADD CONSTRAINT `order_fk1`
-FOREIGN KEY (`bill_id`)
-REFERENCES `Bill`(`id`)
-ON DELETE CASCADE ON UPDATE CASCADE;

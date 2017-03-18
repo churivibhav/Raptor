@@ -12,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.base.test.Services.BillService;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
 import com.base.test.model.FoodMenu;
+import com.base.test.model.Orders;
 import com.base.test.model.Tables;
 import com.base.test.model.Waiter;
 
@@ -37,7 +37,7 @@ public class HomeController {
 
 	@Autowired
 	ServiceInterface<FoodMenu> foodMenuService;
-	
+
 	@Autowired
 	ServiceInterface<Bill> billService;
 
@@ -62,13 +62,16 @@ public class HomeController {
 		billService.create(bill);
 		return bill;
 	}
-	
+
 	@RequestMapping(value = "/getOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Bill saveOrder(@RequestBody String tableNumber, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Bill saveOrder(@RequestBody String tableNumber, HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("-------------------");
 		System.out.println(tableNumber);
 		Bill bill = billService.getByTableNumber(tableNumber);
-		System.out.println(bill);
+		for (Orders order : bill.getOrders()) {
+			order.setBill(null);
+		}
 		return bill;
 	}
 }

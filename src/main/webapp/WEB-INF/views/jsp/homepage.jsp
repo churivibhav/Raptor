@@ -242,7 +242,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="editModal" class="modal fade editModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
@@ -296,7 +296,7 @@
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
-								<table id="mainTable"
+								<table id="editMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
 									<thead>
@@ -728,7 +728,7 @@
 										+ '</td>'
 										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 		
-								$('#mainTable tbody').append(tr);
+								$('#editMainTable tbody').append(tr);
 								fnCalculateTotalPrice();
 							}
 						},
@@ -752,7 +752,8 @@
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
 		    	    "totalAmount":totalAmount,
-		    	    "payementMode":"credit"
+		    	    "payementMode":"credit",
+		    	    "isActive":"true"
 		    	};
 	    	data.orders = [];
 	    	$('#mainTable tbody tr').each(function() {
@@ -819,7 +820,7 @@
 	    	var data = {
 		    		"tableNumber":tableNumber
 		    	};
-	    	alert(JSON.stringify(data));
+	    	//alert(JSON.stringify(data));
 	    	
 	    	$.ajax({
 	            url: 'getOrder',
@@ -830,14 +831,38 @@
 	                xhr.setRequestHeader("Content-Type", "application/json");
 	            },
 	            success: function(data){ 
-	                alert(JSON.stringify(data));
+	                //alert(JSON.stringify(data));
+	                for (var i = 0; i < data.orders.length; i++) {
+	                	var item = data.orders[i].orderItem;
+						var price = data.orders[i].cost;
+						var className = (item).replace(/ /g, '-');
+		                var tr = "";
+						tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+								+ item
+								+ '</td>'
+								+ '<td>'
+								+ '<div class="input-group spinner">'
+								+ '<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'
+								+ '<div class="input-group-btn-vertical">'
+								+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
+								+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
+								+ '</div>'
+								+ '</div>'
+								+ '</td>'
+								+ '<td class="total-row-price">'
+								+ price
+								+ '</td>'
+								+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+
+						$('#editMainTable tbody').append(tr);
+					}
 	            },
 	            error: function(xhr, textStatus, errorThrown){
 	                alert('request failed');
 	                return false;
 	            }
 	        });
-	        return true;
+	        return false;
 	    });
 	}); 
 
