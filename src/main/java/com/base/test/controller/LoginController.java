@@ -47,6 +47,8 @@ public class LoginController {
 		if(username == null || password == null || username.equals("") || password.equals(""))
 			return new ModelAndView("login");
 		
+
+		
 		if(password.equals(user.getPassword())){
 			
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -63,7 +65,7 @@ public class LoginController {
 			return new ModelAndView("redirect:/home");
 		}else if(username == null || username.equals("") || user == null || 
 				password == null || password.equals("") || !(password.equals(user.getPassword()))){
-			
+			request.setAttribute("errorMessage", "Invalid username or password");
 			return new ModelAndView("login");
 		}
 		return new ModelAndView("login");
