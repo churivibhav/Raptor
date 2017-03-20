@@ -61,7 +61,7 @@
 					<div class="project-title hidden-xs hidden-sm hidden-md">
 						YOYO Bar and Gril</div>
 					<div class="pull-right logout-btn">
-						<a href="#" title="Logout" data-toggle="tooltip"
+						<a href="logout" title="Logout" data-toggle="tooltip"
 							data-placement="left" title="Logout"><i
 							class="fa fa-power-off fa-lg fa-2x"></i></a>
 					</div>

@@ -49,7 +49,7 @@
 						<div class="login-form">
 							<div class="login">
 								<form class="form-horizontal" action="authorize" method="post">
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<div class="col-sm-12">
 											<select class="form-control">
 												<option value="-1">I am ...</option>
@@ -59,8 +59,12 @@
 											</select>
 
 										</div>
-									</div>
-
+									</div> -->
+									<c:if test="${errorMsg.loginError == 1}">
+										<div class="form-group incorrect-msg">
+											<span><i class="fa fa-warning fa-lg"></i> Incorrect Username or Password, Please try again.</span>
+										</div>
+									</c:if>
 									<div class="form-group">
 										<div class="col-sm-12">
 											<input type="text" class="form-control" name="username"
@@ -94,9 +98,7 @@
 											class="btn btn-lg login-button" />
 									</div>
 
-									<div class="form-group incorrect-msg">
-										<span><i class="fa fa-warning fa-lg"></i> Incorrect Username or Password, Please try again.</span>
-									</div>
+									
 								</form>
 							</div>
 						</div>

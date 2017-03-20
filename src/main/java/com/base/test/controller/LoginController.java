@@ -2,6 +2,8 @@
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,25 +32,26 @@ public class LoginController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView login() {
-
-		ModelAndView model = new ModelAndView("login");
-	
+		Map<String, Integer> errorMsg = new HashMap<String, Integer>();
+		errorMsg.put("loginError", 0);
+		ModelAndView model = new ModelAndView("login", "errorMsg", errorMsg);
 		return model;
-
 	}
 	
 	@RequestMapping(value="/authorize")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		Map<String, Integer> errorMsg = new HashMap<String, Integer>();
 		
 		Users user = userService.getByName(username);
 		
-		if(username == null || password == null || username.equals("") || password.equals(""))
-			return new ModelAndView("login");
-		
+		if(username == null || password == null || username.equals("") || password.equals("") || user == null){
+			errorMsg.put("loginError", 1);
+			ModelAndView model = new ModelAndView("login", "errorMsg", errorMsg);
+			return model;
+		}
 		if(password.equals(user.getPassword())){
-			
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			String sessionID = UUID.randomUUID().toString().replaceAll("-", "") + timestamp.getTime();
 			logger.info(sessionID + " " +username);
@@ -61,11 +64,13 @@ public class LoginController {
 			userService.update(userId, user);
 			logger.info(username + " logged in");
 			return new ModelAndView("redirect:/home");
-		}else if(username == null || username.equals("") || user == null || 
-				password == null || password.equals("") || !(password.equals(user.getPassword()))){
-			
-			return new ModelAndView("login");
+		}else if(!(password.equals(user.getPassword()))){
+			errorMsg.put("loginError", 1);
+			ModelAndView model = new ModelAndView("login", "errorMsg", errorMsg);
+			return model;
 		}
-		return new ModelAndView("login");
+		errorMsg.put("loginError", 1);
+		ModelAndView model = new ModelAndView("login", "errorMsg", errorMsg);
+		return model;
 	}
 }
