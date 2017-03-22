@@ -55,10 +55,21 @@ public class HomeController {
 		return new ModelAndView("homepage", "model", model);
 	}
 
+	@RequestMapping(value = "/getOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Bill saveOrder(@RequestBody String tableNumber, HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println("---------GET ORDER----------");
+		System.out.println(tableNumber);
+		Bill bill = billService.getByTableNumber(tableNumber);
+		for (Orders order : bill.getOrders()) {
+			order.setBill(null);
+		}
+		return bill;
+	}
+
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("-------------------");
-		System.out.println(bill.getIsActive());
+		System.out.println("---------SAVE ORDER----------");
 		for (Orders order : bill.getOrders()) {
 			order.setBill(bill);
 		}
@@ -66,15 +77,13 @@ public class HomeController {
 		return bill;
 	}
 
-	@RequestMapping(value = "/getOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Bill saveOrder(@RequestBody String tableNumber, HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("-------------------");
-		System.out.println(tableNumber);
-		Bill bill = billService.getByTableNumber(tableNumber);
+	@RequestMapping(value = "/editOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Bill editOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("---------EDIT ORDER---------");
 		for (Orders order : bill.getOrders()) {
-			order.setBill(null);
+			order.setBill(bill);
 		}
+		billService.update(bill.getId(), bill);
 		return bill;
 	}
 }
