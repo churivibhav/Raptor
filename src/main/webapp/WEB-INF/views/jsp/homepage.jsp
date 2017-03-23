@@ -70,7 +70,7 @@
 					<div class="project-title mobile  hidden-lg">YOYO Bar and
 						Grill</div>
 					<div class="container-fluid main-container">
-						<div class="section-selection">
+						<!--<div class="section-selection">
 							<div class="form-inline form-horizontal">
 								<div class="form-group">
 									<label class="label">Section : </label> <select
@@ -81,7 +81,13 @@
 									</select>
 								</div>
 							</div>
+						</div>-->
+						<div class="box-content section-select-conetnt">
+							<button class="btn btn-lg login-button active" data-show="bar">Bar</button>
+							<button class="btn btn-lg login-button" data-show="lounge">Lounge</button>
+							<button class="btn btn-lg login-button" data-show="vip">VIP</button>
 						</div>
+						
 
 						<div class="row">
 							<div class="col-sm-8">
@@ -120,6 +126,9 @@
 									</div>
 								</div>
 							</div>
+						
+									
+							
 							<div class="col-sm-4">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
@@ -143,6 +152,8 @@
 													Bill</button>
 												<button class="btn btn-lg login-button settle-bill">Settle
 													Bill</button>
+													
+												<button class="btn btn-lg login-button active-bills">Active Bills</button>	
 											</div>
 										</div>
 									</div>
@@ -237,7 +248,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
 		</div>
@@ -296,6 +307,7 @@
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
+								<input type="hidden" value="" id="editBillID" />
 								<table id="editMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
@@ -323,7 +335,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
 		</div>
@@ -419,11 +431,90 @@
 						data-dismiss="modal">Save</button>
 					<button type="button" class="btn btn-primary print-bill"
 						data-dismiss="modal">Print</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div id="activeBills" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Active Bills</h4>
+		  </div>
+		  <div class="modal-body">
+			<div class="row">
+				<div class="col-sm-12 order-table">
+					<div class="table-responsive">
+						<table id="activebillsTable" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Table</th>
+									<th>Section</th>
+									<th>Amount</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+								
+							<tbody>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+									
+								</tr>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+									
+								</tr>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+									
+								</tr>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+								</tr>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+								</tr>
+								<tr>
+									<td>B1</td>
+									<td>Bar</td>
+									<td>1200</td>
+									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		  </div>
+		  <!--<div class="modal-footer">
+			<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+		  </div>-->
+		</div>
+
+	  </div>
+	</div>
+	
+	
 	<div class="menu-overlay"></div>
 </body>
 </html>
@@ -448,7 +539,7 @@
 		$('.bg-img').css("min-height", $(window).height() + "px");
 	});
 
-	$('.sec-select').change(
+	/*$('.sec-select').change(
 			function() {
 				var section = $(".sec-select option:selected").val();
 				if (section == "bar") {
@@ -481,7 +572,38 @@
 											"slow");
 								}, 600)
 							})
-			});
+			});*/
+			
+$(document).on('click','.section-select-conetnt .btn',function(){
+	var section = $(this).attr('data-show');
+	
+	$(this).siblings().removeClass('active');
+	$(this).addClass('active');
+	
+	if(section == "bar"){
+		$('.table-layout-container.bar').siblings('.table-layout-container').fadeOut("slow",function(){
+			setTimeout(function(){
+				$('.table-layout-container.bar').fadeIn("slow");
+			},600)
+			
+		})
+	}
+	else if(section == "lounge"){
+		$('.table-layout-container.lounge').siblings('.table-layout-container').fadeOut("slow",function(){
+			setTimeout(function(){
+				$('.table-layout-container.lounge').fadeIn("slow");
+			},600)
+		})
+	}
+	else
+		$('.table-layout-container.vip').siblings('.table-layout-container').fadeOut("slow",function(){
+			setTimeout(function(){
+				$('.table-layout-container.vip').fadeIn("slow");
+			},600)
+		})
+	
+	
+});			
 
 	var treeData = [ {
 		text : "Food Menu",
@@ -528,18 +650,75 @@
 	/*** new code *********/
 
 	$('.generate-bill').on('click', function() {
-		$('.payement-options').hide();
-		$('.save-bill').hide();
-		$('.print-bill').show();
-		$('#bill').modal('show');
+		//var section = $('.sec-select').val();
+	
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		
+		if($('.'+section).find('.occupied.selected').length > 0){
+			$('#bill .order-type').html(section.toUpperCase());
+			var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
+			$('#bill .section-order-table').html(table_no);
+			$('.payement-options').hide();
+			$('.save-bill').hide();
+			$('.print-bill').show();
+			$('.yoyo-card-payment-details').hide();
+			$('#bill').modal('show');
+			
+		}
+		else
+			alert('Please select occupied table');
 	});
 
 	$('.settle-bill').on('click', function() {
-		$('.payement-options').show();
-		$('.save-bill').show();
-		$('.print-bill').hide();
-		$('#bill').modal('show');
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+	
+		if($('.'+section).find('.occupied.selected').length > 0){
+			$('#bill .order-type').html(section.toUpperCase());
+			var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
+			$('#bill .section-order-table').html(table_no);
+			$('.payement-options').show();
+			$('.save-bill').show();
+			$('.print-bill').hide();
+			$('#myModal').modal('hide');
+			$('#bill').modal('show');
+		}
+		else
+			alert('Please select occupied table');
 	});
+	
+	$('.active-bills').on('click',function(){
+		$('#activeBills').modal('show');
+	});
+	
+	$('#activeBills .settle-active-bill').on('click',function(){
+		$('#activeBills').modal('hide',function(){
+			$('#bill').modal('show');	
+		});
+		
+	})
+	
+	/****** code to occupy table ****/
+
+	$(document).on('click','.occupied',function(){
+		$(this).toggleClass('selected');
+	});
+
+	$(document).on('click','.table-layout-container .table,.lounge-box,.vip-box',function(){
+		if(!$(this).hasClass('occupied'))
+			$(this).addClass('occupied');
+	});
+	
+	$('#myModal').on('hidden.bs.modal', function () {
+		//var section = $('.sec-select').val();
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		$('.'+section).find('.occupied.selected').toggleClass('selected');
+	})
+
+	$('#bill').on('hidden.bs.modal', function () {
+		//var section = $('.sec-select').val();
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		$('.'+section).find('.occupied.selected').toggleClass('selected');
+	})
 
 	$(document)
 			.on(
@@ -786,6 +965,53 @@
 	    });
 	}); 
 
+	$(document).ready(function () {
+	    $(document).on('click', '.add-order', function () {
+	    	var billID = $('#editBillID').val();
+	    	var tableNumber = $('.editOrderTableNumber').text();
+	    	var totalAmount = $('.total-cost').val();
+	    	var data = {
+	    			"id":billID,
+		    		"tableNumber":tableNumber,
+		    	 	"amount":totalAmount,
+		    	    "totalAmount":totalAmount,
+		    	    "payementMode":"credit",
+		    	    "isActive":"true"
+		    	};
+	    	data.orders = [];
+	    	$('#editMainTable tbody tr').each(function() {
+	    		  $this = $(this);
+	    		  var orderID = $this.attr('id');
+	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var cost = $this.find("td.total-row-price").html();
+	    		  data.orders.push({
+	    			  	"id":orderID,
+	    			  	"orderItem":orderItem,
+	    			 	"cost":cost,
+	        			"quantity":quantity,
+	        			"type":"Food",
+	        			"kot":"false"	
+	    			  }	);
+	    	});
+	    	alert(JSON.stringify(data));
+	    	
+	    	$.ajax({
+	            url: 'editOrder',
+	            data: JSON.stringify(data),
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){ 
+	                alert(JSON.stringify(data));
+	            }
+	        });
+	        return true;
+	    });
+	}); 
+	
 	function search() {
 		var pattern = $('#searchTree').val();
 		var options = {
@@ -816,12 +1042,12 @@
 	
 	$(document).ready(function () {
 	    $(document).on('click', '.edit-order', function () {
+			$('#editMainTable tbody').html('');
+			$('#editModal .total-cost').val('0');
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var data = {
 		    		"tableNumber":tableNumber
 		    	};
-	    	//alert(JSON.stringify(data));
-	    	
 	    	$.ajax({
 	            url: 'getOrder',
 	            data: tableNumber,
@@ -830,14 +1056,14 @@
 	                xhr.setRequestHeader("Accept", "application/json");
 	                xhr.setRequestHeader("Content-Type", "application/json");
 	            },
-	            success: function(data){ 
-	                //alert(JSON.stringify(data));
+	            success: function(data){
 	                for (var i = 0; i < data.orders.length; i++) {
+	                	var id = data.orders[i].id;
 	                	var item = data.orders[i].orderItem;
 						var price = data.orders[i].cost;
 						var className = (item).replace(/ /g, '-');
 		                var tr = "";
-						tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
 								+ item
 								+ '</td>'
 								+ '<td>'
@@ -855,6 +1081,7 @@
 								+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 
 						$('#editMainTable tbody').append(tr);
+						$('#editBillID').val(data.id);
 					}
 	            },
 	            error: function(xhr, textStatus, errorThrown){
@@ -862,8 +1089,27 @@
 	                return false;
 	            }
 	        });
+			
+			$('.new-order').on('click',function(){
+				//var section = $('.sec-select').val();
+				
+				var section = $('.section-select-conetnt .btn.active').attr('data-show');
+				
+				if($('.'+section).find('.occupied.selected').length > 0){
+					$('#myModal .order-type').html(section.toUpperCase());
+					var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
+					$('#myModal .modal-top-title .order-table').text(table_no);
+					$('#myModal').modal('show');
+					$('#myModal #mainTable tbody').html('');
+					$('#myModal .total-cost').val('0');
+				}
+				else{
+					alert('Please select occupied table');
+				}
+	
+			});
+			
 	        return false;
 	    });
 	}); 
-
 </script>
