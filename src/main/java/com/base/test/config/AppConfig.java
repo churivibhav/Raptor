@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -25,5 +26,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setPrefix("/WEB-INF/views/jsp/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
+	}
+	
+	@Bean
+	public ResourceBundleViewResolver resourceResolver() {
+		ResourceBundleViewResolver resolver = new ResourceBundleViewResolver();
+		resolver.setOrder(1);
+		resolver.setBasename("views");
+		return resolver;
 	}
 }
