@@ -328,7 +328,6 @@
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
-								<input type="hidden" value="" id="editBillID" />
 								<table id="editMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
@@ -701,7 +700,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			$('.payement-options').show();
 			$('.save-bill').show();
 			$('.print-bill').hide();
-			//$('#newModal').modal('hide');
+			$('#newModal').modal('hide');
 			$('#bill').modal('show');
 		}
 		else
@@ -1008,53 +1007,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    });
 	}); 
 
-	$(document).ready(function () {
-	    $(document).on('click', '.add-order', function () {
-	    	var billID = $('#editBillID').val();
-	    	var tableNumber = $('.editOrderTableNumber').text();
-	    	var totalAmount = $('.total-cost').val();
-	    	var data = {
-	    			"id":billID,
-		    		"tableNumber":tableNumber,
-		    	 	"amount":totalAmount,
-		    	    "totalAmount":totalAmount,
-		    	    "payementMode":"credit",
-		    	    "isActive":"true"
-		    	};
-	    	data.orders = [];
-	    	$('#editMainTable tbody tr').each(function() {
-	    		  $this = $(this);
-	    		  var orderID = $this.attr('id');
-	    		  var orderItem = $this.find("td.orderItem").html();
-	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  var cost = $this.find("td.total-row-price").html();
-	    		  data.orders.push({
-	    			  	"id":orderID,
-	    			  	"orderItem":orderItem,
-	    			 	"cost":cost,
-	        			"quantity":quantity,
-	        			"type":"Food",
-	        			"kot":"false"	
-	    			  }	);
-	    	});
-	    	alert(JSON.stringify(data));
-	    	
-	    	$.ajax({
-	            url: 'editOrder',
-	            data: JSON.stringify(data),
-	            type: "POST",           
-	            beforeSend: function(xhr) {
-	                xhr.setRequestHeader("Accept", "application/json");
-	                xhr.setRequestHeader("Content-Type", "application/json");
-	            },
-	            success: function(data){ 
-	                alert(JSON.stringify(data));
-	            }
-	        });
-	        return true;
-	    });
-	}); 
-	
 	function search() {
 		var pattern = $('#searchTree').val();
 		var options = {
@@ -1117,6 +1069,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var data = {
 		    		"tableNumber":tableNumber
 		    	};
+	    	//alert(JSON.stringify(data));
+	    	
 	    	$.ajax({
 	            url: 'getOrder',
 	            data: tableNumber,
@@ -1125,14 +1079,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                xhr.setRequestHeader("Accept", "application/json");
 	                xhr.setRequestHeader("Content-Type", "application/json");
 	            },
-	            success: function(data){
+	            success: function(data){ 
+	                //alert(JSON.stringify(data));
 	                for (var i = 0; i < data.orders.length; i++) {
-	                	var id = data.orders[i].id;
 	                	var item = data.orders[i].orderItem;
 						var price = data.orders[i].cost;
 						var className = (item).replace(/ /g, '-');
 		                var tr = "";
-						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+						tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
 								+ item
 								+ '</td>'
 								+ '<td>'
@@ -1150,7 +1104,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 
 						$('#editMainTable tbody').append(tr);
-						$('#editBillID').val(data.id);
 						$('#editModal').modal('show');
 					}
 	            },
@@ -1160,7 +1113,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            }
 	        });
 	    });
-	});
 
 	});
 
