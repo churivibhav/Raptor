@@ -930,7 +930,7 @@ a.fa	{
 }
 
 .table-layout-container .table.occupied{
-	background-color:red;
+	background-color:yellow;
 }
 
 .yoyo-card-payment-details{              /** yoyo card payment details **/
@@ -965,11 +965,15 @@ a.fa	{
 }
 
 .lounge-box.occupied,.vip-box.occupied{
-	background-color:red;
+	background-color:yellow;
 }
 
-.occupied.selected{
-	background-color:yellow !important;
+.selected{
+	background-color:red !important;
+}
+
+.table.occupied.selected{
+	background-color:blue !important;
 }
 
 .padding-left-0{

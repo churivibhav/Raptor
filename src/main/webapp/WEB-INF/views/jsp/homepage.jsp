@@ -96,10 +96,31 @@
 									<div class="table-layout-container bar">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Bar'}">
-												<span class="table tableSelect" id="${allTables.id}">
-													<span class="table-header text-center">${allTables.tableNumber}</span>
-													<span class="table-content"></span>
-												</span>
+												<%-- <c:if test="${allTables.isActive == 1 }">
+													<span class="table tableSelect ${isBarTableOccupied}" id="${allTables.id}" style="background-color:yellow" >
+														<span class="table-header text-center">${allTables.tableNumber}</span>
+														<span class="table-content"></span>
+													</span>
+												</c:if> --%>
+												
+												<c:choose>
+													<c:when test="${allTables.isActive == 'true' }">
+														<span class="table tableSelect occupied" id="${allTables.id}" >
+															<span class="table-header text-center">${allTables.tableNumber}</span>
+														<span class="table-content"></span>
+													</span>
+													</c:when>
+													
+													<c:otherwise>
+														<span class="table tableSelect" id="${allTables.id}"  >
+														<span class="table-header text-center">${allTables.tableNumber}</span>
+														<span class="table-content"></span>
+													</span>
+													</c:otherwise>
+													
+												</c:choose>
+												
+												
 											</c:if>
 										</c:forEach>
 									</div>
@@ -136,10 +157,10 @@
 											<div class="box-header">Order Management</div>
 											<div class="box-content">
 												<button class="btn btn-lg login-button new-order"
-													data-toggle="modal" data-target="#newModal">New
+													>New
 													Order</button>
 												<button class="btn btn-lg login-button edit-order"
-													data-toggle="modal" data-target="#editModal">Edit
+													>Edit
 													Order</button>
 											</div>
 										</div>
@@ -672,14 +693,15 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$('.settle-bill').on('click', function() {
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 	
-		if($('.'+section).find('.occupied.selected').length > 0){
+		
+		if($('.'+section).find('.occupied.selected').length > 0 || $(this).closest('#newModal').length > 0){
 			$('#bill .order-type').html(section.toUpperCase());
 			var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
 			$('#bill .section-order-table').html(table_no);
 			$('.payement-options').show();
 			$('.save-bill').show();
 			$('.print-bill').hide();
-			$('#myModal').modal('hide');
+			//$('#newModal').modal('hide');
 			$('#bill').modal('show');
 		}
 		else
@@ -690,34 +712,55 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$('#activeBills').modal('show');
 	});
 	
+	/*$(document).on('click','#activeBills .settle-active-bill',function({
+		$('#activeBills').modal('hide');
+		$('#bill').modal('show');
+	});*/
+	
 	$('#activeBills .settle-active-bill').on('click',function(){
-		$('#activeBills').modal('hide',function(){
-			$('#bill').modal('show');	
-		});
-		
+		$('#activeBills').modal('hide');
+		$('#bill').modal('show');
 	})
 	
 	/****** code to occupy table ****/
 
-	$(document).on('click','.occupied',function(){
+	/*$(document).on('click','.occupied',function(){
 		$(this).toggleClass('selected');
-	});
+	});*/
 
 	$(document).on('click','.table-layout-container .table,.lounge-box,.vip-box',function(){
-		if(!$(this).hasClass('occupied'))
-			$(this).addClass('occupied');
+		$(this).siblings().removeClass('selected');
+		if(!$(this).hasClass('selected'))
+			$(this).addClass('selected');
+		else
+			//alert('Table is already occupied & order is already placed.');
+			$(this).removeClass('selected');
 	});
 	
-	$('#myModal').on('hidden.bs.modal', function () {
+	$('#newModal').on('hidden.bs.modal', function () {
 		//var section = $('.sec-select').val();
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 		$('.'+section).find('.occupied.selected').toggleClass('selected');
+		$('.'+section).find('.selected').removeClass('selected');
+		location.reload(true);
 	})
+	
+	$('#editModal').on('hidden.bs.modal', function () {
+		//var section = $('.sec-select').val();
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		$('.'+section).find('.occupied.selected').toggleClass('selected');
+		$('.'+section).find('.selected').removeClass('selected');
+		location.reload(true);
+	})
+	
+	
 
 	$('#bill').on('hidden.bs.modal', function () {
 		//var section = $('.sec-select').val();
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 		$('.'+section).find('.occupied.selected').toggleClass('selected');
+		$('.'+section).find('.selected').removeClass('selected');
+		location.reload(true);
 	})
 
 	$(document)
@@ -1041,6 +1084,32 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	}); 
 	
 	$(document).ready(function () {
+		$('.new-order').on('click',function(){
+			//var section = $('.sec-select').val();
+			
+			var section = $('.section-select-conetnt .btn.active').attr('data-show');
+			
+			if($('.'+section).find('.selected').length > 0){
+				if($('.'+section).find('.selected').hasClass('occupied')){
+					alert('Order already placed.Please click on Edit Order');
+					$('.'+section).find('.selected').removeClass('selected');
+					return;
+				}
+				$('#newModal .order-type').html(section.toUpperCase());
+				var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
+				$('#newModal .modal-top-title .order-table').text(table_no);
+				$('#newModal #mainTable tbody').html('');
+				$('#newModal .total-cost').val('0');
+				$('#newModal').modal('show');
+				
+			}
+			else{
+				alert('Please select the table');
+				$('.'+section).find('.selected').removeClass('selected');
+			}
+
+		});
+		
 	    $(document).on('click', '.edit-order', function () {
 			$('#editMainTable tbody').html('');
 			$('#editModal .total-cost').val('0');
@@ -1082,6 +1151,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 
 						$('#editMainTable tbody').append(tr);
 						$('#editBillID').val(data.id);
+						$('#editModal').modal('show');
 					}
 	            },
 	            error: function(xhr, textStatus, errorThrown){
@@ -1089,27 +1159,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                return false;
 	            }
 	        });
-			
-			$('.new-order').on('click',function(){
-				//var section = $('.sec-select').val();
-				
-				var section = $('.section-select-conetnt .btn.active').attr('data-show');
-				
-				if($('.'+section).find('.occupied.selected').length > 0){
-					$('#myModal .order-type').html(section.toUpperCase());
-					var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
-					$('#myModal .modal-top-title .order-table').text(table_no);
-					$('#myModal').modal('show');
-					$('#myModal #mainTable tbody').html('');
-					$('#myModal .total-cost').val('0');
-				}
-				else{
-					alert('Please select occupied table');
-				}
-	
-			});
-			
-	        return false;
 	    });
-	}); 
+	});
+
+	});
+
 </script>
