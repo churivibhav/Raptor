@@ -2,6 +2,8 @@ package com.base.test.Services;
 
 import java.util.List;
 
+import com.base.test.model.Bill;
+
 public interface ServiceInterface<T> {
 
 	public List<T> getAll();
@@ -19,6 +21,10 @@ public interface ServiceInterface<T> {
 	}
 
 	public default T getByTableNumber(String tableNumber) {
+		return null;
+	}
+	
+	public default List<T> getActiveBills() {
 		return null;
 	}
 

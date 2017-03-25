@@ -1,6 +1,7 @@
 package com.base.test.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +66,18 @@ public class HomeController {
 			order.setBill(null);
 		}
 		return bill;
+	}
+
+	@RequestMapping(value = "/getBills", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Bill> getBills(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("---------GET BILLS----------");
+		List<Bill> bills = billService.getActiveBills();
+		for (Bill bill : bills) {
+			for (Orders order : bill.getOrders()) {
+				order.setBill(null);
+			}
+		}
+		return bills;
 	}
 
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })

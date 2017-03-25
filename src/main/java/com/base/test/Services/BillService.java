@@ -1,5 +1,7 @@
 package com.base.test.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,9 @@ public class BillService extends AbstractService<Bill> {
 
 	public Bill getByTableNumber(String tableNumber) {
 		return billDAO.getByTableNumber(tableNumber);
+	}
+	
+	public List<Bill> getActiveBills(){
+		return billDAO.getActiveBills();
 	}
 }

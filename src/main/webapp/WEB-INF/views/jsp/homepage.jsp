@@ -175,7 +175,7 @@
 													Bill</button>
 													
 												<button class="btn btn-lg login-button active-bills">Active Bills</button>	
-												<a href="report" class="btn btn-lg login-button active-bills" >Report</a>
+												<a href="report" class="btn btn-lg login-button report-link">Report</a>
 											</div>
 										</div>
 									</div>
@@ -447,52 +447,13 @@
 							<thead>
 								<tr>
 									<th>Table</th>
-									<th>Section</th>
 									<th>Amount</th>
+									<th>Tax Amount</th>
+									<th>Total Amount</th>
 									<th>Action</th>
 								</tr>
 							</thead>
-								
 							<tbody>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-									
-								</tr>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-									
-								</tr>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-									
-								</tr>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-								</tr>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-								</tr>
-								<tr>
-									<td>B1</td>
-									<td>Bar</td>
-									<td>1200</td>
-									<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>
-								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -718,6 +679,38 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	
 	$('.active-bills').on('click',function(){
 		$('#activeBills').modal('show');
+		$('#activeBills tbody').html('');
+		
+		$.ajax({
+            url: 'getBills',
+            type: "GET",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {	
+                
+                	var tableNumber = data[i].tableNumber;
+                	var amount = data[i].amount;
+                	var taxAmount = data[i].taxAmount;
+                	var totalAmount = data[i].totalAmount;
+	                var tr = "";
+					
+					tr = '<tr>'
+					   + '<td>' + tableNumber + '</td>'
+					   + '<td>' + amount + '</td>'
+					   + '<td>' + taxAmount + '</td>'
+					   + '<td>' + totalAmount + '</td>'
+					   + '<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>'
+					   + '</tr>';
+
+					$('#activeBills tbody').append(tr);
+					$('#activeBills').modal('show');
+				}
+            },
+        });
 	});
 	
 	/*$(document).on('click','#activeBills .settle-active-bill',function({
