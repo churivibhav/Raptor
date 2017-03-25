@@ -329,6 +329,7 @@
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
+							<input type="hidden" value="" id="editBillID" />
 								<table id="editMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
@@ -343,7 +344,7 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div class="text-right form-inline total-price">
+								<div class="text-right form-inline editOrdertotal">
 									<label>Total : </label> <input type="text"
 										class="form-control total-cost" value="0" disabled />
 								</div>
@@ -363,7 +364,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="bill" class="modal fade" role="dialog">
+	<div id="billModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -379,13 +380,14 @@
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
 							<span class="title">Table : </span> <span
-								class="section-order-table tableNumber">B1</span>
+								class="section-order-table settleBillTableNumber">B1</span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">
-								<table id="billTable"
+							<input type="hidden" value="" id="settleBillID" />
+								<table id="billMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
 									<thead>
@@ -396,39 +398,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Chicken Tikka Masala</td>
-											<td>1</td>
-											<td>100</td>
-										</tr>
-										<tr>
-											<td>Beer</td>
-											<td>1</td>
-											<td>200</td>
-										</tr>
-										<tr>
-											<td>Chicken Tikka Masala</td>
-											<td>1</td>
-											<td>100</td>
-										</tr>
-										<tr>
-											<td>Beer</td>
-											<td>1</td>
-											<td>200</td>
-										</tr>
-										<tr>
-											<td>Chicken Tikka Masala</td>
-											<td>1</td>
-											<td>100</td>
-										</tr>
-										<tr>
-											<td>Beer</td>
-											<td>1</td>
-											<td>200</td>
-										</tr>
 									</tbody>
 								</table>
-								<div class="text-right form-inline total-price">
+								<div class="text-right form-inline settleBilltotal">
 									<label>Total : </label> <input type="text"
 										class="form-control bill-total-cost" value="900" disabled />
 								</div>
@@ -438,7 +410,7 @@
 					<div class="row payement-options">
 						<div class="form-inline col-sm-8">
 							<label>Payment By : <label> <select
-									class="form-control">
+									class="form-control payment-option">
 										<option value="0">Debit Card</option>
 										<option value="1">Credit Card</option>
 										<option value="2">Cash</option>
@@ -448,7 +420,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success save-bill"
+					<button type="button" class="btn btn-success save-settle-bill"
 						data-dismiss="modal">Save</button>
 					<button type="button" class="btn btn-primary print-bill"
 						data-dismiss="modal">Print</button>
@@ -680,7 +652,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
 			$('#bill .section-order-table').html(table_no);
 			$('.payement-options').hide();
-			$('.save-bill').hide();
+			$('.save-settle-bill').hide();
 			$('.print-bill').show();
 			$('.yoyo-card-payment-details').hide();
 			$('#bill').modal('show');
@@ -691,21 +663,57 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	});
 
 	$('.settle-bill').on('click', function() {
-		var section = $('.section-select-conetnt .btn.active').attr('data-show');
-	
-		
-		if($('.'+section).find('.occupied.selected').length > 0 || $(this).closest('#newModal').length > 0){
-			$('#bill .order-type').html(section.toUpperCase());
-			var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
-			$('#bill .section-order-table').html(table_no);
-			$('.payement-options').show();
-			$('.save-bill').show();
-			$('.print-bill').hide();
-			$('#newModal').modal('hide');
-			$('#bill').modal('show');
-		}
-		else
-			alert('Please select occupied table');
+		$('#billMainTable tbody').html('');
+		$('#billModal .total-cost').val('0');
+    	var tableNumber = $('.settleBillTableNumber').text();
+    	var data = {
+	    		"tableNumber":tableNumber
+	    	};
+    	$.ajax({
+            url: 'getOrder',
+            data: tableNumber,
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){
+            	alert(JSON.stringify(data));
+                for (var i = 0; i < data.orders.length; i++) {
+                	var id = data.orders[i].id;
+                	var item = data.orders[i].orderItem;
+					var price = data.orders[i].cost;
+					var quantity = data.orders[i].quantity;
+					var className = (item).replace(/ /g, '-');
+	                var tr = "";
+					tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+							+ item
+							+ '</td>'
+							+ '<td>'
+							+ '<div class="input-group spinner">'
+							+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100">'
+							+ '<div class="input-group-btn-vertical">'
+							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
+							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
+							+ '</div>'
+							+ '</div>'
+							+ '</td>'
+							+ '<td class="total-row-price">'
+							+ price
+							+ '</td></tr>';
+
+					$('#billMainTable tbody').append(tr);
+					$('#settleBillID').val(data.id);
+					$('.settleBilltotal').find('input').val(data.amount);
+					$('#billModal').modal('show');
+				}
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+
 	});
 	
 	$('.active-bills').on('click',function(){
@@ -825,6 +833,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 										'glyphicon-check').addClass(
 										'glyphicon-unchecked');
 						})
+				
 				fnCalculateTotalPrice();
 			});
 
@@ -856,7 +865,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$(row).find('.total-row-price').text(totalRowPrice);
 		fnCalculateTotalPrice();
 	}
-
+	
 	function fnCalculateTotalPrice() {
 		var tableRows = $('#mainTable tbody tr');
 		var totalPrice = 0;
@@ -867,6 +876,34 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 		$('.total-cost').val(totalPrice);
 	}
+
+	/*function fnCalculateTotalPrice(mode) {
+		if (mode = 'New')
+			{
+			var tableRows = $('#mainTable tbody tr');
+			var totalPrice = 0;
+			for (var i = 0; i < tableRows.length; i++) {
+				var row = tableRows[i];
+				var rowTotalPrice = $(row).find('.total-row-price').text();
+				totalPrice += parseInt(rowTotalPrice);
+			}
+			$('.total-cost').val(totalPrice);
+			}
+		else if (mode = 'Edit')
+			{
+			var tableRows = $('#editMainTable tbody tr');
+			var totalPrice = 0;
+			for (var i = 0; i < tableRows.length; i++) {
+				var row = tableRows[i];
+				var rowTotalPrice = $(row).find('.total-row-price').text();
+				totalPrice += parseInt(rowTotalPrice);
+			}
+			$('.editOrdertotal').find('input').val(totalPrice);
+			
+			}
+		
+	}*/
+	
 
 	$('#searchTree').on('keyup', search);
 
@@ -951,7 +988,15 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 		
 								$('#editMainTable tbody').append(tr);
-								fnCalculateTotalPrice();
+								//fnCalculateTotalPrice();
+								var tableRows = $('#editMainTable tbody tr');
+								var totalPrice = 0;
+								for (var i = 0; i < tableRows.length; i++) {
+									var row = tableRows[i];
+									var rowTotalPrice = $(row).find('.total-row-price').text();
+									totalPrice += parseInt(rowTotalPrice);
+								}
+								$('.editOrdertotal').find('input').val(totalPrice);
 							}
 						},
 						onNodeUnchecked : function(event, node) {
@@ -974,7 +1019,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
 		    	    "totalAmount":totalAmount,
-		    	    "payementMode":"credit",
 		    	    "isActive":"true"
 		    	};
 	    	data.orders = [];
@@ -1007,6 +1051,103 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	        return true;
 	    });
 	}); 
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.add-order', function () {
+	    	var billID = $('#editBillID').val();
+	    	var tableNumber = $('.editOrderTableNumber').text();
+	    	var totalAmount = $('.editOrdertotal').find('input').val();
+	    	var data = {
+	    			"id":billID,
+		    		"tableNumber":tableNumber,
+		    	 	"amount":totalAmount,
+		    	    "totalAmount":totalAmount,
+		    	    "isActive":"true"
+		    	};
+	    	data.orders = [];
+	    	$('#editMainTable tbody tr').each(function() {
+	    		  $this = $(this);
+	    		  var orderID = $this.attr('id');
+	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var cost = $this.find("td.total-row-price").html();
+	    		  data.orders.push({
+	    			  	"id":orderID,
+	    			  	"orderItem":orderItem,
+	    			 	"cost":cost,
+	        			"quantity":quantity,
+	        			"type":"Food",
+	        			"kot":"false"	
+	    			  }	);
+	    	});
+	    	alert(JSON.stringify(data));
+	    	
+	    	$.ajax({
+	            url: 'editOrder',
+	            data: JSON.stringify(data),
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){ 
+	                alert(JSON.stringify(data));
+	            }
+	        });
+	        return true;
+	    });
+	}); 
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.save-settle-bill', function () {
+	    	var billID = $('#settleBillID').val();
+	    	var tableNumber = $('.settleBillTableNumber').text();
+	    	var totalAmount = $('.settleBilltotal').find('input').val();
+	    	var paymentMode = $('.payment-option option:selected').text();
+	    	var data = {
+	    			"id":billID,
+		    		"tableNumber":tableNumber,
+		    	 	"amount":totalAmount,
+		    	    "totalAmount":totalAmount,
+		    	    "paymentMode":paymentMode,
+		    	    "isActive":"false"
+		    	};
+	    	data.orders = [];
+	    	$('#billMainTable tbody tr').each(function() {
+	    		  $this = $(this);
+	    		  var orderID = $this.attr('id');
+	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var cost = $this.find("td.total-row-price").html();
+	    		  data.orders.push({
+	    			  	"id":orderID,
+	    			  	"orderItem":orderItem,
+	    			 	"cost":cost,
+	        			"quantity":quantity,
+	        			"type":"Food",
+	        			"kot":"false"	
+	    			  }	);
+	    	});
+	    	alert(JSON.stringify(data));
+	    	$.ajax({
+	            url: 'editOrder',
+	            data: JSON.stringify(data),
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){ 
+	                alert(JSON.stringify(data));
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+	        return true;
+	    });
+	}); 
 
 	function search() {
 		var pattern = $('#searchTree').val();
@@ -1030,6 +1171,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            if(key == tableid){
 	            	$('.newOrderTableNumber').text(item.tableNumber);
 	            	$('.editOrderTableNumber').text(item.tableNumber);
+	            	$('.settleBillTableNumber').text(item.tableNumber);
 	            }
 	        });
 	        return true;
@@ -1054,7 +1196,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				$('#newModal #mainTable tbody').html('');
 				$('#newModal .total-cost').val('0');
 				$('#newModal').modal('show');
-				
 			}
 			else{
 				alert('Please select the table');
@@ -1062,59 +1203,62 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			}
 
 		});
-		
-	    $(document).on('click', '.edit-order', function () {
-			$('#editMainTable tbody').html('');
-			$('#editModal .total-cost').val('0');
-	    	var tableNumber = $('.editOrderTableNumber').text();
-	    	var data = {
-		    		"tableNumber":tableNumber
-		    	};
-	    	//alert(JSON.stringify(data));
-	    	
-	    	$.ajax({
-	            url: 'getOrder',
-	            data: tableNumber,
-	            type: "POST",           
-	            beforeSend: function(xhr) {
-	                xhr.setRequestHeader("Accept", "application/json");
-	                xhr.setRequestHeader("Content-Type", "application/json");
-	            },
-	            success: function(data){ 
-	                //alert(JSON.stringify(data));
-	                for (var i = 0; i < data.orders.length; i++) {
-	                	var item = data.orders[i].orderItem;
-						var price = data.orders[i].cost;
-						var className = (item).replace(/ /g, '-');
-		                var tr = "";
-						tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
-								+ item
-								+ '</td>'
-								+ '<td>'
-								+ '<div class="input-group spinner">'
-								+ '<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'
-								+ '<div class="input-group-btn-vertical">'
-								+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
-								+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
-								+ '</div>'
-								+ '</div>'
-								+ '</td>'
-								+ '<td class="total-row-price">'
-								+ price
-								+ '</td>'
-								+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
-
-						$('#editMainTable tbody').append(tr);
-						$('#editModal').modal('show');
-					}
-	            },
-	            error: function(xhr, textStatus, errorThrown){
-	                alert('request failed');
-	                return false;
-	            }
-	        });
-	    });
-
 	});
+	
+	$(document).on('click', '.edit-order', function () {
+		$('#editMainTable tbody').html('');
+		$('#editModal .total-cost').val('0');
+    	var tableNumber = $('.editOrderTableNumber').text();
+    	var data = {
+	    		"tableNumber":tableNumber
+	    	};
+    	//alert(JSON.stringify(data));
+    	
+    	$.ajax({
+            url: 'getOrder',
+            data: tableNumber,
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.orders.length; i++) {
+                	var id = data.orders[i].id;
+                	var item = data.orders[i].orderItem;
+					var price = data.orders[i].cost;
+					var quantity = data.orders[i].quantity;
+					var className = (item).replace(/ /g, '-');
+	                var tr = "";
+	                tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+							+ item
+							+ '</td>'
+							+ '<td>'
+							+ '<div class="input-group spinner">'
+							+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100">'
+							+ '<div class="input-group-btn-vertical">'
+							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
+							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
+							+ '</div>'
+							+ '</div>'
+							+ '</td>'
+							+ '<td class="total-row-price">'
+							+ price
+							+ '</td>'
+							+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+
+					$('#editMainTable tbody').append(tr);
+				}
+                $('#editBillID').val(data.id);
+				$('#editModal').modal('show');
+                $('.editOrdertotal').find('input').val(data.amount);
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+    });
 
 </script>

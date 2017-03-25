@@ -17,4 +17,10 @@ public class TablesDAO extends AbstractDao<Tables> {
 		return Tables.class;
 	}
 
+	public Tables getByTableNumber(String tableNumber) {
+		return (Tables) getSession()
+				.createQuery(
+						"from " + getEntityName() + " where tableNumber = '" + tableNumber + "'")
+				.uniqueResult();
+	}
 }

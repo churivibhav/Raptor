@@ -19,4 +19,7 @@ public class TablesService extends AbstractService<Tables> {
 		return tablesDAO;
 	}
 
+	public Tables getByTableNumber(String tableNumber) {
+		return tablesDAO.getByTableNumber(tableNumber);
+	}
 }
