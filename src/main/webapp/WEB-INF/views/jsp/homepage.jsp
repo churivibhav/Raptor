@@ -175,6 +175,7 @@
 													Bill</button>
 													
 												<button class="btn btn-lg login-button active-bills">Active Bills</button>	
+												<a href="report" class="btn btn-lg login-button active-bills" >Report</a>
 											</div>
 										</div>
 									</div>
