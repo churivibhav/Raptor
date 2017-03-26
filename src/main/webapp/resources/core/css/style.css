@@ -909,6 +909,10 @@ a.fa	{
 	padding:10px;
 }
 
+.table-layout-container .table-content{
+	height:56%;
+}
+
 .table-layout-container .table{
 	height:50px;
 	width:100px;
@@ -920,7 +924,7 @@ a.fa	{
 	margin:10px;
 }
 
-.table-layout-container .table:hover{
+.table-layout-container .table:hover .table-content{
 	background-color:white;
 	color:black;
 }
@@ -929,7 +933,7 @@ a.fa	{
 	margin-bottom:10px;
 }
 
-.table-layout-container .table.occupied{
+.table-layout-container .table.occupied .table-content{
 	background-color:yellow;
 }
 
@@ -959,20 +963,20 @@ a.fa	{
 	transition:all 0.5s ease;
 }
 
-.lounge-box:hover,.vip-box:hover{
+.lounge-box:hover .table-content,.vip-box:hover .table-content{
 	background-color:white;
 	color:black;
 }
 
-.lounge-box.occupied,.vip-box.occupied{
+.lounge-box.occupied,.vip-box.occupied .table-content{
 	background-color:yellow;
 }
 
-.selected{
+.selected .table-content{
 	background-color:red !important;
 }
 
-.table.occupied.selected{
+.table.occupied.selected .table-content{
 	background-color:blue !important;
 }
 
@@ -1023,7 +1027,7 @@ label{
 }
 
 .modal-body{
-	max-height:600px;
+	max-height:475px;
 	overflow:auto;
 }
 

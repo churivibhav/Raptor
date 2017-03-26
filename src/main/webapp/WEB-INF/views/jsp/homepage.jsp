@@ -83,9 +83,9 @@
 							</div>
 						</div>-->
 						<div class="box-content section-select-conetnt">
-							<button class="btn btn-lg login-button active" data-show="bar">Bar</button>
-							<button class="btn btn-lg login-button" data-show="lounge">Lounge</button>
-							<button class="btn btn-lg login-button" data-show="vip">VIP</button>
+							<a href="#bar" class="btn btn-lg login-button active" data-show="bar">Bar</a>
+							<a href="#lounge" class="btn btn-lg login-button" data-show="lounge">Lounge</a>
+							<a href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
 						</div>
 						
 
@@ -96,52 +96,63 @@
 									<div class="table-layout-container bar">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Bar'}">
-												<%-- <c:if test="${allTables.isActive == 1 }">
-													<span class="table tableSelect ${isBarTableOccupied}" id="${allTables.id}" style="background-color:yellow" >
-														<span class="table-header text-center">${allTables.tableNumber}</span>
-														<span class="table-content"></span>
-													</span>
-												</c:if> --%>
-												
 												<c:choose>
 													<c:when test="${allTables.isActive == 'true' }">
-														<span class="table tableSelect occupied" id="${allTables.id}" >
-															<span class="table-header text-center">${allTables.tableNumber}</span>
-														<span class="table-content"></span>
-													</span>
+														<div class="table tableSelect occupied" id="${allTables.id}" >
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
 													</c:when>
 													
 													<c:otherwise>
-														<span class="table tableSelect" id="${allTables.id}"  >
-														<span class="table-header text-center">${allTables.tableNumber}</span>
-														<span class="table-content"></span>
-													</span>
+														<div class="table tableSelect" id="${allTables.id}"  >
+														<div class="table-header text-center">${allTables.tableNumber}</div>
+														<div class="table-content"></div>
+													</div>
 													</c:otherwise>
-													
 												</c:choose>
-												
-												
 											</c:if>
 										</c:forEach>
 									</div>
-									<div class="table-layout-container lounge"
-										style="display: none;">
+									<div class="table-layout-container lounge" style="display: none;">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Lounge'}">
-												<span class="table"> <span
-													class="table-header text-center">${allTables.tableNumber}</span>
-													<span class="table-content"></span>
-												</span>
+											 <c:choose>
+											 	<c:when test="${allTables.isActive == 'true' }">
+													<div class="table tableSelect occupied" id="${allTables.id}" > 
+														<div class="table-header text-center">${allTables.tableNumber}</div>
+														<div class="table-content"></div>
+													</div>
+												</c:when>
+												
+												<c:otherwise>
+													<div class="table tableSelect" id="${allTables.id}" > 
+														<div class="table-header text-center">${allTables.tableNumber}</div>
+														<div class="table-content"></div>
+													</div>
+												</c:otherwise>
+											</c:choose>
 											</c:if>
 										</c:forEach>
 									</div>
 									<div class="table-layout-container vip" style="display: none;">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'VIP'}">
-												<span class="table"> <span
-													class="table-header text-center">${allTables.tableNumber}</span>
-													<span class="table-content"></span>
-												</span>
+											  <c:choose>
+											 	<c:when test="${allTables.isActive == 'true' }">
+													<div class="table tableSelect occupied" id="${allTables.id}" > 
+														<div class="table-header text-center">${allTables.tableNumber}</div>
+														<div class="table-content"></div>
+													</div>
+											   </c:when>
+												
+												<c:otherwise>
+													<div class="table tableSelect" id="${allTables.id}" > 
+														<div class="table-header text-center">${allTables.tableNumber}</div>
+														<div class="table-content"></div>
+													</div>
+												</c:otherwise>
+											 </c:choose>	
 											</c:if>
 										</c:forEach>
 									</div>
@@ -169,7 +180,7 @@
 										<div class="bill-management box">
 											<div class="box-header">Bill Management</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button generate-bill">Generate
+												<button class="btn btn-lg login-button generate-bill">Print
 													Bill</button>
 												<button class="btn btn-lg login-button settle-bill">Settle
 													Bill</button>
@@ -189,7 +200,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="newModal" class="modal fade newModal" role="dialog">
+	<div id="newModal" class="modal fade newModal" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -215,7 +226,9 @@
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="0">${allWaiter.firstName}</option>
 								</c:forEach>
+								<option value="-1">Other</option>
 							</select>
+							<input type="text" class="form-control other-waiter-text" style="display:none;" placeholder="Waiter name"/>
 						</div>
 						<div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
@@ -261,22 +274,23 @@
 									<label>Total : </label> <input type="text"
 										class="form-control total-cost" value="0" disabled />
 								</div>
-								<div class="buttons text-center">
+								<!--<div class="buttons text-center">
 									<button class="btn btn-success give-order">Order</button>
-									<button class="btn btn-danger discard-order">Abort</button>
-								</div>
+									 <button class="btn btn-danger discard-order">Abort</button> 
+								</div>-->
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-success give-order">Order</button>
 					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="editModal" class="modal fade editModal" role="dialog">
+	<div id="editModal" class="modal fade editModal" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -298,10 +312,13 @@
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
+								
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="0">${allWaiter.firstName}</option>
 								</c:forEach>
+								<option value="-1">Other</option>
 							</select>
+							<input type="text" class="form-control other-waiter-text" style="display:none;" placeholder="Waiter name"/>
 						</div>
 						<div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
@@ -339,6 +356,7 @@
 											<th>Quantity</th>
 											<th>Price</th>
 											<th class="sort-hide">Delete</th>
+											<th>KOT</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -348,15 +366,16 @@
 									<label>Total : </label> <input type="text"
 										class="form-control total-cost" value="0" disabled />
 								</div>
-								<div class="buttons text-center">
+								<!--<div class="buttons text-center">
 									<button class="btn btn-success add-order">Order</button>
-									<button class="btn btn-danger discard-order">Abort</button>
-								</div>
+									 <button class="btn btn-danger discard-order">Abort</button> 
+								</div>-->
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-success add-order">Order</button>
 					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
@@ -364,14 +383,14 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="billModal" class="modal fade" role="dialog">
+	<div id="billModal" class="modal fade" role="dialog" data-backdrop="static">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Generate Bill</h4>
+					<h4 class="modal-title">Bill</h4>
 				</div>
 				<div class="modal-body">
 					<div class="modal-top row">
@@ -411,17 +430,145 @@
 						<div class="form-inline col-sm-8">
 							<label>Payment By : <label> <select
 									class="form-control payment-option">
-										<option value="0">Debit Card</option>
-										<option value="1">Credit Card</option>
-										<option value="2">Cash</option>
+										<option value="0">-----Select-----</option>
+										<option value="1">Cash</option>
+										<option value="2">Debit/Credit Card</option>
 										<option value="3">YOYO Club Card</option>
 								</select>
+						</div>
+					</div>
+					<div class="table-resposive money-table" style="display:none;">
+						<table class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Denomination</th>
+									<th>No.of Notes</th>
+									<th>Total Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>10</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>20</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>50</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>500</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>2000</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+							</tbody>			
+									
+						</table>
+						<div class="text-right" style="margin-bottom:10px;">
+							<div class="form-inline">
+								<label>Cash Amount : </label>
+								<input type="text" class="form-control cash-amount" disabled value="0"/>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success save-settle-bill"
-						data-dismiss="modal">Save</button>
+						>Save</button>
 					<button type="button" class="btn btn-primary print-bill"
 						data-dismiss="modal">Print</button>
 					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
@@ -430,7 +577,7 @@
 		</div>
 	</div>
 	
-	<div id="activeBills" class="modal fade" role="dialog">
+	<div id="activeBills" class="modal fade" role="dialog" data-backdrop="static">
 	  <div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -463,6 +610,183 @@
 		  <!--<div class="modal-footer">
 			<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 		  </div>-->
+		</div>
+
+	  </div>
+	</div>
+	
+	<div id="YoyomPaymentModal" class="modal fade yoyo-card-payment-details" role="dialog" data-backdrop="static">
+	  <div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">YOYO Card Payment</h4>
+		  </div>
+		  <div class="modal-body">
+		  	<div class="modal-top row">
+				<div class="col-sm-6 modal-top-title">
+					<span class="title">Section : </span> <span class="order-type">Bar</span>
+				</div>
+				<div class="col-sm-6 modal-top-title text-right">
+					<span class="title">Table : </span> <span
+						class="order-table TableNumber">B1</span>
+				</div>
+			</div>
+			 <div class="form-inline">
+			 	<label>Total Amount :</label>
+			 	<input type="text" class="form-control yoyo-total-cost" disabled value="0"/>
+			 </div>	
+			 <div class="form-inline">
+			 	<label>Registration No :</label>
+			 	<input type="text" class="form-control yoyo-registration-number" value="0" disabled/>
+			 </div>	
+			 <div class="form-inline">
+			 	<label>Balance Amount :</label>
+			 	<input type="text" class="form-control yoyo-balance-amount" value="0" disabled/>
+			 </div>	
+			 <div class="form-inline">
+			 	<label>Partial Payment By :</label>
+			 	<select class="form-control yoyo-payment-option">
+			 		<option value="0">None</option>
+			 		<option value="1">Cash</option>
+			 		<option value="2">Debit/Credit Card</option>
+			 	</select>
+			 </div>	
+			 <div class="table-resposive yoyo-money-table" style="display:none;">
+						<table class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Denomination</th>
+									<th>No.of Notes</th>
+									<th>Total Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>10</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>20</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>50</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>500</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>2000</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>	
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+							</tbody>			
+									
+						</table>
+						<div class="text-right" style="margin-bottom:10px;">
+							<div class="form-inline">
+								<label>Cash Amount : </label>
+								<input type="text" class="form-control cash-amount" disabled value="0"/>
+							</div>
+						</div>
+					</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success save-yoyo-payment">Save</button>
+		  </div>
+		  
 		</div>
 
 	  </div>
@@ -616,64 +940,106 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			$('.save-settle-bill').hide();
 			$('.print-bill').show();
 			$('.yoyo-card-payment-details').hide();
-			$('#bill').modal('show');
-			
+			var tableNumber = $('.settleBillTableNumber').text();
+	    	$('#billModal .section-order-table').html(tableNumber);
+	    	var data = {
+		    		"tableNumber":tableNumber
+		    	};
+	    	$.ajax({
+	            url: 'getOrder',
+	            data: tableNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	alert(JSON.stringify(data));
+	                for (var i = 0; i < data.orders.length; i++) {
+	                	var id = data.orders[i].id;
+	                	var item = data.orders[i].orderItem;
+						var price = data.orders[i].cost;
+						var quantity = data.orders[i].quantity;
+						var className = (item).replace(/ /g, '-');
+		                var tr = "";
+						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+								+ item
+								+ '</td>'
+								+ '<td>'+quantity
+								+ '</td>'
+								+ '<td class="total-row-price">'
+								+ price
+								+ '</td></tr>';
+	
+						$('#billMainTable tbody').append(tr);
+						$('#settleBillID').val(data.id);
+						$('.settleBilltotal').find('input').val(data.amount);
+						$('#billModal').modal('show');
+					}
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
 		}
 		else
 			alert('Please select occupied table');
 	});
 
 	$('.settle-bill').on('click', function() {
-		$('#billMainTable tbody').html('');
-		$('#billModal .total-cost').val('0');
-    	var tableNumber = $('.settleBillTableNumber').text();
-    	var data = {
-	    		"tableNumber":tableNumber
-	    	};
-    	$.ajax({
-            url: 'getOrder',
-            data: tableNumber,
-            type: "POST",           
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
-            success: function(data){
-            	alert(JSON.stringify(data));
-                for (var i = 0; i < data.orders.length; i++) {
-                	var id = data.orders[i].id;
-                	var item = data.orders[i].orderItem;
-					var price = data.orders[i].cost;
-					var quantity = data.orders[i].quantity;
-					var className = (item).replace(/ /g, '-');
-	                var tr = "";
-					tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
-							+ item
-							+ '</td>'
-							+ '<td>'
-							+ '<div class="input-group spinner">'
-							+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100">'
-							+ '<div class="input-group-btn-vertical">'
-							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
-							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
-							+ '</div>'
-							+ '</div>'
-							+ '</td>'
-							+ '<td class="total-row-price">'
-							+ price
-							+ '</td></tr>';
-
-					$('#billMainTable tbody').append(tr);
-					$('#settleBillID').val(data.id);
-					$('.settleBilltotal').find('input').val(data.amount);
-					$('#billModal').modal('show');
-				}
-            },
-            error: function(xhr, textStatus, errorThrown){
-                alert('request failed');
-                return false;
-            }
-        });
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		
+		//if($('.'+section).find('.occupied.selected').length > 0){
+			$('#billMainTable .order-type').html(section.toUpperCase());
+			$('.payement-options').show();
+			$('#billMainTable tbody').html('');
+			$('#billModal .total-cost').val('0');
+	    	var tableNumber = $('.settleBillTableNumber').text();
+	    	$('#billModal .section-order-table').html(tableNumber);
+	    	var data = {
+		    		"tableNumber":tableNumber
+		    	};
+	    	$.ajax({
+	            url: 'getOrder',
+	            data: tableNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	alert(JSON.stringify(data));
+	                for (var i = 0; i < data.orders.length; i++) {
+	                	var id = data.orders[i].id;
+	                	var item = data.orders[i].orderItem;
+						var price = data.orders[i].cost;
+						var quantity = data.orders[i].quantity;
+						var className = (item).replace(/ /g, '-');
+		                var tr = "";
+						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
+								+ item
+								+ '</td>'
+								+ '<td>'+quantity
+								+ '</td>'
+								+ '<td class="total-row-price">'
+								+ price
+								+ '</td></tr>';
+	
+						$('#billMainTable tbody').append(tr);
+						$('#settleBillID').val(data.id);
+						$('.settleBilltotal').find('input').val(data.amount);
+						$('#billModal').modal('show');
+					}
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+		//}
+		//else
+			//alert('Please select occupied table');
 
 	});
 	
@@ -756,7 +1122,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	
 	
 
-	$('#bill').on('hidden.bs.modal', function () {
+	$('#billModal').on('hidden.bs.modal', function () {
 		//var section = $('.sec-select').val();
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 		$('.'+section).find('.occupied.selected').toggleClass('selected');
@@ -778,8 +1144,21 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						} else {
 							btn.next("disabled", true);
 						}
-						var row = $(this).closest('tr');
-						fnChangeRowPrice(row, parseInt(input.val()));
+						
+						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0){
+							var row = $(this).closest('tr');
+							fnChangeCashRowPrice(row, parseInt(input.val()));
+						}
+						else{
+							var mode = "new";
+							if(btn.closest('#editMainTable').length > 0)
+								mode = "edit";
+							
+							var row = $(this).closest('tr');
+							fnChangeRowPrice(row, parseInt(input.val()),mode);
+						}
+						
+						
 					});
 
 	$(document)
@@ -796,8 +1175,20 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						} else {
 							btn.prev("disabled", true);
 						}
-						var row = $(this).closest('tr');
-						fnChangeRowPrice(row, parseInt(input.val()));
+						
+						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0){
+							var row = $(this).closest('tr');
+							fnChangeCashRowPrice(row, parseInt(input.val()));
+						}
+						else{
+							var mode = "new";
+							if(btn.closest('#editMainTable').length > 0)
+								mode = "edit";
+							
+							var row = $(this).closest('tr');
+							fnChangeRowPrice(row, parseInt(input.val()),mode);
+						}
+						
 					});
 
 	$(document).on(
@@ -805,6 +1196,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			'.delete-item',
 			function() {
 				var row = $(this).closest('tr');
+				var mode = "new";
+				if(row.closest('#editMainTable').length > 0)
+					mode = "edit";
+				
 				$(row).remove();
 				if ($('#mainTable tbody tr').length == 0) {
 					$('.check-icon').each(
@@ -827,7 +1222,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 										'glyphicon-unchecked');
 						})
 				
-				fnCalculateTotalPrice();
+				fnCalculateTotalPrice(mode);
 			});
 
 	$(document).on(
@@ -851,23 +1246,71 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		fnChangeRowPrice(row);
 	});
 
-	function fnChangeRowPrice(row, val) {
+	function fnChangeRowPrice(row, val,mode) {
 		var totalRowPrice = "";
 		var unitPrice = $(row).attr('data-unit-price');
 		totalRowPrice = unitPrice * val;
 		$(row).find('.total-row-price').text(totalRowPrice);
-		fnCalculateTotalPrice();
+		if(mode)
+			fnCalculateTotalPrice(mode);
+		else
+			fnCalculateTotalPrice();
 	}
 	
-	function fnCalculateTotalPrice() {
-		var tableRows = $('#mainTable tbody tr');
-		var totalPrice = 0;
+	function fnChangeCashRowPrice(row, val) {
+		var totalRowPrice = "";
+		var unitPrice = $(row).find('td:first-child').text();
+		totalRowPrice = unitPrice * val;
+		$(row).find('.total-row-price').text(totalRowPrice);
+		fnCalculateTotalCashPrice(row);
+		
+	}
+	
+	
+	function fnCalculateTotalCashPrice(row){
+		var tableRows = '';
+		tableRows = $(row).closest('.moneyTable').find('tbody tr');
+		
+		var totalP = 0;
 		for (var i = 0; i < tableRows.length; i++) {
 			var row = tableRows[i];
 			var rowTotalPrice = $(row).find('.total-row-price').text();
-			totalPrice += parseInt(rowTotalPrice);
+			totalP += parseInt(rowTotalPrice);
 		}
-		$('.total-cost').val(totalPrice);
+		//$('.total-cost').val(totalP);
+		$(row).closest('.modal').find('.cash-amount').val(totalP);
+	}
+	
+	function fnCalculateTotalPrice(mode) {
+		var tableRows = '';
+		if(mode=="edit")
+			tableRows = $('#editMainTable tbody tr');
+		else
+			tableRows = $('#mainTable tbody tr');
+		var totalP = 0;
+		for (var i = 0; i < tableRows.length; i++) {
+			var row = tableRows[i];
+			var rowTotalPrice = $(row).find('.total-row-price').text();
+			totalP += parseInt(rowTotalPrice);
+		}
+		$('.total-cost').val(totalP);
+	}
+	
+	
+	
+	function fnCalculateTotalPrice(mode) {
+		var tableRows = '';
+		if(mode=="edit")
+			tableRows = $('#editMainTable tbody tr');
+		else
+			tableRows = $('#mainTable tbody tr');
+		var totalP = 0;
+		for (var i = 0; i < tableRows.length; i++) {
+			var row = tableRows[i];
+			var rowTotalPrice = $(row).find('.total-row-price').text();
+			totalP += parseInt(rowTotalPrice);
+		}
+		$('.total-cost').val(totalP);
 	}
 
 	/*function fnCalculateTotalPrice(mode) {
@@ -978,18 +1421,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 										+ '<td class="total-row-price">'
 										+ price
 										+ '</td>'
-										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+										+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td>'
+										+ '<td>KOT</td>'
+										+ '</tr>';
 		
 								$('#editMainTable tbody').append(tr);
-								//fnCalculateTotalPrice();
-								var tableRows = $('#editMainTable tbody tr');
-								var totalPrice = 0;
-								for (var i = 0; i < tableRows.length; i++) {
-									var row = tableRows[i];
-									var rowTotalPrice = $(row).find('.total-row-price').text();
-									totalPrice += parseInt(rowTotalPrice);
-								}
-								$('.editOrdertotal').find('input').val(totalPrice);
+								fnCalculateTotalPrice("edit");
 							}
 						},
 						onNodeUnchecked : function(event, node) {
@@ -999,7 +1436,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								var price = node.tags[0];
 								var className = (item).replace(/ /g, '-');
 								$('.' + className).remove();
-								fnCalculateTotalPrice();
+								fnCalculateTotalPrice("edit");
 							}
 						}
 					});
@@ -1092,6 +1529,58 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	}); 
 	
 	$(document).ready(function () {
+		
+		var url = window.location.href;
+		
+		if(url.indexOf('#') != -1){
+			var section = url.split('#')[1];
+			
+			if(section != 'bar'){
+				$('[data-show="'+section+'"]').trigger('click');
+			}
+		}
+		
+		$(document).on('change','.waiter-select',function(){
+			var val = $(this).find('option:selected').val();
+			
+			if(val == '-1'){
+				$(this).closest('.modal').find('.other-waiter-text').show();
+			}
+			else
+				$(this).closest('.modal').find('.other-waiter-text').hide();
+		});
+		
+		
+		$(document).on('change','.yoyo-payment-option',function(){
+			var paymentMode = $('.yoyo-payment-option option:selected').val();
+			
+			if(paymentMode == '1'){
+				$(this).closest('.modal').find('.yoyo-money-table').show();
+			}
+			else
+				$(this).closest('.modal').find('.yoyo-money-table').hide();
+		});
+		
+		$(document).on('change','.payment-option',function(){
+			var paymentMode = $('.payment-option option:selected').val();
+			var section = $(this).closest('.modal').find('.order-type').text();
+			var tableNo = $(this).closest('.modal').find('.settleBillTableNumber').text();
+			var total_cost = $(this).closest('.modal').find('.bill-total-cost').val();
+			
+			if(paymentMode == '3'){
+				$(this).closest('.modal').find('.money-table').hide();
+				$('#YoyomPaymentModal').find('.order-type').text(section);
+				$('#YoyomPaymentModal').find('.TableNumber').text(tableNo);
+				$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
+				$('#YoyomPaymentModal').modal('show')
+			}
+			else if(paymentMode == '1'){
+				$(this).closest('.modal').find('.money-table').show();
+			}
+			else
+				$(this).closest('.modal').find('.money-table').hide();
+		})
+		
 	    $(document).on('click', '.save-settle-bill', function () {
 	    	var billID = $('#settleBillID').val();
 	    	var tableNumber = $('.settleBillTableNumber').text();
@@ -1132,6 +1621,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
+	                $('#billModal').modal('hide');
 	            },
 	            error: function(xhr, textStatus, errorThrown){
 	                alert('request failed');
@@ -1157,6 +1647,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			}
 	);
 	
+	var totalPrice = 0;
+	
 	$(document).ready(function () {
 	    $(document).on('click', '.tableSelect', function () {
 	        var tableid = $(this).attr('id');
@@ -1174,9 +1666,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).ready(function () {
 		$('.new-order').on('click',function(){
 			//var section = $('.sec-select').val();
-			
+		
 			var section = $('.section-select-conetnt .btn.active').attr('data-show');
-			
+			totalPrice = 0;
 			if($('.'+section).find('.selected').length > 0){
 				if($('.'+section).find('.selected').hasClass('occupied')){
 					alert('Order already placed.Please click on Edit Order');
@@ -1229,22 +1721,25 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 							+ '</td>'
 							+ '<td>'
 							+ '<div class="input-group spinner">'
-							+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100">'
+							+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100" disabled>'
 							+ '<div class="input-group-btn-vertical">'
-							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'
-							+ '<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'
+							+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-up"></i></button>'
+							+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-down"></i></button>'
 							+ '</div>'
 							+ '</div>'
 							+ '</td>'
 							+ '<td class="total-row-price">'
 							+ price
 							+ '</td>'
-							+ '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+							+ '<td><a href="#" class="delete-item hidden"><i class="fa fa-trash fa-lg"></i></a></td>'
+							+'<td>KOT</td>'
+							+ '</tr>';
 
 					$('#editMainTable tbody').append(tr);
 				}
                 $('#editBillID').val(data.id);
 				$('#editModal').modal('show');
+				totalPrice = data.amount;
                 $('.editOrdertotal').find('input').val(data.amount);
             },
             error: function(xhr, textStatus, errorThrown){
