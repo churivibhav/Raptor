@@ -339,7 +339,7 @@
 					<div class="row modal-main-content">
 						<div class="col-sm-6 tree-view">
 							<div class="search-tree">
-								<input type="text" class="form-control" id="searchTree"
+								<input type="text" class="form-control" id="editsearchTree"
 									placeholder="Search..." />
 							</div>
 							<div id="editTree"></div>
@@ -1341,7 +1341,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	}*/
 	
 
-	$('#searchTree').on('keyup', search);
+	$('#searchTree').on('keyup', newOrdersearch);
+	$('#editsearchTree').on('keyup', editOrdersearch);
 
 	var tree = $('#tree')
 			.treeview(
@@ -1349,10 +1350,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						showTags : true, //newly added for tags as price
 						data : treeData,
 						onhoverColor : "#eee",
-						showCheckbox : true,
+						//showCheckbox : true,
 						showIcon : true,
 						selectable : true,
-						onNodeChecked : function(event, node) {
+						onNodeSelected : function(event, node) {
 							if (node.nodes == undefined) {
 								var item = node.text;
 								var price = node.tags[0];
@@ -1378,7 +1379,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('#mainTable tbody').append(tr);
 								fnCalculateTotalPrice();
 							}
-						},
+						}/*,
 						onNodeUnchecked : function(event, node) {
 							console.log(node);
 							if (node.nodes == undefined) {
@@ -1388,19 +1389,19 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('.' + className).remove();
 								fnCalculateTotalPrice();
 							}
-						}
+						}*/
 					});
 	
-	var tree = $('#editTree')
+	var edittree = $('#editTree')
 			.treeview(
 					{
 						showTags : true, //newly added for tags as price
 						data : treeData,
 						onhoverColor : "#eee",
-						showCheckbox : true,
+						//showCheckbox : true,
 						showIcon : true,
 						selectable : true,
-						onNodeChecked : function(event, node) {
+						onNodeSelected : function(event, node) {
 							if (node.nodes == undefined) {
 								var item = node.text;
 								var price = node.tags[0];
@@ -1428,7 +1429,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('#editMainTable tbody').append(tr);
 								fnCalculateTotalPrice("edit");
 							}
-						},
+						}/*,
 						onNodeUnchecked : function(event, node) {
 							console.log(node);
 							if (node.nodes == undefined) {
@@ -1438,7 +1439,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('.' + className).remove();
 								fnCalculateTotalPrice("edit");
 							}
-						}
+						}*/
 					});
 	
 	$(document).ready(function () {
@@ -1632,12 +1633,31 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    });
 	}); 
 
-	function search() {
-		var pattern = $('#searchTree').val();
-		var options = {
-		};
-		var results = tree.treeview('search', [ pattern, options ]);
+	function editOrdersearch() {
+		var pattern = $('#editsearchTree').val();
+		if(pattern){
+			var options = {
+			};
+			var results = edittree.treeview('search', [ pattern, options ]);
+		}
+		else
+			edittree.treeview('collapseAll', {});
+		
 	}
+	
+	
+	function newOrdersearch() {
+		var pattern = $('#searchTree').val();
+		if(pattern){
+			var options = {
+			};
+			var results = tree.treeview('search', [ pattern, options ]);
+		}
+		else
+			tree.treeview('collapseAll', {});
+		
+	}
+	
 	
 	$( "div" ).data( "tables", 
 			{ 
