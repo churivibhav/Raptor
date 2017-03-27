@@ -1,5 +1,7 @@
 package com.base.test.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Orders {
 	private String type;
 	private String kot;
 	private long waiterID;
+	private Date date;
 
 	
 	@ManyToOne
@@ -58,6 +61,14 @@ public class Orders {
 
 	public void setOrderItem(String orderItem) {
 		this.orderItem = orderItem;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public double getCost() {

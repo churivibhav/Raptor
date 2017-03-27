@@ -1,5 +1,6 @@
 package com.base.test.model;
 
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class Bill {
 	private String cardNumber;
 	private int isActive;
 	private long waiterID;
-	
+	private Date date;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
@@ -56,6 +57,14 @@ public class Bill {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public double getTaxAmount() {
