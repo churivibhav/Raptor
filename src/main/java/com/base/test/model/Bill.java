@@ -28,6 +28,8 @@ public class Bill {
 	private String paymentMode;
 	private String cardNumber;
 	private int isActive;
+	private long waiterID;
+	
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
@@ -113,4 +115,14 @@ public class Bill {
 	public void setIsActive(boolean isActive) {
 		this.isActive = (isActive == true) ? 1 : 0;
 	}
+
+	public long getWaiterID() {
+		return waiterID;
+	}
+
+	public void setWaiterID(long waiterID) {
+		this.waiterID = waiterID;
+	}
+	
+	
 }

@@ -22,7 +22,9 @@ public class Orders {
 	private int quantity;
 	private String type;
 	private String kot;
+	private long waiterID;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "billID")
 	private Bill bill;
@@ -31,7 +33,7 @@ public class Orders {
 		
 	}
 	
-	public Orders(String orderItem, double cost, int quantity, String type, String kot, Bill bill) {
+	public Orders(String orderItem, double cost, int quantity, String type, String kot, Bill bill, long waiterID) {
 		super();
 		this.orderItem = orderItem;
 		this.cost = cost;
@@ -39,6 +41,7 @@ public class Orders {
 		this.type = type;
 		this.kot = kot;
 		this.bill = bill;
+		this.waiterID = waiterID;
 	}
 
 	public long getId() {
@@ -102,4 +105,12 @@ public class Orders {
 	public void setBill(Bill bill) {
 		this.bill = bill;
 	}
+	public long getWaiterID() {
+		return waiterID;
+	}
+
+	public void setWaiterID(long waiterID) {
+		this.waiterID = waiterID;
+	}
+
 }

@@ -215,8 +215,8 @@
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
-							<span class="title">Table : </span> <span
-								class="order-table newOrderTableNumber">B1</span>
+							<span class="title">Table : </span> 
+							<span class="order-table newOrderTableNumber">B1</span>
 						</div>
 					</div>
 					<div class="form-inline row person-count">
@@ -224,7 +224,8 @@
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="0">${allWaiter.firstName}</option>
+									<option value="0" class="waiter-name">${allWaiter.firstName}</option>
+									<input type="hidden" name="Language" class="waiter-id" value="${allWaiter.id}" />
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select>
@@ -1069,7 +1070,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					   + '<td>' + amount + '</td>'
 					   + '<td>' + taxAmount + '</td>'
 					   + '<td>' + totalAmount + '</td>'
-					   + '<td><button type="button" class="btn btn-success settle-active-bill">Settle Bill</button></td>'
+					   + '<td><button type="button" class="btn btn-success settle-bill">Settle Bill</button></td>'
 					   + '</tr>';
 
 					$('#activeBills tbody').append(tr);
@@ -1446,11 +1447,13 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    $(document).on('click', '.give-order', function () {
 	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
+	    	var waiterID = $('.waiter-id').val();
 	    	var data = {
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
 		    	    "totalAmount":totalAmount,
-		    	    "isActive":"true"
+		    	    "isActive":"true",
+		    	    "waiterID":waiterID
 		    	};
 	    	data.orders = [];
 	    	$('#mainTable tbody tr').each(function() {
@@ -1462,7 +1465,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    			 	"cost":cost,
 	        			"quantity":quantity,
 	        			"type":"Food",
-	        			"kot":"false"	
+	        			"kot":"false",
+	        			"waiterID":waiterID
 	    			  }	);
 	    	});
 	    	alert(JSON.stringify(data));
