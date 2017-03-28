@@ -1,7 +1,6 @@
 package com.base.test.model;
 
-//import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Bill")
@@ -30,7 +31,13 @@ public class Bill {
 	private String cardNumber;
 	private int isActive;
 	private long waiterID;
-	//private Date date;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(insertable = false, updatable = false)
+	private Date creationDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modificationDate;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
@@ -58,14 +65,14 @@ public class Bill {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
-	/*public Date getDate() {
-		return date;
+
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}*/
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 
 	public double getTaxAmount() {
 		return taxAmount;
@@ -116,7 +123,7 @@ public class Bill {
 	public void addOrder(Orders order) {
 		this.orders.add(order);
 	}
-	
+
 	public boolean getIsActive() {
 		return (isActive == 1) ? true : false;
 	}
@@ -132,6 +139,12 @@ public class Bill {
 	public void setWaiterID(long waiterID) {
 		this.waiterID = waiterID;
 	}
-	
-	
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
 }

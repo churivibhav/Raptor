@@ -1,5 +1,6 @@
 package com.base.test.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +45,6 @@ public class HomeController {
 
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
-		String username = request.getParameter("userName");
-		String password = request.getParameter("password");
-
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("allTables", tablesService.getAll());
 		model.put("allWaiter", waiterService.getAll());
@@ -97,7 +95,9 @@ public class HomeController {
 	public @ResponseBody Bill editOrder(@RequestBody Bill bill, HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("---------EDIT ORDER---------");
+		bill.setModificationDate(new Date());
 		for (Orders order : bill.getOrders()) {
+			order.setModificationDate(new Date());
 			order.setBill(bill);
 		}
 		billService.update(bill.getId(), bill);

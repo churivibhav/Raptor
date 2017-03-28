@@ -1,6 +1,6 @@
 package com.base.test.model;
 
-//import java.util.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Orders")
@@ -25,27 +27,17 @@ public class Orders {
 	private String type;
 	private String kot;
 	private long waiterID;
-//	private Date date;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(insertable = false, updatable = false)
+	private Date creationDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modificationDate;
+
 	@ManyToOne
 	@JoinColumn(name = "billID")
 	private Bill bill;
-
-	public Orders(){
-		
-	}
-	
-	public Orders(String orderItem, double cost, int quantity, String type, String kot, Bill bill, long waiterID) {
-		super();
-		this.orderItem = orderItem;
-		this.cost = cost;
-		this.quantity = quantity;
-		this.type = type;
-		this.kot = kot;
-		this.bill = bill;
-		this.waiterID = waiterID;
-	}
 
 	public long getId() {
 		return id;
@@ -62,14 +54,6 @@ public class Orders {
 	public void setOrderItem(String orderItem) {
 		this.orderItem = orderItem;
 	}
-
-	/*public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}*/
 
 	public double getCost() {
 		return cost;
@@ -116,6 +100,7 @@ public class Orders {
 	public void setBill(Bill bill) {
 		this.bill = bill;
 	}
+
 	public long getWaiterID() {
 		return waiterID;
 	}
@@ -124,4 +109,19 @@ public class Orders {
 		this.waiterID = waiterID;
 	}
 
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
 }

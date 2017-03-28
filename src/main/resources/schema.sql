@@ -110,8 +110,14 @@ CREATE TABLE `Orders` (
   CONSTRAINT `orders_fk1` FOREIGN KEY (billID) REFERENCES Bill(billID)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-alter table Bill add column waiterID int(11)
-alter table Orders add column waiterID int(11)
+alter table Bill add column waiterID int(11);
+alter table Orders add column waiterID int(11);
 
-alter table Bill add column dateTime DateTime DEFAULT CURRENT_TIMESTAMP
-alter table Orders add column dateTime DateTime DEFAULT CURRENT_TIMESTAMP
+alter table Bill add column creationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+alter table Orders add column creationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+alter table Bill add column modificationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+alter table Orders add column modificationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+alter table Bill drop column dateTime;
+alter table Orders drop column dateTime; 
