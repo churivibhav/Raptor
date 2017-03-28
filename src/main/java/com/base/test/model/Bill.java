@@ -41,6 +41,9 @@ public class Bill {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
+	private Set<Payments> payments;
 
 	public long getId() {
 		return id;
@@ -146,5 +149,13 @@ public class Bill {
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
+	}
+
+	public Set<Payments> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(Set<Payments> payments) {
+		this.payments = payments;
 	}
 }

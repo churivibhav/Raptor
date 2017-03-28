@@ -22,6 +22,7 @@ import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
 import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
+import com.base.test.model.Payments;
 import com.base.test.model.Tables;
 import com.base.test.model.Waiter;
 
@@ -63,6 +64,9 @@ public class HomeController {
 		for (Orders order : bill.getOrders()) {
 			order.setBill(null);
 		}
+		for (Payments payment : bill.getPayments()) {
+			payment.setBill(null);
+		}
 		return bill;
 	}
 
@@ -73,6 +77,9 @@ public class HomeController {
 		for (Bill bill : bills) {
 			for (Orders order : bill.getOrders()) {
 				order.setBill(null);
+			}
+			for (Payments payment : bill.getPayments()) {
+				payment.setBill(null);
 			}
 		}
 		return bills;
@@ -102,6 +109,13 @@ public class HomeController {
 			order.setModificationDate(new Date());
 			order.setBill(bill);
 		}
+		for (Payments payemnt : bill.getPayments()) {
+			payemnt.setModificationDate(new Date());
+			payemnt.setBill(bill);
+			if (payemnt.getCardNumber() != null) {
+				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+			}
+		}
 		billService.update(bill.getId(), bill);
 
 		if (bill.getIsActive() == false) {
@@ -112,6 +126,9 @@ public class HomeController {
 
 		for (Orders order : bill.getOrders()) {
 			order.setBill(null);
+		}
+		for (Payments payment : bill.getPayments()) {
+			payment.setBill(null);
 		}
 		return bill;
 	}

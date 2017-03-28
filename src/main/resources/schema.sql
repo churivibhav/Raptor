@@ -119,5 +119,26 @@ alter table Orders add column creationDate DateTime NOT NULL DEFAULT CURRENT_TIM
 alter table Bill add column modificationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 alter table Orders add column modificationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
-alter table Bill drop column dateTime;
-alter table Orders drop column dateTime; 
+CREATE TABLE `Cards` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cardNumber` varchar(20) NOT NULL DEFAULT '',
+  `balance` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO Cards(cardNumber,balance)
+VALUES ('10193',1000);
+
+CREATE TABLE `Payments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `paymentMode` varchar(20) NOT NULL DEFAULT '',
+  `cost` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `cardNumber` varchar(20),
+  `denomination` varchar(100),
+  creationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  modificationDate DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `billID` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `billID` (`billID`),
+  CONSTRAINT `payments_fk1` FOREIGN KEY (billID) REFERENCES Bill(billID)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

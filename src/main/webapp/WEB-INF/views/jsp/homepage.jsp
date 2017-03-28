@@ -639,11 +639,15 @@
 			 </div>	
 			 <div class="form-inline">
 			 	<label>Registration No :</label>
-			 	<input type="text" class="form-control yoyo-registration-number" value="0" disabled/>
+			 	<input type="password" class="form-control yoyo-registration-number" value="0"/>
 			 </div>	
 			 <div class="form-inline">
-			 	<label>Balance Amount :</label>
-			 	<input type="text" class="form-control yoyo-balance-amount" value="0" disabled/>
+			 	<label>Balance Amount :</label> <input type="text" class="form-control yoyo-balance-amount"
+							value="0" disabled />
+					</div>	
+			 <div class="form-inline">
+			 	<label>Remaining Amount :</label>
+			 	<input type="text" class="form-control yoyo-remaining-amount" value="0" disabled/>
 			 </div>	
 			 <div class="form-inline">
 			 	<label>Partial Payment By :</label>
@@ -654,7 +658,7 @@
 			 	</select>
 			 </div>	
 			 <div class="table-resposive yoyo-money-table" style="display:none;">
-						<table class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
+						<table id="yoyoDenominationTable" class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Denomination</th>
@@ -783,7 +787,7 @@
 					</div>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success save-yoyo-payment">Save</button>
+			<button type="button" class="btn btn-success save-settle-bill save-yoyo-payment">Save</button>
 		  </div>
 		  
 		</div>
@@ -1578,6 +1582,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				$('#YoyomPaymentModal').find('.order-type').text(section);
 				$('#YoyomPaymentModal').find('.TableNumber').text(tableNo);
 				$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
+				$('#YoyomPaymentModal').find('.yoyo-remaining-amount').val(total_cost);
 				$('#YoyomPaymentModal').modal('show')
 			}
 			else if(paymentMode == '1'){
@@ -1616,6 +1621,34 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	        			"kot":"false"	
 	    			  }	);
 	    	});
+	    	
+	    	data.payments = [];
+	    	var cardBalance = $('.yoyo-balance-amount').val();
+	    	var cardNumber = $('.yoyo-registration-number').val();
+	    	if(cardBalance != 0){
+	    		data.payments.push({
+	    			"paymentMode":paymentMode,	
+	    			"cost":cardBalance,
+	    			"cardNumber":cardNumber
+	    		});
+	    	}
+	    	var secondPayment = $('.yoyo-payment-option option:selected').text();
+	    	var remainingAmount = $('.yoyo-remaining-amount').val();
+	    	var denomination = '';
+	    	$('#yoyoDenominationTable tbody tr').each(function() {
+	    		  $this = $(this);
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var cost = $this.find("td.total-row-price").text();
+	    		  denomination = denomination + quantity +',' + cost + ';';
+	    	});
+	    	if(secondPayment != 'none'){
+	    		data.payments.push({
+	    			"paymentMode":secondPayment,	
+	    			"cost":remainingAmount,
+	    			"denomination":denomination
+	    		});
+	    	}
+	    	
 	    	alert(JSON.stringify(data));
 	    	$.ajax({
 	            url: 'editOrder',
@@ -1773,5 +1806,36 @@ $(document).on('click','.section-select-conetnt .btn',function(){
             }
         });
     });
+    
+    $('.yoyo-registration-number').keypress(function(e) {
+		var key = e.which;
+		if (key == 13) // the enter key code
+		{
+			//alert($('.card').val());
+			var cardNumber = $('.yoyo-registration-number').val();
+			var totalCost = $('.yoyo-total-cost').val();
+			alert(cardNumber);
+	    	$.ajax({
+	            url: 'getBalance',
+	            data: cardNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	alert(data.balance);
+	            	$('.yoyo-balance-amount').val(data.balance);
+	            	$('.yoyo-remaining-amount').val(totalCost-data.balance);
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+			
+			return false;
+		}
+	});
 
 </script>
