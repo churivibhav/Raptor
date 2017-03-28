@@ -109,13 +109,18 @@ public class HomeController {
 			order.setModificationDate(new Date());
 			order.setBill(bill);
 		}
-		for (Payments payemnt : bill.getPayments()) {
-			payemnt.setModificationDate(new Date());
-			payemnt.setBill(bill);
-			if (payemnt.getCardNumber() != null) {
-				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+		
+		if (bill.getPayments()!= null)
+		{
+			for (Payments payemnt : bill.getPayments()) {
+				payemnt.setModificationDate(new Date());
+				payemnt.setBill(bill);
+				if (payemnt.getCardNumber() != null) {
+					payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+				}
 			}
 		}
+			
 		billService.update(bill.getId(), bill);
 
 		if (bill.getIsActive() == false) {
@@ -127,8 +132,11 @@ public class HomeController {
 		for (Orders order : bill.getOrders()) {
 			order.setBill(null);
 		}
-		for (Payments payment : bill.getPayments()) {
-			payment.setBill(null);
+		
+		if (bill.getPayments() !=null){
+			for (Payments payment : bill.getPayments()) {
+				payment.setBill(null);
+			}
 		}
 		return bill;
 	}

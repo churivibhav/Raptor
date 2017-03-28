@@ -862,27 +862,19 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(this).addClass('active');
 	
 	if(section == "bar"){
-		$('.table-layout-container.bar').siblings('.table-layout-container').fadeOut("slow",function(){
-			setTimeout(function(){
-				$('.table-layout-container.bar').fadeIn("slow");
-			},600)
-			
-		})
+		$('.table-layout-container.bar').siblings('.table-layout-container').hide();
+		$('.table-layout-container.bar').show();
+		
 	}
 	else if(section == "lounge"){
-		$('.table-layout-container.lounge').siblings('.table-layout-container').fadeOut("slow",function(){
-			setTimeout(function(){
-				$('.table-layout-container.lounge').fadeIn("slow");
-			},600)
-		})
+		$('.table-layout-container.lounge').siblings('.table-layout-container').hide();
+		$('.table-layout-container.lounge').show();
+		
 	}
-	else
-		$('.table-layout-container.vip').siblings('.table-layout-container').fadeOut("slow",function(){
-			setTimeout(function(){
-				$('.table-layout-container.vip').fadeIn("slow");
-			},600)
-		})
-	
+	else{
+		$('.table-layout-container.vip').siblings('.table-layout-container').hide();
+		$('.table-layout-container.vip').show();
+	}
 	
 });			
 
@@ -1449,7 +1441,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    $(document).on('click', '.give-order', function () {
 	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
-	    	var waiterID = $('.waiter-select :selected').val();
+	    	var waiterID = $('#newModal .waiter-select :selected').val();
 	    	var data = {
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
@@ -1494,7 +1486,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var billID = $('#editBillID').val();
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var totalAmount = $('.editOrdertotal').find('input').val();
-	    	var waiterID = $('.waiter-select :selected').val();	    	
+	    	var waiterID = $('#editModal .waiter-select :selected').val();	    	
 	    	var data = {
 	    			"id":billID,
 		    		"tableNumber":tableNumber,
@@ -1532,7 +1524,11 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
-	            }
+	            },
+	            //error:function(data){
+	            	//alert("Server Failure");
+	            	//console.log(data);
+	           // }
 	        });
 	        return true;
 	    });
@@ -1563,6 +1559,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		
 		$(document).on('change','.yoyo-payment-option',function(){
 			var paymentMode = $('.yoyo-payment-option option:selected').val();
+			
 			
 			if(paymentMode == '1'){
 				$(this).closest('.modal').find('.yoyo-money-table').show();
@@ -1767,6 +1764,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
             },
             success: function(data){ 
                 //alert(JSON.stringify(data));
+                var selectedWaiterId = data.waiterID;
+                $('#editModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
                 for (var i = 0; i < data.orders.length; i++) {
                 	var id = data.orders[i].id;
                 	var item = data.orders[i].orderItem;
