@@ -1,6 +1,6 @@
 package com.base.test.model;
 
-import java.util.Date;
+//import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class Orders {
 	private String type;
 	private String kot;
 	private long waiterID;
-	private Date date;
+//	private Date date;
 
 	
 	@ManyToOne
@@ -63,13 +63,13 @@ public class Orders {
 		this.orderItem = orderItem;
 	}
 
-	public Date getDate() {
+	/*public Date getDate() {
 		return date;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
+	}*/
 
 	public double getCost() {
 		return cost;

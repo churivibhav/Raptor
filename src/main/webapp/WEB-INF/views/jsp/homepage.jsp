@@ -224,8 +224,7 @@
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="0" class="waiter-name">${allWaiter.firstName}</option>
-									<input type="hidden" name="Language" class="waiter-id" value="${allWaiter.id}" />
+									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select>
@@ -312,10 +311,9 @@
 					<div class="form-inline row person-count">
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
-								class="form-control waiter-select">
-								
+								class="form-control waiter-select">							
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="0">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select>
@@ -1447,7 +1445,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    $(document).on('click', '.give-order', function () {
 	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
-	    	var waiterID = $('.waiter-id').val();
+	    	var waiterID = $('.waiter-select :selected').val();
 	    	var data = {
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
@@ -1492,12 +1490,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var billID = $('#editBillID').val();
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var totalAmount = $('.editOrdertotal').find('input').val();
+	    	var waiterID = $('.waiter-select :selected').val();	    	
 	    	var data = {
 	    			"id":billID,
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
 		    	    "totalAmount":totalAmount,
-		    	    "isActive":"true"
+		    	    "isActive":"true",
+		    	    "waiterID":waiterID
 		    	};
 	    	data.orders = [];
 	    	$('#editMainTable tbody tr').each(function() {
@@ -1512,7 +1512,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    			 	"cost":cost,
 	        			"quantity":quantity,
 	        			"type":"Food",
-	        			"kot":"false"	
+	        			"kot":"false",
+	        			"waiterID":waiterID
 	    			  }	);
 	    	});
 	    	alert(JSON.stringify(data));
