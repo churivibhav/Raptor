@@ -191,6 +191,15 @@
 												<button class="btn btn-lg login-button active-bills">Active
 													Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
+												<a href="bill_search" class="btn btn-lg login-button search-bill">Search Bill</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-12 padding-left-0">
+										<div class="bill-management box">
+											<div class="box-header">YOYO Card</div>
+											<div class="box-content">
+												<button class="btn btn-lg login-button card-recharge">Card Recharge</button>
 											</div>
 										</div>
 									</div>
@@ -202,6 +211,60 @@
 			</div>
 		</header>
 	</div>
+	
+	<!--  card recharge modal -->
+	
+	<div id="cardRechargeModal" class="modal fade" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Card Recharge</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row" style="margin-bottom:10px;">
+						<div class="col-sm-4">
+							<label>Registration No.</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="password" class="form-control register-no"/>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom:10px;">
+						<div class="col-sm-4">
+							<label>Balance</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control balance-amount" disabled/>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom:10px;">
+						<div class="col-sm-4">
+							<label>Recharge Amount</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control recharge-amount"/>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom:10px;">
+						<div class="col-sm-4">
+							<label>Total Balance</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control total-balance" disabled/>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success save-card-recharge">Recharge</button>
+				</div>
+			</div>	
+		</div>	
+	</div>	
+	
+	
 
 	<!-- Modal -->
 	<div id="newModal" class="modal fade newModal" role="dialog"
@@ -402,10 +465,20 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-top row">
-						<div class="col-sm-6 modal-top-title">
+						<div class="col-sm-3 modal-top-title">
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
 						</div>
-						<div class="col-sm-6 modal-top-title text-right">
+						<div class="col-sm-6 modal-top-title form-inline">
+							<span class="title">Waiter : </span>
+							<select
+								class="form-control waiter-select" disabled style="width:70%;">							
+								<c:forEach items="${model.allWaiter}" var="allWaiter">
+									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
+								</c:forEach>
+								<option value="-1">Other</option>
+							</select> 
+						</div>
+						<div class="col-sm-3 modal-top-title text-right">
 							<span class="title">Table : </span> <span
 								class="section-order-table settleBillTableNumber">B1</span>
 						</div>
@@ -838,6 +911,12 @@
 <script src="${dataBootJs}"></script>
 
 <script>
+
+	$('.card-recharge').on('click',function(){
+		$('#cardRechargeModal').modal('show');	
+	});
+	
+	
 	$('.bg-img').css("min-height", $(window).height() + "px");
 	$(window).resize(function() {
 		$('.bg-img').css("min-height", $(window).height() + "px");
@@ -973,6 +1052,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){
 	            	alert(JSON.stringify(data));
+	            	var selectedWaiterId = data.waiterID;
+	                $('#billModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
 	                for (var i = 0; i < data.orders.length; i++) {
 	                	var id = data.orders[i].id;
 	                	var item = data.orders[i].orderItem;
@@ -982,8 +1063,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		                var tr = "";
 						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
 								+ item
-								+ '</td>'
-								+ '<td>'+quantity
+								+ '<td>'
+								+ '<div class="input-group spinner">'
+								+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100" disabled>'
+								+ '<div class="input-group-btn-vertical">'
+								+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-up"></i></button>'
+								+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-down"></i></button>'
+								+ '</div>'
+								+ '</div>'
 								+ '</td>'
 								+ '<td class="total-row-price">'
 								+ price
@@ -1028,6 +1115,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){
 	            	alert(JSON.stringify(data));
+	            	var selectedWaiterId = data.waiterID;
+	                $('#billModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
 	                for (var i = 0; i < data.orders.length; i++) {
 	                	var id = data.orders[i].id;
 	                	var item = data.orders[i].orderItem;
@@ -1037,8 +1126,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		                var tr = "";
 						tr = '<tr id="'+id+'"class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
 								+ item
-								+ '</td>'
-								+ '<td>'+quantity
+								+ '<td>'
+								+ '<div class="input-group spinner">'
+								+ '<input type="text" class="form-control quantity-value" value="'+quantity+'" min="0" max="100" disabled>'
+								+ '<div class="input-group-btn-vertical">'
+								+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-up"></i></button>'
+								+ '<button class="btn btn-default" type="button" disabled><i class="fa fa-caret-down"></i></button>'
+								+ '</div>'
+								+ '</div>'
 								+ '</td>'
 								+ '<td class="total-row-price">'
 								+ price
@@ -1621,13 +1716,16 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var tableNumber = $('.settleBillTableNumber').text();
 	    	var totalAmount = $('.settleBilltotal').find('input').val();
 	    	var paymentMode = $('.payment-option option:selected').text();
+	    	var waiterID = $('#billModal .waiter-select :selected').val();	  
+	    	
 	    	var data = {
 	    			"id":billID,
 		    		"tableNumber":tableNumber,
 		    	 	"amount":totalAmount,
 		    	    "totalAmount":totalAmount,
 		    	    "paymentMode":paymentMode,
-		    	    "isActive":"false"
+		    	    "isActive":"false",
+		    	    "waiterID":waiterID
 		    	};
 	    	data.orders = [];
 	    	$('#billMainTable tbody tr').each(function() {
@@ -1642,7 +1740,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    			 	"cost":cost,
 	        			"quantity":quantity,
 	        			"type":"Food",
-	        			"kot":"false"	
+	        			"kot":"false",
+	        			"waiterID":waiterID
 	    			  }	);
 	    	});
 	    	
