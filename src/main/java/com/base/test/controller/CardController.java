@@ -43,26 +43,22 @@ public class CardController {
 	@RequestMapping(value = "/getBalance", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Cards getBalance(@RequestBody String cardNumber, HttpServletRequest request,
 			HttpServletResponse response) {
-		//;3333203131003101936666?
+		// ;3333203131003101936666?
 		cardNumber = cardNumber.substring(14, 19);
 		Cards card = cardService.getByName(cardNumber);
 		logger.info(card.getCardNumber() + " " + card.getId() + " " + card.getBalance());
 		return card;
 	}
 
-	@RequestMapping("/updateBalance")
-	public ModelAndView updateBalance(HttpServletRequest request, HttpServletResponse response) {
-		String cardNumber = request.getParameter("cardNumber").replace(";", "").replace("?", "");
-		Double balance = Double.parseDouble(request.getParameter("balance"));
+	@RequestMapping(value = "/updateBalance", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Cards updateBalance(@RequestBody String cardNumber, @RequestBody String balance,
+			HttpServletRequest request, HttpServletResponse response) {
 		logger.info(cardNumber + " " + balance);
-
+		Double bal = Double.parseDouble(balance);
 		Cards card = cardService.getByName(cardNumber);
-		card.setBalance(balance);
-
-		logger.info(card.getCardNumber() + " " + card.getId() + " " + card.getBalance());
-
-		cardService.update(card.getId(), card);
-
-		return new ModelAndView("cardEntry");
+		card.setBalance(bal);
+		card = cardService.update(card.getId(), card);
+		return card;
 	}
 }

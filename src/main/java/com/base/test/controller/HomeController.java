@@ -2,6 +2,7 @@ package com.base.test.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
+import com.base.test.model.Cards;
 import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
@@ -43,6 +45,9 @@ public class HomeController {
 
 	@Autowired
 	ServiceInterface<Bill> billService;
+
+	@Autowired
+	private ServiceInterface<Cards> cardService;
 
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
@@ -109,18 +114,22 @@ public class HomeController {
 			order.setModificationDate(new Date());
 			order.setBill(bill);
 		}
-		
-		if (bill.getPayments()!= null)
-		{
-			for (Payments payemnt : bill.getPayments()) {
-				payemnt.setModificationDate(new Date());
-				payemnt.setBill(bill);
-				if (payemnt.getCardNumber() != null) {
-					payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
-				}
+
+		if (bill.getPayments() == null) {
+			bill.setPayments(new HashSet<>());
+		}
+
+		for (Payments payemnt : bill.getPayments()) {
+			payemnt.setModificationDate(new Date());
+			payemnt.setBill(bill);
+			if (payemnt.getCardNumber() != null) {
+				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+				Cards card = cardService.getByName(payemnt.getCardNumber());
+				card.setBalance(card.getBalance() - payemnt.getCost());
+				cardService.update(card.getId(), card);
 			}
 		}
-			
+
 		billService.update(bill.getId(), bill);
 
 		if (bill.getIsActive() == false) {
@@ -132,11 +141,9 @@ public class HomeController {
 		for (Orders order : bill.getOrders()) {
 			order.setBill(null);
 		}
-		
-		if (bill.getPayments() !=null){
-			for (Payments payment : bill.getPayments()) {
-				payment.setBill(null);
-			}
+
+		for (Payments payment : bill.getPayments()) {
+			payment.setBill(null);
 		}
 		return bill;
 	}

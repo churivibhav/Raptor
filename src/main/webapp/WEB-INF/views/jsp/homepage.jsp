@@ -83,11 +83,12 @@
 							</div>
 						</div>-->
 						<div class="box-content section-select-conetnt">
-							<a href="#bar" class="btn btn-lg login-button active" data-show="bar">Bar</a>
-							<a href="#lounge" class="btn btn-lg login-button" data-show="lounge">Lounge</a>
-							<a href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
+							<a href="#bar" class="btn btn-lg login-button active"
+								data-show="bar">Bar</a> <a href="#lounge"
+								class="btn btn-lg login-button" data-show="lounge">Lounge</a> <a
+								href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
 						</div>
-						
+
 
 						<div class="row">
 							<div class="col-sm-8">
@@ -98,80 +99,82 @@
 											<c:if test="${allTables.type == 'Bar'}">
 												<c:choose>
 													<c:when test="${allTables.isActive == 'true' }">
-														<div class="table tableSelect occupied" id="${allTables.id}" >
+														<div class="table tableSelect occupied"
+															id="${allTables.id}">
 															<div class="table-header text-center">${allTables.tableNumber}</div>
 															<div class="table-content"></div>
 														</div>
 													</c:when>
-													
+
 													<c:otherwise>
-														<div class="table tableSelect" id="${allTables.id}"  >
-														<div class="table-header text-center">${allTables.tableNumber}</div>
-														<div class="table-content"></div>
-													</div>
+														<div class="table tableSelect" id="${allTables.id}">
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
 													</c:otherwise>
 												</c:choose>
 											</c:if>
 										</c:forEach>
 									</div>
-									<div class="table-layout-container lounge" style="display: none;">
+									<div class="table-layout-container lounge"
+										style="display: none;">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'Lounge'}">
-											 <c:choose>
-											 	<c:when test="${allTables.isActive == 'true' }">
-													<div class="table tableSelect occupied" id="${allTables.id}" > 
-														<div class="table-header text-center">${allTables.tableNumber}</div>
-														<div class="table-content"></div>
-													</div>
-												</c:when>
-												
-												<c:otherwise>
-													<div class="table tableSelect" id="${allTables.id}" > 
-														<div class="table-header text-center">${allTables.tableNumber}</div>
-														<div class="table-content"></div>
-													</div>
-												</c:otherwise>
-											</c:choose>
+												<c:choose>
+													<c:when test="${allTables.isActive == 'true' }">
+														<div class="table tableSelect occupied"
+															id="${allTables.id}">
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
+													</c:when>
+
+													<c:otherwise>
+														<div class="table tableSelect" id="${allTables.id}">
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
+													</c:otherwise>
+												</c:choose>
 											</c:if>
 										</c:forEach>
 									</div>
 									<div class="table-layout-container vip" style="display: none;">
 										<c:forEach items="${model.allTables}" var="allTables">
 											<c:if test="${allTables.type == 'VIP'}">
-											  <c:choose>
-											 	<c:when test="${allTables.isActive == 'true' }">
-													<div class="table tableSelect occupied" id="${allTables.id}" > 
-														<div class="table-header text-center">${allTables.tableNumber}</div>
-														<div class="table-content"></div>
-													</div>
-											   </c:when>
-												
-												<c:otherwise>
-													<div class="table tableSelect" id="${allTables.id}" > 
-														<div class="table-header text-center">${allTables.tableNumber}</div>
-														<div class="table-content"></div>
-													</div>
-												</c:otherwise>
-											 </c:choose>	
+												<c:choose>
+													<c:when test="${allTables.isActive == 'true' }">
+														<div class="table tableSelect occupied"
+															id="${allTables.id}">
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
+													</c:when>
+
+													<c:otherwise>
+														<div class="table tableSelect" id="${allTables.id}">
+															<div class="table-header text-center">${allTables.tableNumber}</div>
+															<div class="table-content"></div>
+														</div>
+													</c:otherwise>
+												</c:choose>
 											</c:if>
 										</c:forEach>
 									</div>
 								</div>
 							</div>
-						
-									
-							
+
+
+
 							<div class="col-sm-4">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
 											<div class="box-header">Order Management</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button new-order"
-													>New
+												<button class="btn btn-lg login-button new-order">New
 													Order</button>
-												<button class="btn btn-lg login-button edit-order"
-													>Edit
+												<button class="btn btn-lg login-button edit-order">Edit
 													Order</button>
 											</div>
 										</div>
@@ -184,8 +187,9 @@
 													Bill</button>
 												<button class="btn btn-lg login-button settle-bill">Settle
 													Bill</button>
-													
-												<button class="btn btn-lg login-button active-bills">Active Bills</button>	
+
+												<button class="btn btn-lg login-button active-bills">Active
+													Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
 											</div>
 										</div>
@@ -200,7 +204,8 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="newModal" class="modal fade newModal" role="dialog" data-backdrop="static">
+	<div id="newModal" class="modal fade newModal" role="dialog"
+		data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -215,8 +220,8 @@
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
 						</div>
 						<div class="col-sm-6 modal-top-title text-right">
-							<span class="title">Table : </span> 
-							<span class="order-table newOrderTableNumber">B1</span>
+							<span class="title">Table : </span> <span
+								class="order-table newOrderTableNumber">B1</span>
 						</div>
 					</div>
 					<div class="form-inline row person-count">
@@ -227,8 +232,8 @@
 									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
-							</select>
-							<input type="text" class="form-control other-waiter-text" style="display:none;" placeholder="Waiter name"/>
+							</select> <input type="text" class="form-control other-waiter-text"
+								style="display: none;" placeholder="Waiter name" />
 						</div>
 						<div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
@@ -284,13 +289,15 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success give-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+					<button type="button" class="btn btn-success settle-bill">Settle
+						Bill</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="editModal" class="modal fade editModal" role="dialog" data-backdrop="static">
+	<div id="editModal" class="modal fade editModal" role="dialog"
+		data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -311,13 +318,13 @@
 					<div class="form-inline row person-count">
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
-								class="form-control waiter-select">							
+								class="form-control waiter-select">
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
-							</select>
-							<input type="text" class="form-control other-waiter-text" style="display:none;" placeholder="Waiter name"/>
+							</select> <input type="text" class="form-control other-waiter-text"
+								style="display: none;" placeholder="Waiter name" />
 						</div>
 						<div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
@@ -345,7 +352,7 @@
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
-							<input type="hidden" value="" id="editBillID" />
+								<input type="hidden" value="" id="editBillID" />
 								<table id="editMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
@@ -375,14 +382,16 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success add-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+					<button type="button" class="btn btn-success settle-bill">Settle
+						Bill</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Modal -->
-	<div id="billModal" class="modal fade" role="dialog" data-backdrop="static">
+	<div id="billModal" class="modal fade" role="dialog"
+		data-backdrop="static">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -404,7 +413,7 @@
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">
-							<input type="hidden" value="" id="settleBillID" />
+								<input type="hidden" value="" id="settleBillID" />
 								<table id="billMainTable"
 									class="table table-striped table-bordered hover"
 									cellspacing="0" width="100%">
@@ -436,8 +445,9 @@
 								</select>
 						</div>
 					</div>
-					<div class="table-resposive money-table" style="display:none;">
-						<table class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
+					<div class="table-resposive money-table" style="display: none;">
+						<table class="moneyTable table table-striped table-bordered hover"
+							cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Denomination</th>
@@ -460,7 +470,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -478,7 +488,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -496,7 +506,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -514,7 +524,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -532,7 +542,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -550,24 +560,23 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
-							</tbody>			
-									
+							</tbody>
+
 						</table>
-						<div class="text-right" style="margin-bottom:10px;">
+						<div class="text-right" style="margin-bottom: 10px;">
 							<div class="form-inline">
-								<label>Cash Amount : </label>
-								<input type="text" class="form-control cash-amount" disabled value="0"/>
+								<label>Cash Amount : </label> <input type="text"
+									class="form-control cash-amount" disabled value="0" />
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success save-settle-bill"
-						>Save</button>
+					<button type="button" class="btn btn-success save-settle-bill">Save</button>
 					<button type="button" class="btn btn-primary print-bill"
 						data-dismiss="modal">Print</button>
 					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
@@ -575,90 +584,98 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="activeBills" class="modal fade" role="dialog" data-backdrop="static">
-	  <div class="modal-dialog">
 
-		<!-- Modal content-->
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Active Bills</h4>
-		  </div>
-		  <div class="modal-body">
-			<div class="row">
-				<div class="col-sm-12 order-table">
-					<div class="table-responsive">
-						<table id="activebillsTable" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Table</th>
-									<th>Amount</th>
-									<th>Tax Amount</th>
-									<th>Total Amount</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
+	<div id="activeBills" class="modal fade" role="dialog"
+		data-backdrop="static">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Active Bills</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12 order-table">
+							<div class="table-responsive">
+								<table id="activebillsTable"
+									class="table table-striped table-bordered hover"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Table</th>
+											<th>Amount</th>
+											<th>Tax Amount</th>
+											<th>Total Amount</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		  </div>
-		  <!--<div class="modal-footer">
+				<!--<div class="modal-footer">
 			<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 		  </div>-->
-		</div>
-
-	  </div>
-	</div>
-	
-	<div id="YoyomPaymentModal" class="modal fade yoyo-card-payment-details" role="dialog" data-backdrop="static">
-	  <div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">YOYO Card Payment</h4>
-		  </div>
-		  <div class="modal-body">
-		  	<div class="modal-top row">
-				<div class="col-sm-6 modal-top-title">
-					<span class="title">Section : </span> <span class="order-type">Bar</span>
-				</div>
-				<div class="col-sm-6 modal-top-title text-right">
-					<span class="title">Table : </span> <span
-						class="order-table TableNumber">B1</span>
-				</div>
 			</div>
-			 <div class="form-inline">
-			 	<label>Total Amount :</label>
-			 	<input type="text" class="form-control yoyo-total-cost" disabled value="0"/>
-			 </div>	
-			 <div class="form-inline">
-			 	<label>Registration No :</label>
-			 	<input type="password" class="form-control yoyo-registration-number" value="0"/>
-			 </div>	
-			 <div class="form-inline">
-			 	<label>Balance Amount :</label> <input type="text" class="form-control yoyo-balance-amount"
-							value="0" disabled />
-					</div>	
-			 <div class="form-inline">
-			 	<label>Remaining Amount :</label>
-			 	<input type="text" class="form-control yoyo-remaining-amount" value="0" disabled/>
-			 </div>	
-			 <div class="form-inline">
-			 	<label>Partial Payment By :</label>
-			 	<select class="form-control yoyo-payment-option">
-			 		<option value="0">None</option>
-			 		<option value="1">Cash</option>
-			 		<option value="2">Debit/Credit Card</option>
-			 	</select>
-			 </div>	
-			 <div class="table-resposive yoyo-money-table" style="display:none;">
-						<table id="yoyoDenominationTable" class="moneyTable table table-striped table-bordered hover" cellspacing="0" width="100%">
+
+		</div>
+	</div>
+
+	<div id="YoyomPaymentModal"
+		class="modal fade yoyo-card-payment-details" role="dialog"
+		data-backdrop="static">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">YOYO Card Payment</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-top row">
+						<div class="col-sm-6 modal-top-title">
+							<span class="title">Section : </span> <span class="order-type">Bar</span>
+						</div>
+						<div class="col-sm-6 modal-top-title text-right">
+							<span class="title">Table : </span> <span
+								class="order-table TableNumber">B1</span>
+						</div>
+					</div>
+					<div class="form-inline">
+						<label>Total Amount :</label> <input type="text"
+							class="form-control yoyo-total-cost" disabled value="0" />
+					</div>
+					<div class="form-inline">
+						<label>Registration No :</label> <input type="password"
+							class="form-control yoyo-registration-number" value="0" autofocus />
+					</div>
+					<div class="form-inline">
+						<label>Balance Amount :</label> <input type="text"
+							class="form-control yoyo-balance-amount" value="0" disabled />
+					</div>
+					<div class="form-inline">
+						<label>Remaining Amount :</label> <input type="text"
+							class="form-control yoyo-remaining-amount" value="0" disabled />
+					</div>
+					<div class="form-inline">
+						<label>Partial Payment By :</label> <select
+							class="form-control yoyo-payment-option">
+							<option value="0">None</option>
+							<option value="1">Cash</option>
+							<option value="2">Debit/Credit Card</option>
+						</select>
+					</div>
+					<div class="table-resposive yoyo-money-table"
+						style="display: none;">
+						<table id="yoyoDenominationTable"
+							class="moneyTable table table-striped table-bordered hover"
+							cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Denomination</th>
@@ -667,6 +684,11 @@
 								</tr>
 							</thead>
 							<tbody>
+								<tr>
+									<td>Chillar</td>
+									<td></td>
+									<td class="chillarTotal total-row-price">0</td>
+								</tr>
 								<tr>
 									<td>10</td>
 									<td>
@@ -681,7 +703,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -699,7 +721,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -717,7 +739,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -735,7 +757,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -753,7 +775,7 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
@@ -771,31 +793,32 @@
 													<i class="fa fa-caret-down"></i>
 												</button>
 											</div>
-										</div>	
+										</div>
 									</td>
 									<td class="total-row-price">0</td>
 								</tr>
-							</tbody>			
-									
+							</tbody>
+
 						</table>
-						<div class="text-right" style="margin-bottom:10px;">
+						<div class="text-right" style="margin-bottom: 10px;">
 							<div class="form-inline">
-								<label>Cash Amount : </label>
-								<input type="text" class="form-control cash-amount" disabled value="0"/>
+								<label>Cash Amount : </label> <input type="text"
+									class="form-control cash-amount" disabled value="0" />
 							</div>
 						</div>
 					</div>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-success save-settle-bill save-yoyo-payment">Save</button>
-		  </div>
-		  
-		</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-success save-settle-bill save-yoyo-payment">Save</button>
+				</div>
 
-	  </div>
+			</div>
+
+		</div>
 	</div>
-	
-	
+
+
 	<div class="menu-overlay"></div>
 </body>
 </html>
@@ -1563,6 +1586,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			
 			if(paymentMode == '1'){
 				$(this).closest('.modal').find('.yoyo-money-table').show();
+				var remaining = $('.yoyo-remaining-amount').val();
+				var chillar = remaining % 10;
+				$('.chillarTotal').text(chillar);
 			}
 			else
 				$(this).closest('.modal').find('.yoyo-money-table').hide();
@@ -1580,6 +1606,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				$('#YoyomPaymentModal').find('.TableNumber').text(tableNo);
 				$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
 				$('#YoyomPaymentModal').find('.yoyo-remaining-amount').val(total_cost);
+				$('#YoyomPaymentModal').find('.yoyo-registration-number').val('');
 				$('#YoyomPaymentModal').modal('show')
 			}
 			else if(paymentMode == '1'){
@@ -1632,13 +1659,22 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var secondPayment = $('.yoyo-payment-option option:selected').text();
 	    	var remainingAmount = $('.yoyo-remaining-amount').val();
 	    	var denomination = '';
+	    	var totalCash = 0;
 	    	$('#yoyoDenominationTable tbody tr').each(function() {
 	    		  $this = $(this);
 	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  if(typeof qauntity === "undefined"){
+	    			  quantity = 0;
+	    		  }
 	    		  var cost = $this.find("td.total-row-price").text();
+	    		  totalCash = totalCash + parseInt(cost);
 	    		  denomination = denomination + quantity +',' + cost + ';';
 	    	});
 	    	if(secondPayment != 'none'){
+	    		if(remainingAmount!= totalCash){
+	    			alert("Cash is not matching");
+	    			return false;
+	    		}
 	    		data.payments.push({
 	    			"paymentMode":secondPayment,	
 	    			"cost":remainingAmount,
