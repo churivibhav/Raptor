@@ -191,7 +191,7 @@
 												<button class="btn btn-lg login-button active-bills">Active
 													Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
-												<a href="bill_search" class="btn btn-lg login-button search-bill">Search Bill</a>
+												<a href="billSearch" class="btn btn-lg login-button search-bill">Search Bill</a>
 											</div>
 										</div>
 									</div>
@@ -200,6 +200,7 @@
 											<div class="box-header">YOYO Card</div>
 											<div class="box-content">
 												<button class="btn btn-lg login-button card-recharge">Card Recharge</button>
+												<button class="btn btn-lg login-button card-clean">Clean Cards</button>
 											</div>
 										</div>
 									</div>
@@ -352,8 +353,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success give-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle
-						Bill</button>
+					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
 		</div>
@@ -445,8 +445,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success add-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle
-						Bill</button>
+					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
 				</div>
 			</div>
 		</div>
@@ -698,7 +697,46 @@
 
 		</div>
 	</div>
+	
+	
+	<div id="cleanYoyoCards" class="modal fade" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Clean Cards</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12 order-table">
+							<div class="table-responsive">
+								<table id="cleancardsYoyo"
+									class="table table-striped table-bordered hover"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Card No</th>
+											<th>Balance</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success clean-yoyo-cards">Clean</button>
+		  		</div>
+			</div>
 
+		</div>
+	</div>
+	
+	
 	<div id="YoyomPaymentModal"
 		class="modal fade yoyo-card-payment-details" role="dialog"
 		data-backdrop="static">
@@ -918,6 +956,10 @@
 		$('.balance-amount').val('');
 		$('.recharge-amount').val('');
 		$('.total-balance').val('');
+	});
+	
+	$('.card-clean').on('click',function(){
+		$('#cleanYoyoCards').modal('show');
 	});
 	
 	
