@@ -69,7 +69,7 @@
 				<div class="main-content">
 					<div class="project-title mobile  hidden-lg">YOYO Bar and
 						Grill</div>
-					<div class="container-fluid main-container">
+					<div class="main-container">
 						<!--<div class="section-selection">
 							<div class="form-inline form-horizontal">
 								<div class="form-group">

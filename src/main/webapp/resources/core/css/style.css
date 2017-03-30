@@ -129,8 +129,8 @@ body{
 
 .main-header{
 	/*height:80px;*/
-	padding:20px 0 20px 0;
-	margin-bottom:20px;
+	padding:0px;
+	margin-bottom:10px;
 }
 
 .hamburger-menu-btn{
@@ -539,9 +539,14 @@ span.specs-title {
     border: none;
     color: white;
     border: 1px solid white;
-    width: 150px;
+    /*width: 150px;*/
 	transition:all 0.5s ease;
 	border-radius:0px;
+	padding:7px !important;
+}
+
+.section-select-conetnt .btn{
+	width:100px;
 }
 
 .login-button:hover{
@@ -867,8 +872,8 @@ a.fa	{
 
 .table-layout-section{
 	border:1px solid white;
-	padding:10px;
-	margin-top:30px;
+	padding:3px;
+	margin-top:2px;
 	background: rgba(17, 24, 52,0.7);
 	/*max-height:440px;
 	min-height:440px;
@@ -881,8 +886,8 @@ a.fa	{
 
 .box{
 	border:1px solid white;
-	padding:10px;
-	margin-top:30px;
+	/*padding:10px;*/
+	margin-top:2px;
 	width:100%;
 	height:auto;
 	margin-bottom:10px;
@@ -897,7 +902,7 @@ a.fa	{
 }
 
 .box-content{
-	padding:30px;
+	padding:10px;
 }
 
 .box-content .btn{
