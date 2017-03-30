@@ -19,7 +19,7 @@
         <spring:url value="/resources/core/css/lib/checkbox.css" var="checkboxCss" />
         <spring:url value="/resources/core/css/lib/_all-skins.min.css" var="allskinsCss" />
         <spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css" var="dataTablesCss" />
-        <spring:url value="/resources/core/ss/lib/responsive.bootstrap.min.css" var="responsiveCss" />
+        <spring:url value="/resources/core/css/lib/responsive.bootstrap.min.css" var="responsiveCss" />
         
         <link href="${bootstrapCss}" rel="stylesheet"/>
         <!-- Font Awesome -->

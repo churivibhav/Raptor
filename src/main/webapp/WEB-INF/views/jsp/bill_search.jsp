@@ -2,30 +2,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <title>YOYO</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <!-- Bootstrap 3.3.6 -->
-        <link href="css/lib/bootstrap.min.css" rel="stylesheet"/>
-        <!-- Font Awesome -->
-        <link href="css/lib/fontawesome.min.css" rel="stylesheet"/>
-        <!-- Ionicons -->
-        <link href="css/lib/custmicons.min.css" rel="stylesheet"/>
-        <!-- Theme style -->
-        <link href="css/lib/fix_style.css" rel="stylesheet"/>
-        <!-- iCheck -->
-        <link href="css/lib/blue.css" rel="stylesheet"/>
-        <link href="css/lib/animate.css" rel="stylesheet"/>
-        <link href="css/app/style.css" rel="stylesheet"/>
-        <link href="css/lib/checkbox.css" rel="stylesheet"/>
-        <link href="css/lib/_all-skins.min.css" rel="stylesheet"/>
-        <link href="css/lib/dataTables.bootstrap.min.css" rel="stylesheet"/>
-        <link href="css/lib/responsive.bootstrap.min.css" rel="stylesheet"/>
-        <link href="css/lib/datepicker.css" rel="stylesheet"/>
-
+        <spring:url value="/resources/core/css/lib/bootstrap.min.css" var="bootstrapCss" />
+        <spring:url value="/resources/core/css/lib/fontawesome.min.css" var="fontawesomeCss" />
+        <spring:url value="/resources/core/css/lib/custmicons.min.css" var="custmiconsCss" />
+        <spring:url value="/resources/core/css/lib/fix_style.css" var="fix_styleCss" />
+        <spring:url value="/resources/core/css/lib/blue.css" var="blueCss" />
+        <spring:url value="/resources/core/css/lib/animate.css" var="animateCss" />
+        <spring:url value="/resources/core/css/app/style1.css" var="styleCss" />
+        <spring:url value="/resources/core/css/lib/checkbox.css" var="checkboxCss" />
+        <spring:url value="/resources/core/css/lib/_all-skins.min.css" var="allskinsCss" />
+        <spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css" var="dataTablesCss" />
+        <spring:url value="/resources/core/css/lib/responsive.bootstrap.min.css" var="responsiveCss" />
+		<spring:url value="/resources/core/css/lib/datepicker.css" var="datePickerCss" />
+		
+		<link href="${bootstrapCss}" rel="stylesheet"/>
+        <link href="${fontawesomeCss}" rel="stylesheet"/>
+        <link href="${custmiconsCss}" rel="stylesheet"/>
+        <link href="${fix_styleCss}" rel="stylesheet"/>
+        <link href="${blueCss}" rel="stylesheet"/>
+        <link href="${animateCss}" rel="stylesheet"/>
+        <link href="${styleCss}" rel="stylesheet"/>
+        <link href="${checkboxCss}" rel="stylesheet"/>
+        <link href="${allskinsCss}" rel="stylesheet"/>
+        <link href="${dataTablesCss}" rel="stylesheet"/>
+        <link href="${responsiveCss}" rel="stylesheet"/>
+        <link href="${datePickerCss}" rel="stylesheet"/>
+		
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -53,7 +60,7 @@
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="wrapp1er">
 
   <header class="main-header">
     <!-- Logo -->
@@ -84,13 +91,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="images/avatar5.png" class="user-image" alt="User Image">
+              <img src="images/avatar51.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Darshan Bhogale</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="images/avatar5.png" class="img-circle" alt="User Image">
+                <img src="images/avatar51.png" class="img-circle" alt="User Image">
 
                 <p>
                   Darshan Bhogale - Cashier
@@ -138,8 +145,8 @@
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="margin-left:0px !important;">
+  <!-- Content Wrapp1er. Contains page content -->
+  <div class="content-wrapp1er" style="margin-left:0px !important;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -640,7 +647,7 @@
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- /.content-wrapp1er -->
   <footer class="main-footer text-center" style="margin-left:0px !important">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0
@@ -657,27 +664,35 @@
        immediately after the control sidebar -->
   
 </div>
-<!-- ./wrapper -->
+<!-- ./wrapp1er -->
 
-<!-- ./wrapper -->
+<!-- ./wrapp1er -->
 
  <!-- jQuery 2.2.3 -->
-        <script src="js/lib/jquery-2.2.3.min.js"></script>
-        <!-- Bootstrap 3.3.6 -->
-        <script src="js/lib/bootstrap.min.js"></script>
-        <!-- FastClick -->
-        <script src="js/lib/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="js/lib/app.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="js/lib/demo.js"></script>
-        <script src="js/lib/jquery.dataTables.min.js"></script>
-        <script src="js/lib/dataTables.bootstrap.min.js"></script>
-        <script src="js/lib/dataTables.responsive.min.js"></script>
-        <script src="js/lib/responsive.bootstrap.min.js"></script>
-        <script src="js/lib/jquery.nicescroll.min.js"></script>
-        <script src="js/lib/datepicker.js"></script>
-<!-- page script -->
+        <spring:url value="/resources/core/js/lib/jquery-2.2.3.min.js" var="jqueryJs" />
+ 		<spring:url value="/resources/core/js/lib/bootstrap.min.js" var="bootstrapJs" />
+ 		<spring:url value="/resources/core/js/lib/fastclick.js" var="fastclickJs" />
+ 		<spring:url value="/resources/core/js/lib/app.min.js" var="appMinJs" />
+ 		<spring:url value="/resources/core/js/lib/demo.js" var="demoJs" />
+ 		<spring:url value="/resources/core/js/lib/jquery.dataTables.min.js" var="dataTablesJs" />
+ 		<spring:url value="/resources/core/js/lib/dataTables.bootstrap.min.js" var="dataTablesbootstrapJs" />
+ 		<spring:url value="/resources/core/js/lib/dataTables.responsive.min.js" var="dataTablesResponsiveJs" />
+ 		<spring:url value="/resources/core/js/lib/responsive.bootstrap.min.js" var="responsiveBootstrapJs" />
+ 		<spring:url value="/resources/core/js/lib/jquery.nicescroll.min.js" var="jqueryNicescrollJs" />
+ 		<spring:url value="/resources/core/js/lib/datepicker.js" var="datepickerJs" />
+ 		
+        <script src="${jqueryJs}"></script>
+        <script src="${bootstrapJs}"></script>
+        <script src="${fastclickJs}"></script>
+        <script src="${appMinJs}"></script>
+        <script src="${dataTablesJs}"></script>
+        <script src="${dataTablesbootstrapJs}"></script>
+        <script src="${dataTablesResponsiveJs}"></script>
+        <script src="${responsiveBootstrapJs}"></script>
+        <script src="${jqueryNicescrollJs}"></script>
+        <script src="${datepickerJs}"></script>
+        
+        <!-- page script -->
 <script>
   $(function () {
     $("#example1").DataTable();
