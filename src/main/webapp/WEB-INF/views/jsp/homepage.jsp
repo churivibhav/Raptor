@@ -229,7 +229,7 @@
 							<label>Registration No.</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="password" class="form-control register-no"/>
+							<input type="password" class="form-control register-no" autofocus/>
 						</div>
 					</div>
 					<div class="row" style="margin-bottom:10px;">
@@ -913,7 +913,11 @@
 <script>
 
 	$('.card-recharge').on('click',function(){
-		$('#cardRechargeModal').modal('show');	
+		$('#cardRechargeModal').modal('show');
+		$('.register-no').val('');
+		$('.balance-amount').val('');
+		$('.recharge-amount').val('');
+		$('.total-balance').val('');
 	});
 	
 	
@@ -1553,7 +1557,144 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								fnCalculateTotalPrice("edit");
 							}
 						}*/
-					});
+					});	
+	
+	$(document).ready(function () {
+		
+		var url = window.location.href;
+		
+		if(url.indexOf('#') != -1){
+			var section = url.split('#')[1];
+			
+			if(section != 'bar'){
+				$('[data-show="'+section+'"]').trigger('click');
+			}
+		}
+	}); 
+	
+	$(document).on('change','.waiter-select',function(){
+		var val = $(this).find('option:selected').val();
+		
+		if(val == '-1'){
+			$(this).closest('.modal').find('.other-waiter-text').show();
+		}
+		else
+			$(this).closest('.modal').find('.other-waiter-text').hide();
+	});
+	
+	
+	$(document).on('change','.yoyo-payment-option',function(){
+		var paymentMode = $('.yoyo-payment-option option:selected').val();
+		
+		
+		if(paymentMode == '1'){
+			$(this).closest('.modal').find('.yoyo-money-table').show();
+			var remaining = $('.yoyo-remaining-amount').val();
+			var chillar = remaining % 10;
+			$('.chillarTotal').text(chillar);
+		}
+		else
+			$(this).closest('.modal').find('.yoyo-money-table').hide();
+	});
+	
+	$(document).on('change','.payment-option',function(){
+		var paymentMode = $('.payment-option option:selected').val();
+		var section = $(this).closest('.modal').find('.order-type').text();
+		var tableNo = $(this).closest('.modal').find('.settleBillTableNumber').text();
+		var total_cost = $(this).closest('.modal').find('.bill-total-cost').val();
+		
+		if(paymentMode == '3'){
+			$(this).closest('.modal').find('.money-table').hide();
+			$('#YoyomPaymentModal').find('.order-type').text(section);
+			$('#YoyomPaymentModal').find('.TableNumber').text(tableNo);
+			$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
+			$('#YoyomPaymentModal').find('.yoyo-remaining-amount').val(total_cost);
+			$('#YoyomPaymentModal').find('.yoyo-registration-number').val('');
+			$('#YoyomPaymentModal').modal('show')
+		}
+		else if(paymentMode == '1'){
+			$(this).closest('.modal').find('.money-table').show();
+		}
+		else
+			$(this).closest('.modal').find('.money-table').hide();
+	})
+
+	function editOrdersearch() {
+		var pattern = $('#editsearchTree').val();
+		if(pattern){
+			var options = {
+			};
+			var results = edittree.treeview('search', [ pattern, options ]);
+		}
+		else
+			edittree.treeview('collapseAll', {});
+		
+	}
+	
+	
+	function newOrdersearch() {
+		var pattern = $('#searchTree').val();
+		if(pattern){
+			var options = {
+			};
+			var results = tree.treeview('search', [ pattern, options ]);
+		}
+		else
+			tree.treeview('collapseAll', {});
+		
+	}
+	
+	
+	$( "div" ).data( "tables", 
+			{ 
+				<c:forEach items="${model.allTables}" var="allTables">
+					${allTables.id}: {tableNumber: "${allTables.tableNumber}", type: "${allTables.type}"},
+				</c:forEach>
+			}
+	);
+	
+	var totalPrice = 0;
+	
+	$(document).ready(function () {
+	    $(document).on('click', '.tableSelect', function () {
+	        var tableid = $(this).attr('id');
+	        $.each($( "div" ).data( "tables" ), function(key, item){
+	            if(key == tableid){
+	            	$('.newOrderTableNumber').text(item.tableNumber);
+	            	$('.editOrderTableNumber').text(item.tableNumber);
+	            	$('.settleBillTableNumber').text(item.tableNumber);
+	            }
+	        });
+	        return true;
+	    });
+	}); 
+	
+	$(document).ready(function () {
+		$('.new-order').on('click',function(){
+			//var section = $('.sec-select').val();
+		
+			var section = $('.section-select-conetnt .btn.active').attr('data-show');
+			totalPrice = 0;
+			if($('.'+section).find('.selected').length > 0){
+				if($('.'+section).find('.selected').hasClass('occupied')){
+					alert('Order already placed.Please click on Edit Order');
+					$('.'+section).find('.selected').removeClass('selected');
+					return;
+				}
+				$('#newModal .order-type').html(section.toUpperCase());
+				var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
+				$('#newModal .modal-top-title .order-table').text(table_no);
+				$('#newModal #mainTable tbody').html('');
+				$('#newModal .total-cost').val('0');
+				$('#newModal').modal('show');
+			}
+			else{
+				alert('Please select the table');
+				$('.'+section).find('.selected').removeClass('selected');
+			}
+
+		});
+	});
 	
 	$(document).ready(function () {
 	    $(document).on('click', '.give-order', function () {
@@ -1643,242 +1784,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
 	            },
-	            //error:function(data){
-	            	//alert("Server Failure");
-	            	//console.log(data);
-	           // }
-	        });
-	        return true;
-	    });
-	}); 
-	
-	$(document).ready(function () {
-		
-		var url = window.location.href;
-		
-		if(url.indexOf('#') != -1){
-			var section = url.split('#')[1];
-			
-			if(section != 'bar'){
-				$('[data-show="'+section+'"]').trigger('click');
-			}
-		}
-		
-		$(document).on('change','.waiter-select',function(){
-			var val = $(this).find('option:selected').val();
-			
-			if(val == '-1'){
-				$(this).closest('.modal').find('.other-waiter-text').show();
-			}
-			else
-				$(this).closest('.modal').find('.other-waiter-text').hide();
-		});
-		
-		
-		$(document).on('change','.yoyo-payment-option',function(){
-			var paymentMode = $('.yoyo-payment-option option:selected').val();
-			
-			
-			if(paymentMode == '1'){
-				$(this).closest('.modal').find('.yoyo-money-table').show();
-				var remaining = $('.yoyo-remaining-amount').val();
-				var chillar = remaining % 10;
-				$('.chillarTotal').text(chillar);
-			}
-			else
-				$(this).closest('.modal').find('.yoyo-money-table').hide();
-		});
-		
-		$(document).on('change','.payment-option',function(){
-			var paymentMode = $('.payment-option option:selected').val();
-			var section = $(this).closest('.modal').find('.order-type').text();
-			var tableNo = $(this).closest('.modal').find('.settleBillTableNumber').text();
-			var total_cost = $(this).closest('.modal').find('.bill-total-cost').val();
-			
-			if(paymentMode == '3'){
-				$(this).closest('.modal').find('.money-table').hide();
-				$('#YoyomPaymentModal').find('.order-type').text(section);
-				$('#YoyomPaymentModal').find('.TableNumber').text(tableNo);
-				$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
-				$('#YoyomPaymentModal').find('.yoyo-remaining-amount').val(total_cost);
-				$('#YoyomPaymentModal').find('.yoyo-registration-number').val('');
-				$('#YoyomPaymentModal').modal('show')
-			}
-			else if(paymentMode == '1'){
-				$(this).closest('.modal').find('.money-table').show();
-			}
-			else
-				$(this).closest('.modal').find('.money-table').hide();
-		})
-		
-	    $(document).on('click', '.save-settle-bill', function () {
-	    	var billID = $('#settleBillID').val();
-	    	var tableNumber = $('.settleBillTableNumber').text();
-	    	var totalAmount = $('.settleBilltotal').find('input').val();
-	    	var paymentMode = $('.payment-option option:selected').text();
-	    	var waiterID = $('#billModal .waiter-select :selected').val();	  
-	    	
-	    	var data = {
-	    			"id":billID,
-		    		"tableNumber":tableNumber,
-		    	 	"amount":totalAmount,
-		    	    "totalAmount":totalAmount,
-		    	    "paymentMode":paymentMode,
-		    	    "isActive":"false",
-		    	    "waiterID":waiterID
-		    	};
-	    	data.orders = [];
-	    	$('#billMainTable tbody tr').each(function() {
-	    		  $this = $(this);
-	    		  var orderID = $this.attr('id');
-	    		  var orderItem = $this.find("td.orderItem").html();
-	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  var cost = $this.find("td.total-row-price").html();
-	    		  data.orders.push({
-	    			  	"id":orderID,
-	    			  	"orderItem":orderItem,
-	    			 	"cost":cost,
-	        			"quantity":quantity,
-	        			"type":"Food",
-	        			"kot":"false",
-	        			"waiterID":waiterID
-	    			  }	);
-	    	});
-	    	
-	    	data.payments = [];
-	    	var cardBalance = $('.yoyo-balance-amount').val();
-	    	var cardNumber = $('.yoyo-registration-number').val();
-	    	if(cardBalance != 0){
-	    		data.payments.push({
-	    			"paymentMode":paymentMode,	
-	    			"cost":cardBalance,
-	    			"cardNumber":cardNumber
-	    		});
-	    	}
-	    	var secondPayment = $('.yoyo-payment-option option:selected').text();
-	    	var remainingAmount = $('.yoyo-remaining-amount').val();
-	    	var denomination = '';
-	    	var totalCash = 0;
-	    	$('#yoyoDenominationTable tbody tr').each(function() {
-	    		  $this = $(this);
-	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  if(typeof qauntity === "undefined"){
-	    			  quantity = 0;
-	    		  }
-	    		  var cost = $this.find("td.total-row-price").text();
-	    		  totalCash = totalCash + parseInt(cost);
-	    		  denomination = denomination + quantity +',' + cost + ';';
-	    	});
-	    	if(secondPayment != 'none'){
-	    		if(remainingAmount!= totalCash){
-	    			alert("Cash is not matching");
-	    			return false;
-	    		}
-	    		data.payments.push({
-	    			"paymentMode":secondPayment,	
-	    			"cost":remainingAmount,
-	    			"denomination":denomination
-	    		});
-	    	}
-	    	
-	    	alert(JSON.stringify(data));
-	    	$.ajax({
-	            url: 'editOrder',
-	            data: JSON.stringify(data),
-	            type: "POST",           
-	            beforeSend: function(xhr) {
-	                xhr.setRequestHeader("Accept", "application/json");
-	                xhr.setRequestHeader("Content-Type", "application/json");
-	            },
-	            success: function(data){ 
-	                alert(JSON.stringify(data));
-	                $('#billModal').modal('hide');
-	            },
-	            error: function(xhr, textStatus, errorThrown){
-	                alert('request failed');
-	                return false;
+	            error:function(data){
+	            	alert("Server Failure");
+	            	console.log(data);
 	            }
 	        });
 	        return true;
 	    });
 	}); 
-
-	function editOrdersearch() {
-		var pattern = $('#editsearchTree').val();
-		if(pattern){
-			var options = {
-			};
-			var results = edittree.treeview('search', [ pattern, options ]);
-		}
-		else
-			edittree.treeview('collapseAll', {});
-		
-	}
-	
-	
-	function newOrdersearch() {
-		var pattern = $('#searchTree').val();
-		if(pattern){
-			var options = {
-			};
-			var results = tree.treeview('search', [ pattern, options ]);
-		}
-		else
-			tree.treeview('collapseAll', {});
-		
-	}
-	
-	
-	$( "div" ).data( "tables", 
-			{ 
-				<c:forEach items="${model.allTables}" var="allTables">
-					${allTables.id}: {tableNumber: "${allTables.tableNumber}", type: "${allTables.type}"},
-				</c:forEach>
-			}
-	);
-	
-	var totalPrice = 0;
-	
-	$(document).ready(function () {
-	    $(document).on('click', '.tableSelect', function () {
-	        var tableid = $(this).attr('id');
-	        $.each($( "div" ).data( "tables" ), function(key, item){
-	            if(key == tableid){
-	            	$('.newOrderTableNumber').text(item.tableNumber);
-	            	$('.editOrderTableNumber').text(item.tableNumber);
-	            	$('.settleBillTableNumber').text(item.tableNumber);
-	            }
-	        });
-	        return true;
-	    });
-	}); 
-	
-	$(document).ready(function () {
-		$('.new-order').on('click',function(){
-			//var section = $('.sec-select').val();
-		
-			var section = $('.section-select-conetnt .btn.active').attr('data-show');
-			totalPrice = 0;
-			if($('.'+section).find('.selected').length > 0){
-				if($('.'+section).find('.selected').hasClass('occupied')){
-					alert('Order already placed.Please click on Edit Order');
-					$('.'+section).find('.selected').removeClass('selected');
-					return;
-				}
-				$('#newModal .order-type').html(section.toUpperCase());
-				var table_no = $('.'+section).find('.occupied.selected').attr('data-table-no');
-				$('#newModal .modal-top-title .order-table').text(table_no);
-				$('#newModal #mainTable tbody').html('');
-				$('#newModal .total-cost').val('0');
-				$('#newModal').modal('show');
-			}
-			else{
-				alert('Please select the table');
-				$('.'+section).find('.selected').removeClass('selected');
-			}
-
-		});
-	});
 	
 	$(document).on('click', '.edit-order', function () {
 		$('#editMainTable tbody').html('');
@@ -1941,14 +1854,133 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         });
     });
     
+	$(document).on('click', '.save-settle-bill', function () {
+    	var billID = $('#settleBillID').val();
+    	var tableNumber = $('.settleBillTableNumber').text();
+    	var totalAmount = $('.settleBilltotal').find('input').val();
+    	var paymentMode = $('.payment-option option:selected').text();
+    	var waiterID = $('#billModal .waiter-select :selected').val();	  
+    	
+    	var data = {
+    			"id":billID,
+	    		"tableNumber":tableNumber,
+	    	 	"amount":totalAmount,
+	    	    "totalAmount":totalAmount,
+	    	    "paymentMode":paymentMode,
+	    	    "isActive":"false",
+	    	    "waiterID":waiterID
+	    	};
+    	data.orders = [];
+    	$('#billMainTable tbody tr').each(function() {
+    		  $this = $(this);
+    		  var orderID = $this.attr('id');
+    		  var orderItem = $this.find("td.orderItem").html();
+    		  var quantity = $this.find('.spinner').find('input').val();
+    		  var cost = $this.find("td.total-row-price").html();
+    		  data.orders.push({
+    			  	"id":orderID,
+    			  	"orderItem":orderItem,
+    			 	"cost":cost,
+        			"quantity":quantity,
+        			"type":"Food",
+        			"kot":"false",
+        			"waiterID":waiterID
+    			  }	);
+    	});
+    	
+    	data.payments = [];
+    	var cardBalance = $('.yoyo-balance-amount').val();
+    	var cardNumber = $('.yoyo-registration-number').val();
+    	if(cardBalance != 0){
+    		data.payments.push({
+    			"paymentMode":paymentMode,	
+    			"cost":cardBalance,
+    			"cardNumber":cardNumber
+    		});
+    	}
+    	var secondPayment = $('.yoyo-payment-option option:selected').text();
+    	var remainingAmount = $('.yoyo-remaining-amount').val();
+    	var denomination = '';
+    	var totalCash = 0;
+    	$('#yoyoDenominationTable tbody tr').each(function() {
+    		  $this = $(this);
+    		  var quantity = $this.find('.spinner').find('input').val();
+    		  if(typeof qauntity === "undefined"){
+    			  quantity = 0;
+    		  }
+    		  var cost = $this.find("td.total-row-price").text();
+    		  totalCash = totalCash + parseInt(cost);
+    		  denomination = denomination + quantity +',' + cost + ';';
+    	});
+    	if(secondPayment != 'none'){
+    		if(remainingAmount!= totalCash){
+    			alert("Cash is not matching");
+    			return false;
+    		}
+    		data.payments.push({
+    			"paymentMode":secondPayment,	
+    			"cost":remainingAmount,
+    			"denomination":denomination
+    		});
+    	}
+    	
+    	alert(JSON.stringify(data));
+    	$.ajax({
+            url: 'editOrder',
+            data: JSON.stringify(data),
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                alert(JSON.stringify(data));
+                $('#billModal').modal('hide');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+        return true;
+    });
+	
+	$(document).on('click', '.save-card-recharge', function () {
+		var cardNumber = $('.register-no').val();
+		var balance = $('.total-balance').val();
+		
+    	var data = {
+	    		"cardNumber":cardNumber,
+	    	 	"balance":balance
+	    	};
+    	
+    	alert(JSON.stringify(data));
+    	$.ajax({
+            url: 'updateBalance',
+            data: JSON.stringify(data),
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                alert(JSON.stringify(data));
+                $('#cardRechargeModal').modal('hide');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+        return true;
+    });
+	
     $('.yoyo-registration-number').keypress(function(e) {
 		var key = e.which;
-		if (key == 13) // the enter key code
+		if (key == 13)
 		{
-			//alert($('.card').val());
 			var cardNumber = $('.yoyo-registration-number').val();
 			var totalCost = $('.yoyo-total-cost').val();
-			alert(cardNumber);
 	    	$.ajax({
 	            url: 'getBalance',
 	            data: cardNumber,
@@ -1958,7 +1990,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                xhr.setRequestHeader("Content-Type", "application/json");
 	            },
 	            success: function(data){
-	            	alert(data.balance);
 	            	$('.yoyo-balance-amount').val(data.balance);
 	            	$('.yoyo-remaining-amount').val(totalCost-data.balance);
 	            },
@@ -1970,6 +2001,68 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			
 			return false;
 		}
+	});
+	
+	$('.register-no').keypress(function(e) {
+		var key = e.which;
+		if (key == 13)
+		{
+			var cardNumber = $('.register-no').val();
+	    	$.ajax({
+	            url: 'getBalance',
+	            data: cardNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	$('.balance-amount').val(data.balance);
+	            	$('.total-balance').val(data.balance);
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+			
+			return false;
+		}
+	});
+	
+	$('.recharge-amount').keypress(function(e) {
+		var cardBalance = parseInt($('.balance-amount').val());
+		var cardRecharge = parseInt($('.recharge-amount').val());
+		if(isNaN(cardRecharge)){
+			cardRecharge = 0;
+		}
+		cardRecharge = cardRecharge * 10 + parseInt(e.key);
+		$('.total-balance').val(cardBalance + cardRecharge);
+		return true;
+		/*var key = e.which;
+		if (key == 13)
+		{
+			var cardNumber = $('.total-balance').val();
+	    	$.ajax({
+	            url: 'getBalance',
+	            data: cardNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	$('.balance-amount').val(data.balance);
+	            	$('.recharge-amount').val(data.balance);
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+			
+			return false;
+		}*/
 	});
 
 </script>
