@@ -2039,30 +2039,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		cardRecharge = cardRecharge * 10 + parseInt(e.key);
 		$('.total-balance').val(cardBalance + cardRecharge);
 		return true;
-		/*var key = e.which;
-		if (key == 13)
-		{
-			var cardNumber = $('.total-balance').val();
-	    	$.ajax({
-	            url: 'getBalance',
-	            data: cardNumber,
-	            type: "POST",           
-	            beforeSend: function(xhr) {
-	                xhr.setRequestHeader("Accept", "application/json");
-	                xhr.setRequestHeader("Content-Type", "application/json");
-	            },
-	            success: function(data){
-	            	$('.balance-amount').val(data.balance);
-	            	$('.recharge-amount').val(data.balance);
-	            },
-	            error: function(xhr, textStatus, errorThrown){
-	                alert('request failed');
-	                return false;
-	            }
-	        });
-			
-			return false;
-		}*/
 	});
 
 </script>
