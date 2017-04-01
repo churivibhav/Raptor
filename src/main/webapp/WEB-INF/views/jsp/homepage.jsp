@@ -312,20 +312,20 @@
 						 <optgroup label="Veg" class="group-1">
 							<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 								<c:if test="${allFoodMenu.veg == 'true'}">
-									<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
 								</c:if>
 							</c:forEach>
 						</optgroup>
 						<optgroup label="Non Veg" class="group-2">
 						  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 							<c:if test="${allFoodMenu.veg == 'false'}">
-									<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
 							</c:if>
 						  </c:forEach>
 						</optgroup>
 						<optgroup label="Bar" class="group-3">
 						  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-							<option value="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}">${allBarMenu.itemName}</option>
 						  </c:forEach>
 						</optgroup>
 						</select>
@@ -426,20 +426,20 @@
 								 <optgroup label="Veg" class="group-1">
 									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 										<c:if test="${allFoodMenu.veg == 'true'}">
-											<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
 										</c:if>
 									</c:forEach>
 								</optgroup>
 								<optgroup label="Non Veg" class="group-2">
 								  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 									<c:if test="${allFoodMenu.veg == 'false'}">
-											<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
 									</c:if>
 								  </c:forEach>
 								</optgroup>
 								<optgroup label="Bar" class="group-3">
 								  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-									<option value="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+									<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}">${allBarMenu.itemName}</option>
 								  </c:forEach>
 								</optgroup>
 							</select>
@@ -2132,29 +2132,31 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
 			//alert(option[0].text+' '+option[0].value);
 			
-			var price = option[0].value;
-			var item = option[0].text;
-			
-			console.log($(option));
-						
-			var className = (item).replace(/ /g, '-');
-				
-			var tr = "";
-			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
-				 '<td>'+
-					'<div class="input-group spinner">'+
-						'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
-						'<div class="input-group-btn-vertical">'+
-							'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
-							'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+			if(checked){
+				var price = $(option).attr('data-cost');
+				var item = option[0].text;
+							
+				var className = (item).replace(/ /g, '-');
+					
+				var tr = "";
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
+					 '<td>'+
+						'<div class="input-group spinner">'+
+							'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
+							'<div class="input-group-btn-vertical">'+
+								'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
+								'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+							'</div>'+
 						'</div>'+
-					'</div>'+
-				  '</td>'+
-				  '<td class="total-row-price">'+price+'</td>'+
-				  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
-				  
-			$('#mainTable tbody').append(tr);
-			fnCalculateTotalPrice();	
+					  '</td>'+
+					  '<td class="total-row-price">'+price+'</td>'+
+					  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+					  
+				$('#mainTable tbody').append(tr);
+				fnCalculateTotalPrice();
+			}
+			
+				
 		}
 	});
 
@@ -2170,29 +2172,31 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
 			//alert(option[0].text+' '+option[0].value);
 			
-			var price = option[0].value;
-			var item = option[0].text;
+			if(checked){
+				var price = $(option).attr('data-cost');
+				var item = option[0].text;
 			
-			console.log($(option));	
-		
-			var className = (item).replace(/ /g, '-');
-				
-			var tr = "";
-			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
-				 '<td>'+
-					'<div class="input-group spinner">'+
-						'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
-						'<div class="input-group-btn-vertical">'+
-							'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
-							'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+				var className = (item).replace(/ /g, '-');
+					
+				var tr = "";
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
+					 '<td>'+
+						'<div class="input-group spinner">'+
+							'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
+							'<div class="input-group-btn-vertical">'+
+								'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
+								'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+							'</div>'+
 						'</div>'+
-					'</div>'+
-				  '</td>'+
-				  '<td class="total-row-price">'+price+'</td>'+
-				  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
-				  
-			$('#editMainTable tbody').append(tr);
-			fnCalculateTotalPrice();	
+					  '</td>'+
+					  '<td class="total-row-price">'+price+'</td>'+
+					  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+					  
+				$('#editMainTable tbody').append(tr);
+				fnCalculateTotalPrice();
+			}
+			
+				
 		}
 	});
 </script>
