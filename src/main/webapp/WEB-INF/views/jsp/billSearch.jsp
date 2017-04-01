@@ -196,12 +196,6 @@
 					<select class="form-control waiter-select">
 						<option value="0">Rahul</option>
 						<option value="1">Alex</option>
-						<option value="2">Darshan</option>
-						<option value="3">Swapnil</option>
-						<option value="4">Ajit</option>
-						<option value="5">Jayesh</option>
-						<option value="6">Padekar</option>
-						<option value="7">Nikhil</option>
 					</select>	
 				  </div>
 				  <div class="form-group col-sm-2">

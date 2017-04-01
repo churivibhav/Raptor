@@ -8,38 +8,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YOYO</title>
 
-<spring:url value="/resources/core/css/lib/font-awesome.min.css"
-	var="fontCss" />
-<spring:url value="/resources/core/css/lib/bootstrap.min.css"
-	var="bootstrapCss" />
+<spring:url value="/resources/core/css/lib/font-awesome.min.css" var="fontCss" />
+<spring:url value="/resources/core/css/lib/bootstrap.min.css" var="bootstrapCss" />
 <spring:url value="/resources/core/css/menu.css" var="menuCss" />
 <spring:url value="/resources/core/css/style.css" var="styleCss" />
-<spring:url value="/resources/core/css/lib/checkbox.css"
-	var="checkboxCss" />
-<spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css"
-	var="dataTablesCss" />
-<spring:url value="/resources/core/css/lib/bootstrap-treeview.css"
-	var="treeViewCss" />
-<spring:url value="/resources/core/css/lib/bootstrap-spinner.css"
-	var="spinnerCss" />
-<spring:url value="/resources/core/js/lib/jquery-1.9.1.min.js"
-	var="jqueryJs" />
-<spring:url value="/resources/core/js/lib/bootstrap.min.js"
-	var="bootstrapJs" />
+<!--<spring:url value="/resources/core/css/lib/checkbox.css" var="checkboxCss" />-->
+<spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css" var="dataTablesCss" />
+<spring:url value="/resources/core/css/lib/bootstrap-treeview.css" var="treeViewCss" />
+<spring:url value="/resources/core/css/lib/bootstrap-spinner.css" var="spinnerCss" />
+<spring:url value="/resources/core/js/lib/jquery-1.9.1.min.js" var="jqueryJs" />
+<spring:url value="/resources/core/js/lib/bootstrap.min.js" var="bootstrapJs" />
+<spring:url value="/resources/core/js/lib/bootstrap-multiselect.js" var="multiselectJs" />
 
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${fontCss}" />
-
 <link rel="stylesheet" href="${menuCss}" />
 <link rel="stylesheet" href="${styleCss}" />
 <link rel="stylesheet" href="${checkboxCss}" />
-
 <link rel="stylesheet" href="${dataTablesCss}" />
 <link rel="stylesheet" href="${treeViewCss}" />
 <link rel="stylesheet" href="${spinnerCss}" />
 
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
+<script src="${multiselectJs}"></script>
 
 </head>
 
@@ -165,17 +157,14 @@
 							</div>
 
 
-
 							<div class="col-sm-4">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
 											<div class="box-header">Order Management</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button new-order">New
-													Order</button>
-												<button class="btn btn-lg login-button edit-order">Edit
-													Order</button>
+												<button class="btn btn-lg login-button new-order">New Order</button>
+												<button class="btn btn-lg login-button edit-order">Edit Order</button>
 											</div>
 										</div>
 									</div>
@@ -183,13 +172,9 @@
 										<div class="bill-management box">
 											<div class="box-header">Bill Management</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button generate-bill">Print
-													Bill</button>
-												<button class="btn btn-lg login-button settle-bill">Settle
-													Bill</button>
-
-												<button class="btn btn-lg login-button active-bills">Active
-													Bills</button>
+												<button class="btn btn-lg login-button generate-bill">Print Bill</button>
+												<button class="btn btn-lg login-button settle-bill">Settle Bill</button>
+												<button class="btn btn-lg login-button active-bills">Active Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
 												<a href="billSearch" class="btn btn-lg login-button search-bill">Search Bill</a>
 											</div>
@@ -321,7 +306,26 @@
 								<input type="text" class="form-control" id="searchTree"
 									placeholder="Search..." />
 							</div>
-							<div id="tree"></div>
+						
+						<select id="menu_select" multiple="multiple">
+						 <optgroup label="Veg" class="group-1">
+							<option value="100">Veg Kolhapuri</option>
+							<option value="200">Paneer Tikka</option>
+							<option value="300">Paneer Masala</option>
+						</optgroup>
+						<optgroup label="Non Veg" class="group-2">
+							<option value="400">Chicken Tandoori</option>
+							<option value="500">Chicken Tikka Masala</option>
+							<option value="600">Chicken Tikka</option>
+						</optgroup>
+						<optgroup label="Bar" class="group-3">
+							<option value="700">BP</option>
+							<option value="800">JD</option>
+							<option value="900">KF</option>
+						</optgroup>
+						</select>
+							
+						<div id="tree"></div>
 						</div>
 						<div class="col-sm-6 order-table">
 							<div class="table-responsive">
@@ -2082,5 +2086,43 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$('.total-balance').val(cardBalance + cardRecharge);
 		return true;
 	});
+
+	
+	/*search*/
+	$('#menu_select').multiselect({
+		enableFiltering: true,
+		enableCaseInsensitiveFiltering:true,
+	    //filterBehavior: 'value',
+		onChange: function(option, checked) {
+			//console.log(option);
+			//console.log(checked);
+			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
+			//alert(option[0].text+' '+option[0].value);
+			
+			var price = option[0].value;
+			var item = option[0].text;
+			
+			var className = (item).replace(/ /g, '-');
+				
+			var tr = "";
+			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td>'+item+'</td>'+
+				 '<td>'+
+					'<div class="input-group spinner">'+
+						'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
+						'<div class="input-group-btn-vertical">'+
+							'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
+							'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+						'</div>'+
+					'</div>'+
+				  '</td>'+
+				  '<td class="total-row-price">'+price+'</td>'+
+				  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+				  
+			$('#mainTable tbody').append(tr);
+			
+			fnCalculateTotalPrice();	
+		}
+	});
+
 
 </script>

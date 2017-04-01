@@ -1053,3 +1053,16 @@ label{
 body{
 	padding-right:0px !important;
 }
+
+.btn-group{
+	width:100%;
+	margin-bottom:10px;
+}
+
+#menu_select{
+	margin-bottom:10px;
+}
+
+.multiselect.dropdown-toggle{
+	width:100%;
+}

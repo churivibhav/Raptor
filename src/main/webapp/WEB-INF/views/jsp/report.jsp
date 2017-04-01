@@ -20,15 +20,12 @@
         <spring:url value="/resources/core/css/lib/_all-skins.min.css" var="allskinsCss" />
         <spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css" var="dataTablesCss" />
         <spring:url value="/resources/core/css/lib/responsive.bootstrap.min.css" var="responsiveCss" />
+        <spring:url value="/resources/core/css/lib/datepicker.css" var="datePickerCss" />
         
         <link href="${bootstrapCss}" rel="stylesheet"/>
-        <!-- Font Awesome -->
         <link href="${fontawesomeCss}" rel="stylesheet"/>
-        <!-- Ionicons -->
         <link href="${custmiconsCss}" rel="stylesheet"/>
-        <!-- Theme style -->
         <link href="${fix_styleCss}" rel="stylesheet"/>
-        <!-- iCheck -->
         <link href="${blueCss}" rel="stylesheet"/>
         <link href="${animateCss}" rel="stylesheet"/>
         <link href="${styleCss}" rel="stylesheet"/>
@@ -36,6 +33,7 @@
         <link href="${allskinsCss}" rel="stylesheet"/>
         <link href="${dataTablesCss}" rel="stylesheet"/>
         <link href="${responsiveCss}" rel="stylesheet"/>
+        <link href="${datePickerCss}" rel="stylesheet"/>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -160,6 +158,12 @@
         <li class="active">General</li>
       </ol>-->
 	  
+	  <div class="form-group col-sm-2">
+		<input type="text" class="form-control" name="startDate" placeholder = "From Date" id="startDate">
+	  </div>
+	  <div class="form-group col-sm-2">
+		<input type="text" class="form-control" name="toDate" placeholder = "To Date" id="toDate">
+	  </div>
 	  <div class="table-respnsive">
 		<table  class="table nowrap table-striped table-bordered hover table-condensed " id="installTable"  cellspacing="0">
 			<thead>
@@ -225,20 +229,27 @@
  		<spring:url value="/resources/core/js/lib/dataTables.responsive.min.js" var="dataTablesResponsiveJs" />
  		<spring:url value="/resources/core/js/lib/responsive.bootstrap.min.js" var="responsiveBootstrapJs" />
  		<spring:url value="/resources/core/js/lib/jquery.nicescroll.min.js" var="jqueryNicescrollJs" />
+ 		<spring:url value="/resources/core/js/lib/datepicker.js" var="datepickerJs" />
  		
         <script src="${jqueryJs}"></script>
-        <!-- Bootstrap 3.3.6 -->
         <script src="${bootstrapJs}"></script>
-        <!-- FastClick -->
         <script src="${fastclickJs}"></script>
-        <!-- AdminLTE App -->
         <script src="${appMinJs}"></script>
-        <!-- AdminLTE for demo purposes -->
         <script src="${dataTablesJs}"></script>
         <script src="${dataTablesbootstrapJs}"></script>
         <script src="${dataTablesResponsiveJs}"></script>
         <script src="${responsiveBootstrapJs}"></script>
         <script src="${jqueryNicescrollJs}"></script>
         <script src="${demoJs}"></script>
+        <script src="${datepickerJs}"></script>
+        
+<script>
+  $(function () {
+	$('#startDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
+	$('#toDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
+  });
+</script>
+        
+        
 </body>
 </html>
