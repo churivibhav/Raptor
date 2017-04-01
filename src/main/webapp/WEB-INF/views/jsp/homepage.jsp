@@ -18,16 +18,18 @@
 <spring:url value="/resources/core/css/lib/bootstrap-spinner.css" var="spinnerCss" />
 <spring:url value="/resources/core/js/lib/jquery-1.9.1.min.js" var="jqueryJs" />
 <spring:url value="/resources/core/js/lib/bootstrap.min.js" var="bootstrapJs" />
+<spring:url value="/resources/core/css/lib/bootstrap-multiselect.css" var="multiselectCss" />
 <spring:url value="/resources/core/js/lib/bootstrap-multiselect.js" var="multiselectJs" />
 
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${fontCss}" />
 <link rel="stylesheet" href="${menuCss}" />
 <link rel="stylesheet" href="${styleCss}" />
-<link rel="stylesheet" href="${checkboxCss}" />
+<!-- <link rel="stylesheet" href="${checkboxCss}" /> -->
 <link rel="stylesheet" href="${dataTablesCss}" />
 <link rel="stylesheet" href="${treeViewCss}" />
 <link rel="stylesheet" href="${spinnerCss}" />
+<link rel="stylesheet" href="${multiselectCss}" />
 
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
@@ -302,26 +304,29 @@
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-6 tree-view">
-							<div class="search-tree">
-								<input type="text" class="form-control" id="searchTree"
-									placeholder="Search..." />
-							</div>
+							<!--<div class="search-tree">
+								<input type="text" class="form-control" id="searchTree" placeholder="Search..." />
+							</div>-->
 						
 						<select id="menu_select" multiple="multiple">
 						 <optgroup label="Veg" class="group-1">
-							<option value="100">Veg Kolhapuri</option>
-							<option value="200">Paneer Tikka</option>
-							<option value="300">Paneer Masala</option>
+							<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+								<c:if test="${allFoodMenu.veg == 'true'}">
+									<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+								</c:if>
+							</c:forEach>
 						</optgroup>
 						<optgroup label="Non Veg" class="group-2">
-							<option value="400">Chicken Tandoori</option>
-							<option value="500">Chicken Tikka Masala</option>
-							<option value="600">Chicken Tikka</option>
+						  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+							<c:if test="${allFoodMenu.veg == 'false'}">
+									<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+							</c:if>
+						  </c:forEach>
 						</optgroup>
 						<optgroup label="Bar" class="group-3">
-							<option value="700">BP</option>
-							<option value="800">JD</option>
-							<option value="900">KF</option>
+						  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
+							<option value="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+						  </c:forEach>
 						</optgroup>
 						</select>
 							
@@ -411,10 +416,34 @@
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-6 tree-view">
-							<div class="search-tree">
+							
+							<!-- <div class="search-tree">
 								<input type="text" class="form-control" id="editsearchTree"
 									placeholder="Search..." />
-							</div>
+							</div> -->
+							
+							<select id="menu_select_edit" multiple="multiple">
+								 <optgroup label="Veg" class="group-1">
+									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+										<c:if test="${allFoodMenu.veg == 'true'}">
+											<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+										</c:if>
+									</c:forEach>
+								</optgroup>
+								<optgroup label="Non Veg" class="group-2">
+								  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+									<c:if test="${allFoodMenu.veg == 'false'}">
+											<option value="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+									</c:if>
+								  </c:forEach>
+								</optgroup>
+								<optgroup label="Bar" class="group-3">
+								  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
+									<option value="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+								  </c:forEach>
+								</optgroup>
+							</select>
+							
 							<div id="editTree"></div>
 						</div>
 						<div class="col-sm-6 order-table">
@@ -733,7 +762,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success clean-yoyo-cards">Clean</button>
+					<button type="button" class="btn btn-success clean-yoyo-cards">Clean All</button>
 		  		</div>
 			</div>
 
@@ -1732,6 +1761,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				$('#newModal .modal-top-title .order-table').text(table_no);
 				$('#newModal #mainTable tbody').html('');
 				$('#newModal .total-cost').val('0');
+				$('#menu_select').multiselect('deselectAll', false);
+	            $('#main_select').multiselect('updateButtonText');
 				$('#newModal').modal('show');
 			}
 			else{
@@ -1889,6 +1920,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					$('#editMainTable tbody').append(tr);
 				}
                 $('#editBillID').val(data.id);
+                $('#menu_select_edit').multiselect('deselectAll', false);
+	            $('#menu_select_edit').multiselect('updateButtonText');
 				$('#editModal').modal('show');
 				totalPrice = data.amount;
                 $('.editOrdertotal').find('input').val(data.amount);
@@ -2102,10 +2135,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			var price = option[0].value;
 			var item = option[0].text;
 			
+			console.log($(option));
+						
 			var className = (item).replace(/ /g, '-');
 				
 			var tr = "";
-			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td>'+item+'</td>'+
+			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
 				 '<td>'+
 					'<div class="input-group spinner">'+
 						'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
@@ -2119,10 +2154,45 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 				  
 			$('#mainTable tbody').append(tr);
-			
 			fnCalculateTotalPrice();	
 		}
 	});
 
 
+	/*search*/
+	$('#menu_select_edit').multiselect({
+		enableFiltering: true,
+		enableCaseInsensitiveFiltering:true,
+	    //filterBehavior: 'value',
+		onChange: function(option, checked) {
+			//console.log(option);
+			//console.log(checked);
+			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
+			//alert(option[0].text+' '+option[0].value);
+			
+			var price = option[0].value;
+			var item = option[0].text;
+			
+			console.log($(option));	
+		
+			var className = (item).replace(/ /g, '-');
+				
+			var tr = "";
+			tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
+				 '<td>'+
+					'<div class="input-group spinner">'+
+						'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
+						'<div class="input-group-btn-vertical">'+
+							'<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>'+
+							'<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>'+
+						'</div>'+
+					'</div>'+
+				  '</td>'+
+				  '<td class="total-row-price">'+price+'</td>'+
+				  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
+				  
+			$('#editMainTable tbody').append(tr);
+			fnCalculateTotalPrice();	
+		}
+	});
 </script>

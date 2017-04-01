@@ -677,7 +677,7 @@ th::after{
 	background-color:#f8f8f8;
 }
 
-.checkbox{
+.login-form .checkbox{
 	padding-left:0px !important;
 }
 
@@ -1065,4 +1065,13 @@ body{
 
 .multiselect.dropdown-toggle{
 	width:100%;
+}
+
+.multiselect-container.dropdown-menu{
+	max-height:250px;
+	overflow-y:auto;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+	background-color:lightgrey !important;
 }
