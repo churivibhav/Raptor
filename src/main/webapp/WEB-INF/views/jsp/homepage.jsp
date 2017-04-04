@@ -76,16 +76,17 @@
 								</div>
 							</div>
 						</div>-->
-						<div class="box-content section-select-conetnt">
-							<a href="#bar" class="btn btn-lg login-button active"
-								data-show="bar">Bar</a> <a href="#lounge"
-								class="btn btn-lg login-button" data-show="lounge">Lounge</a> <a
-								href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
-						</div>
+						
 
 
 						<div class="row">
 							<div class="col-sm-8">
+								<div class="box-content section-select-conetnt">
+									<a href="#bar" class="btn btn-lg login-button active"
+										data-show="bar">Bar</a> <a href="#lounge"
+										class="btn btn-lg login-button" data-show="lounge">Lounge</a> <a
+										href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
+								</div>
 								<div class="table-layout-section">
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
@@ -159,7 +160,7 @@
 							</div>
 
 
-							<div class="col-sm-4">
+							<div class="col-sm-4" style="margin-top:10px;">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
@@ -182,15 +183,27 @@
 											</div>
 										</div>
 									</div>
+									
 									<div class="col-sm-12 padding-left-0">
 										<div class="bill-management box">
 											<div class="box-header">YOYO Card</div>
 											<div class="box-content">
 												<button class="btn btn-lg login-button card-recharge">Card Recharge</button>
-												<button class="btn btn-lg login-button card-clean">Clean Cards</button>
+												<button class="btn btn-lg login-button card-clean">Refund</button>
 											</div>
 										</div>
 									</div>
+									
+									<div class="col-sm-12 padding-left-0">
+										<div class="bod-eod box">
+											<div class="box-header">Daily(BOD/EOD)</div>
+											<div class="box-content">
+												<button class="btn btn-lg login-button satrt-day">Start Day</button>
+												<button class="btn btn-lg login-button end-day">End Day</button>
+											</div>
+										</div>
+									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -738,32 +751,43 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Clean Cards</h4>
+					<h4 class="modal-title">Refund</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">
-								<table id="cleancardsYoyo"
-									class="table table-striped table-bordered hover"
-									cellspacing="0" width="100%">
+								<table id="cleancardsYoyo" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Card No</th>
 											<th>Balance</th>
+											<th>Refund Amount</th>
 											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
+										<tr>
+											<td>12345</td>
+											<td>500</td>
+											<td><input type="text" class="form-control refund-amount" /></td>
+											<td><button class="btn btn-primary refund-bill">Refund</button></td>
+										</tr>
+										<tr>
+											<td>12345</td>
+											<td>500</td>
+											<td><input type="text" class="form-control refund-amount" /></td>
+											<td><button class="btn btn-primary refund-bill">Refund</button></td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<!-- <div class="modal-footer">
 					<button type="button" class="btn btn-success clean-yoyo-cards">Clean All</button>
-		  		</div>
+		  		</div> -->
 			</div>
 
 		</div>
@@ -1775,6 +1799,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	
 	$(document).ready(function () {
 	    $(document).on('click', '.give-order', function () {
+	    	var btn = $(this);
 	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
 	    	var waiterID = $('#newModal .waiter-select :selected').val();
@@ -1811,6 +1836,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
+	                $(btn).attr('disabled','true');
 	            }
 	        });
 	        return true;
@@ -1819,6 +1845,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	
 	$(document).ready(function () {
 	    $(document).on('click', '.add-order', function () {
+	    	var btn = $(this);
 	    	var billID = $('#editBillID').val();
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var totalAmount = $('.editOrdertotal').find('input').val();
@@ -1860,6 +1887,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
+	                $(btn).attr('disabled','true');
 	            },
 	            error:function(data){
 	            	alert("Server Failure");
@@ -2193,7 +2221,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					  '<td><a href="#" class="delete-item"><i class="fa fa-trash fa-lg"></i></a></td></tr>';
 					  
 				$('#editMainTable tbody').append(tr);
-				fnCalculateTotalPrice();
+				fnCalculateTotalPrice("edit");
 			}
 			
 				

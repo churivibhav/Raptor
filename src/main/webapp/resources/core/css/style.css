@@ -878,6 +878,7 @@ a.fa	{
 	/*max-height:440px;
 	min-height:440px;
 	overflow:auto;*/
+	margin-bottom:10px;
 }
 
 .label{
@@ -1074,4 +1075,12 @@ body{
 
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
 	background-color:lightgrey !important;
+}
+
+.multiselect-container.dropdown-menu input[type="checkbox"]{
+	display:none;
+}
+
+.padding-right-0{
+	padding-right:0 !important;
 }
