@@ -172,14 +172,8 @@ VALUES ('BAR','SERVICE TAX',6);
 
 alter table Bill add column charges DOUBLE(20, 2) NOT NULL DEFAULT '0' 
 
-
-/*  Queries to delete data from tables(Use only for testing purpose)  */
-
-truncate Orders
-delete from Bill  where 1=1
-update Tables set isActive = 0
-
-/**/
+alter table Bill drop column paymentMode;
+alter table Bill drop column cardNumber;
 
 
 

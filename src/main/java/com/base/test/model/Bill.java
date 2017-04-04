@@ -27,8 +27,6 @@ public class Bill {
 	private double amount;
 	private double taxAmount;
 	private double totalAmount;
-	private String paymentMode;
-	private String cardNumber;
 	private int isActive;
 	private long waiterID;
 	private double charges;
@@ -42,7 +40,7 @@ public class Bill {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Orders> orders;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Payments> payments;
 
@@ -92,22 +90,6 @@ public class Bill {
 
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
-	}
-
-	public String getPaymentMode() {
-		return paymentMode;
-	}
-
-	public void setPaymentMode(String paymentMode) {
-		this.paymentMode = paymentMode;
-	}
-
-	public String getCardNumber() {
-		return cardNumber;
-	}
-
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
 	}
 
 	public Set<Orders> getOrders() {
@@ -165,9 +147,8 @@ public class Bill {
 	@Override
 	public String toString() {
 		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
-				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber
-				+ ", isActive=" + isActive + ", waiterID=" + waiterID + ", charges=" + charges + ", creationDate="
-				+ creationDate + ", modificationDate=" + modificationDate + "]";
+				+ ", totalAmount=" + totalAmount + ", isActive=" + isActive + ", waiterID=" + waiterID + ", charges="
+				+ charges + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + "]";
 	}
-	
+
 }
