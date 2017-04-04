@@ -142,3 +142,44 @@ CREATE TABLE `Payments` (
   KEY `billID` (`billID`),
   CONSTRAINT `payments_fk1` FOREIGN KEY (billID) REFERENCES Bill(billID)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `TaxDetail` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `itemType` varchar(20) NOT NULL DEFAULT '',
+  `taxType` varchar(20) NOT NULL DEFAULT '',
+  `taxValue` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('FOOD','SERVICE CHARGE',5);
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('FOOD','VAT',12.5);
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('FOOD','SERVICE TAX',6);
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('BAR','SERVICE CHARGE',5);
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('BAR','VAT',5);
+
+INSERT INTO TaxDetail(itemType,taxType,taxValue)
+VALUES ('BAR','SERVICE TAX',6);
+
+alter table Bill add column charges DOUBLE(20, 2) NOT NULL DEFAULT '0' 
+
+
+/*  Queries to delete data from tables(Use only for testing purpose)  */
+
+truncate Orders
+delete from Bill  where 1=1
+update Tables set isActive = 0
+
+/**/
+
+
+
