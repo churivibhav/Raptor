@@ -31,6 +31,7 @@ public class Bill {
 	private String cardNumber;
 	private int isActive;
 	private long waiterID;
+	private double charges;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false, updatable = false)
@@ -109,12 +110,6 @@ public class Bill {
 		this.cardNumber = cardNumber;
 	}
 
-	@Override
-	public String toString() {
-		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
-				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber + "]";
-	}
-
 	public Set<Orders> getOrders() {
 		return orders;
 	}
@@ -158,4 +153,21 @@ public class Bill {
 	public void setPayments(Set<Payments> payments) {
 		this.payments = payments;
 	}
+
+	public double getCharges() {
+		return charges;
+	}
+
+	public void setCharges(double charges) {
+		this.charges = charges;
+	}
+
+	@Override
+	public String toString() {
+		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
+				+ ", totalAmount=" + totalAmount + ", paymentMode=" + paymentMode + ", cardNumber=" + cardNumber
+				+ ", isActive=" + isActive + ", waiterID=" + waiterID + ", charges=" + charges + ", creationDate="
+				+ creationDate + ", modificationDate=" + modificationDate + "]";
+	}
+	
 }
