@@ -312,20 +312,20 @@
 						 <optgroup label="Veg" class="group-1">
 							<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 								<c:if test="${allFoodMenu.veg == 'true'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD">${allFoodMenu.itemName}</option>
 								</c:if>
 							</c:forEach>
 						</optgroup>
 						<optgroup label="Non Veg" class="group-2">
 						  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 							<c:if test="${allFoodMenu.veg == 'false'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD">${allFoodMenu.itemName}</option>
 							</c:if>
 						  </c:forEach>
 						</optgroup>
 						<optgroup label="Bar" class="group-3">
 						  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR">${allBarMenu.itemName}</option>
 						  </c:forEach>
 						</optgroup>
 						</select>
@@ -1068,7 +1068,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					<c:if test="${allFoodMenu.veg == 'true'}">
 						{
 							text : "${allFoodMenu.itemName}",
-							tags : [${allFoodMenu.cost}]
+							tags : [${allFoodMenu.cost},'FOOD']
 						},
 					</c:if>
 				</c:forEach>
@@ -1080,7 +1080,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					<c:if test="${allFoodMenu.veg == 'false'}">
 						{
 							text : "${allFoodMenu.itemName}",
-							tags : [${allFoodMenu.cost}]
+							tags : [${allFoodMenu.cost},'FOOD']
 						},
 					</c:if>
 				</c:forEach>
@@ -1094,7 +1094,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				<c:forEach items="${model.allBarMenu}" var="allBarMenu">
 					{
 						text : "${allBarMenu.itemName}",
-						tags : [${allBarMenu.cost}]
+						tags : [${allBarMenu.cost},'BAR']
 					},
 				</c:forEach>	
 			]
@@ -1549,6 +1549,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 							if (node.nodes == undefined) {
 								var item = node.text;
 								var price = node.tags[0];
+								var type = node.tags[1];
 								var className = (item).replace(/ /g, '-');
 								var tr = "";
 								tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'
@@ -1790,11 +1791,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    		  $this = $(this)
 	    		  var orderItem = $this.find("td.orderItem").html();
 	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var type = $this.find('input').val();
 	    		  var cost = $this.find("td.total-row-price").html();
 	    		  data.orders.push({"orderItem":orderItem,
 	    			 	"cost":cost,
 	        			"quantity":quantity,
-	        			"type":"Food",
+	        			"type":type,
 	        			"kot":"false",
 	        			"waiterID":waiterID
 	    			  }	);
@@ -1961,8 +1963,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     			  	"orderItem":orderItem,
     			 	"cost":cost,
         			"quantity":quantity,
-        			"type":"Food",
-        			"kot":"false",
         			"waiterID":waiterID
     			  }	);
     	});
@@ -2134,12 +2134,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			
 			if(checked){
 				var price = $(option).attr('data-cost');
+				var type = $(option).attr('type');
 				var item = option[0].text;
 							
 				var className = (item).replace(/ /g, '-');
 					
 				var tr = "";
-				tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
+					 '<td class="orderItem">'+item+'</td><input type="hidden" value="'+type+'" id="type" />'+
 					 '<td>'+
 						'<div class="input-group spinner">'+
 							'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+

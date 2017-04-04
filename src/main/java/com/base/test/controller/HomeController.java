@@ -109,19 +109,21 @@ public class HomeController {
 	public @ResponseBody Bill editOrder(@RequestBody Bill bill, HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("---------EDIT ORDER---------");
-		bill.setModificationDate(new Date());
-		for (Orders order : bill.getOrders()) {
+		Bill bill_old = billService.findByID(bill.getId());
+		bill_old.setModificationDate(new Date());
+		bill_old.setIsActive(bill.getIsActive());
+		for (Orders order : bill_old.getOrders()) {
 			order.setModificationDate(new Date());
-			order.setBill(bill);
 		}
 
-		if (bill.getPayments() == null) {
+		/*if (bill.getPayments() == null) {
 			bill.setPayments(new HashSet<>());
-		}
+		}*/
 
 		for (Payments payemnt : bill.getPayments()) {
+			bill_old.getPayments().add(payemnt);
 			payemnt.setModificationDate(new Date());
-			payemnt.setBill(bill);
+			payemnt.setBill(bill_old);
 			if (payemnt.getCardNumber() != null) {
 				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
 				Cards card = cardService.getByName(payemnt.getCardNumber());
@@ -130,7 +132,7 @@ public class HomeController {
 			}
 		}
 
-		billService.update(bill.getId(), bill);
+		billService.update(bill_old.getId(), bill_old);
 
 		if (bill.getIsActive() == false) {
 			Tables table = tablesService.getByTableNumber(bill.getTableNumber());
@@ -146,5 +148,16 @@ public class HomeController {
 			payment.setBill(null);
 		}
 		return bill;
+	}
+	
+	@RequestMapping("/billSearch")
+	public ModelAndView billSearch(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("allTables", tablesService.getAll());
+		model.put("allWaiter", waiterService.getAll());
+		model.put("allBarMenu", barMenuService.getAll());
+		model.put("allFoodMenu", foodMenuService.getAll());
+
+		return new ModelAndView("billSearch", "model", model);
 	}
 }
