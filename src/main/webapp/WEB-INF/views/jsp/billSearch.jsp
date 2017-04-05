@@ -71,7 +71,7 @@
       <span class="logo-lg"><b>YOYO</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top text-center">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle hidden" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -79,6 +79,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+      
+      <div class="title" style="display:inline-block;font-weight:700;font-size:28px;margin-left:-150px;margin-top:5px;">YOYO BAR & GRILL</div>
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -87,33 +89,9 @@
           <!-- Notifications: style can be found in dropdown.less -->
           
           <!-- Tasks: style can be found in dropdown.less -->
-          <
+          
           <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="images/avatar51.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Darshan Bhogale</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="images/avatar51.png" class="img-circle" alt="User Image">
-
-                <p>
-                  Darshan Bhogale - Cashier
-                  
-                </p>
-              </li>
-              <!-- Menu Body -->
-             
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
+          
          
         </ul>
       </div>
@@ -150,7 +128,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Search Bill
+        Search
         <!--<small>Report 1</small>-->
       </h1>
     
@@ -168,43 +146,38 @@
             <div class="box-body">
 			  <div class="form-inline row" style="margin-bottom:15px;">
 				  <div class="form-group col-sm-2">
-					<label for="email">Bill No. : </label>
-					<select class="form-control bill-no-select">
-						<option value="0">B0</option>
-						<option value="1">B1</option>
-						<option value="2">B2</option>
-						<option value="3">B3</option>
-						<option value="4">B4</option>
-						<option value="5">B5</option>
-						<option value="6">B6</option>
+					<!-- <label for="email">Module Name: </label>-->
+					<select class="form-control select-module-name">
+						<option value="-1">Select Module</option>
+						<option value="0">Bill</option>
+						<option value="1">Tables</option>
+						<option value="2">Cards</option>
 					</select>	
 				  </div>	
 				  <div class="form-group col-sm-2">
-					<label for="email">Table No. : </label>
-					<select class="form-control table-no-select">
-						<option value="0">T0</option>
-						<option value="1">T1</option>
-						<option value="2">T2</option>
-						<option value="3">T3</option>
-						<option value="4">T4</option>
-						<option value="5">T5</option>
-						<option value="6">T6</option>
+					<!--  <label for="email">Columns: </label>-->
+					<select class="form-control column-select">
+						<option value="-1">Select Column</option>
+						<option value="0">Id</option>
+						<option value="1">Table No</option>
+						<option value="2">Date</option>
 					</select>	
 				  </div>
 				  <div class="form-group col-sm-2">
-					<label for="email">Waiter : </label>
-					<select class="form-control waiter-select">
-						<option value="0">Rahul</option>
-						<option value="1">Alex</option>
+					<!-- <label for="email">Operator : </label>-->
+					<select class="form-control operator-select">
+						<option value="-1">Select Operator</option>
+						<option value="0">Equals</option>
+						<option value="1">Between</option>
 					</select>	
 				  </div>
 				  <div class="form-group col-sm-2">
 					
-					<input type="text" class="form-control" name="startDate" placeholder = "From Date" id="startDate">
+					<input type="text" class="form-control" name="startDate" placeholder = "Value 1" id="startDate">
 				  </div>
 				  <div class="form-group col-sm-2">
 					
-					<input type="text" class="form-control" name="toDate" placeholder = "To Date" id="toDate">
+					<input type="text" class="form-control" name="toDate" placeholder = "Value 2" id="toDate">
 				  </div>
 				 
 				  <div class="col-sm-2 pull-right"><button type="submit"  class="btn btn-success search">Search</button></div>
@@ -699,8 +672,21 @@
       "autoWidth": false
     });
 	
-	$('#startDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
-	$('#toDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
+	
+	
+	$('.column-select').on('change',function(){
+		var selcted_value = $(this).find('option:selected').val();
+		
+		if(selcted_value == 2){
+			$('#startDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
+			$('#toDate').datepicker({format: 'mm/dd/yyyy',todayHighlight: true,autoclose:true});
+		}
+		else{
+			$('#startDate').datepicker('remove');
+			$('#toDate').datepicker('remove');
+		}
+			
+	})
   });
 </script>
 </body>

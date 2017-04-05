@@ -179,7 +179,7 @@
 												<button class="btn btn-lg login-button settle-bill">Settle Bill</button>
 												<button class="btn btn-lg login-button active-bills">Active Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
-												<a href="billSearch" class="btn btn-lg login-button search-bill">Search Bill</a>
+												<a href="billSearch" class="btn btn-lg login-button search-bill">Search</a>
 											</div>
 										</div>
 									</div>
@@ -215,8 +215,8 @@
 	
 	<!--  card recharge modal -->
 	
-	<div id="cardRechargeModal" class="modal fade" role="dialog" data-backdrop="static">
-		<div class="modal-dialog">
+	<div id="cardRechargeModal" class="modal fade custom-width" role="dialog" data-backdrop="static">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -257,6 +257,150 @@
 							<input type="text" class="form-control total-balance" disabled/>
 						</div>
 					</div>
+					<div class="row payement-options" style="margin-bottom:10px;">
+						<div class="col-sm-4">
+							<label>Payment By : </label>
+						</div>
+						<div class="col-sm-6">	 
+							<select
+									class="form-control recharge-payment-option">
+										<option value="0">-----Select-----</option>
+										<option value="1">Cash</option>
+										<option value="2">Debit/Credit Card</option>
+										
+								</select>
+						</div>		
+						</div>
+						<div class="table-resposive recharge-money-table" style="display: none;">
+						<table class="moneyTable table table-striped table-bordered hover"
+							cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Denomination</th>
+									<th>No.of Notes</th>
+									<th>Total Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>10</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>20</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>50</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>100</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>500</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+								<tr>
+									<td>2000</td>
+									<td>
+										<div class="input-group spinner">
+											<input type="text" class="form-control" value="0" min="0"
+												max="250">
+											<div class="input-group-btn-vertical">
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-up"></i>
+												</button>
+												<button class="btn btn-default" type="button">
+													<i class="fa fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td class="total-row-price">0</td>
+								</tr>
+							</tbody>
+
+						</table>
+						<div class="text-right" style="margin-bottom: 10px;">
+							<div class="form-inline">
+								<label>Cash Amount : </label> <input type="text"
+									class="form-control cash-amount" disabled value="0" />
+							</div>
+						</div>
+					</div>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success save-card-recharge">Recharge</button>
@@ -498,9 +642,9 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="billModal" class="modal fade" role="dialog"
+	<div id="billModal" class="modal fade custom-width" role="dialog"
 		data-backdrop="static">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -548,6 +692,14 @@
 								<div class="text-right form-inline settleBilltotal">
 									<label>Total : </label> <input type="text"
 										class="form-control bill-total-cost" value="900" disabled />
+								</div>
+								<div class="text-right form-inline" style="margin-top:10px;">
+									<label>Discount : </label> <input type="text"
+										class="form-control discount-amount" value="0" style="margin-right:10px;" />
+										
+									<label>Actual Amount : </label>
+									<input type="text"
+										class="form-control actual-amount" value="0" disabled  />	
 								</div>
 							</div>
 						</div>
@@ -703,9 +855,9 @@
 		</div>
 	</div>
 
-	<div id="activeBills" class="modal fade" role="dialog"
+	<div id="activeBills" class="modal fade custom-width" role="dialog"
 		data-backdrop="static">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -745,8 +897,8 @@
 	</div>
 	
 	
-	<div id="cleanYoyoCards" class="modal fade" role="dialog" data-backdrop="static">
-		<div class="modal-dialog">
+	<div id="cleanYoyoCards" class="modal fade custom-width" role="dialog" data-backdrop="static">
+		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -795,9 +947,9 @@
 	
 	
 	<div id="YoyomPaymentModal"
-		class="modal fade yoyo-card-payment-details" role="dialog"
+		class="modal fade yoyo-card-payment-details custom-width" role="dialog"
 		data-backdrop="static">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -1018,6 +1170,23 @@
 	$('.card-clean').on('click',function(){
 		$('#cleanYoyoCards').modal('show');
 	});
+	
+	$('.discount-amount').on('change',function(){
+	
+		if(!isNaN($(this).val())){
+			var disamnt = $(this).val();
+			var amnt = $(this).closest('.modal').find('.bill-total-cost').val();
+			
+			if(parseInt(disamnt) > parseInt(amnt))
+				alert('Please enter correct amount');
+			else{
+				var actual_amount = amnt - disamnt;
+				$(this).closest('.modal').find('.actual-amount').val(actual_amount);
+			}
+		}
+		else
+			alert('Please enter correct amount');
+	})
 	
 	
 	$('.bg-img').css("min-height", $(window).height() + "px");
@@ -1245,6 +1414,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						$('#billMainTable tbody').append(tr);
 						$('#settleBillID').val(data.id);
 						$('.settleBilltotal').find('input').val(data.amount);
+						$('#billModal .actual-amount').val(data.amount);
 						$('#billModal').modal('show');
 					}
 	            },
@@ -1361,7 +1531,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 							btn.next("disabled", true);
 						}
 						
-						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0){
+						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0 || $(btn).closest('#cardRechargeModal').length > 0){
 							var row = $(this).closest('tr');
 							fnChangeCashRowPrice(row, parseInt(input.val()));
 						}
@@ -1695,6 +1865,18 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 		else
 			$(this).closest('.modal').find('.yoyo-money-table').hide();
+	});
+	
+	
+	$(document).on('change','.recharge-payment-option',function(){
+		var paymentMode = $('.recharge-payment-option option:selected').val();
+		
+		
+		if(paymentMode == '1'){
+			$(this).closest('.modal').find('.recharge-money-table').show();
+		}
+		else
+			$(this).closest('.modal').find('.recharge-money-table').hide();
 	});
 	
 	$(document).on('change','.payment-option',function(){

@@ -120,6 +120,7 @@ public class HomeController {
 			bill.setPayments(new HashSet<>());
 		}*/
 
+		if (bill.getPayments() != null) {
 		for (Payments payemnt : bill.getPayments()) {
 			bill_old.getPayments().add(payemnt);
 			payemnt.setModificationDate(new Date());
@@ -131,7 +132,7 @@ public class HomeController {
 				cardService.update(card.getId(), card);
 			}
 		}
-
+		}
 		billService.update(bill_old.getId(), bill_old);
 
 		if (bill.getIsActive() == false) {
@@ -144,8 +145,11 @@ public class HomeController {
 			order.setBill(null);
 		}
 
-		for (Payments payment : bill.getPayments()) {
-			payment.setBill(null);
+		if (bill.getPayments() != null) {
+			
+			for (Payments payment : bill.getPayments()) {
+				payment.setBill(null);
+			}
 		}
 		return bill;
 	}
