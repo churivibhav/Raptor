@@ -179,7 +179,7 @@
 												<button class="btn btn-lg login-button settle-bill">Settle Bill</button>
 												<button class="btn btn-lg login-button active-bills">Active Bills</button>
 												<a href="report" class="btn btn-lg login-button report-link">Report</a>
-												<a href="billSearch" class="btn btn-lg login-button search-bill">Search</a>
+												<a href="getSearch" class="btn btn-lg login-button search-bill">Search</a>
 											</div>
 										</div>
 									</div>

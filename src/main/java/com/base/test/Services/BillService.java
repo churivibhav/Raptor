@@ -2,6 +2,8 @@ package com.base.test.Services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +31,20 @@ public class BillService extends AbstractService<Bill> {
 		return billDAO;
 	}
 
+	@Transactional
 	public Bill getByTableNumber(String tableNumber) {
-		return billDAO.getByTableNumber(tableNumber);
+		Bill bill = billDAO.getByTableNumber(tableNumber);
+		lazyLoadToEgar(bill);
+		return bill;
 	}
 
+	@Transactional
 	public List<Bill> getActiveBills() {
-		return billDAO.getActiveBills();
+		List<Bill> activeBills = billDAO.getActiveBills();
+		for (Bill bill : activeBills) {
+			lazyLoadToEgar(bill);
+		}
+		return activeBills;
 	}
 
 	public void create(Bill bill) {
@@ -46,6 +56,11 @@ public class BillService extends AbstractService<Bill> {
 		bill = bill.getIsActive() == false ? bill : calculateTax(bill);
 		super.update(id, bill);
 		return findByID(id);
+	}
+
+	private void lazyLoadToEgar(Bill bill) {
+		bill.getOrders().size();
+		bill.getPayments().size();
 	}
 
 	private Bill calculateTax(Bill bill) {

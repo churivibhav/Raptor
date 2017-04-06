@@ -2,6 +2,7 @@ package com.base.test.Services;
 
 import java.util.List;
 
+import com.base.test.DTO.CriteriaDTO;
 import com.base.test.model.Bill;
 
 public interface ServiceInterface<T> {
@@ -25,6 +26,10 @@ public interface ServiceInterface<T> {
 	}
 	
 	public default List<T> getActiveBills() {
+		return null;
+	}
+	
+	public default List getByCriteria(Class searchClass, CriteriaDTO criteria) {
 		return null;
 	}
 

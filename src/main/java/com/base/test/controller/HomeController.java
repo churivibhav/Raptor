@@ -1,8 +1,8 @@
 package com.base.test.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -112,15 +112,22 @@ public class HomeController {
 		Bill bill_old = billService.findByID(bill.getId());
 		bill_old.setModificationDate(new Date());
 		bill_old.setIsActive(bill.getIsActive());
-		for (Orders order : bill_old.getOrders()) {
-			order.setModificationDate(new Date());
+		bill_old.setWaiterID(bill.getWaiterID());
+
+		if (bill.getIsActive() == true) {
+			for (Orders order : bill.getOrders()) {
+				if (!bill_old.getOrders().contains(order)) {
+					order.setModificationDate(new Date());
+					order.setBill(bill_old);
+					bill_old.getOrders().add(order);
+				}
+			}
 		}
 
-		/*if (bill.getPayments() == null) {
-			bill.setPayments(new HashSet<>());
-		}*/
+		if (bill.getPayments() == null) {
+			bill.setPayments(new ArrayList<>());
+		}
 
-		if (bill.getPayments() != null) {
 		for (Payments payemnt : bill.getPayments()) {
 			bill_old.getPayments().add(payemnt);
 			payemnt.setModificationDate(new Date());
@@ -131,7 +138,6 @@ public class HomeController {
 				card.setBalance(card.getBalance() - payemnt.getCost());
 				cardService.update(card.getId(), card);
 			}
-		}
 		}
 		billService.update(bill_old.getId(), bill_old);
 
@@ -145,23 +151,9 @@ public class HomeController {
 			order.setBill(null);
 		}
 
-		if (bill.getPayments() != null) {
-			
-			for (Payments payment : bill.getPayments()) {
-				payment.setBill(null);
-			}
+		for (Payments payment : bill.getPayments()) {
+			payment.setBill(null);
 		}
 		return bill;
-	}
-	
-	@RequestMapping("/billSearch")
-	public ModelAndView billSearch(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("allTables", tablesService.getAll());
-		model.put("allWaiter", waiterService.getAll());
-		model.put("allBarMenu", barMenuService.getAll());
-		model.put("allFoodMenu", foodMenuService.getAll());
-
-		return new ModelAndView("billSearch", "model", model);
 	}
 }

@@ -1,7 +1,7 @@
 package com.base.test.model;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,11 +38,11 @@ public class Bill {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
-	private Set<Orders> orders;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = CascadeType.ALL)
+	private List<Orders> orders;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "bill", cascade = CascadeType.ALL)
-	private Set<Payments> payments;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = CascadeType.ALL)
+	private List<Payments> payments;
 
 	public long getId() {
 		return id;
@@ -92,11 +92,11 @@ public class Bill {
 		this.totalAmount = totalAmount;
 	}
 
-	public Set<Orders> getOrders() {
+	public List<Orders> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<Orders> orders) {
+	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
 	}
 
@@ -128,11 +128,11 @@ public class Bill {
 		this.modificationDate = modificationDate;
 	}
 
-	public Set<Payments> getPayments() {
+	public List<Payments> getPayments() {
 		return payments;
 	}
 
-	public void setPayments(Set<Payments> payments) {
+	public void setPayments(List<Payments> payments) {
 		this.payments = payments;
 	}
 
