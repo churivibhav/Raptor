@@ -175,5 +175,37 @@ alter table Bill add column charges DOUBLE(20, 2) NOT NULL DEFAULT '0'
 alter table Bill drop column paymentMode;
 alter table Bill drop column cardNumber;
 
+CREATE TABLE `CardHistory` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cardNumber` varchar(30) NOT NULL DEFAULT '',
+  `transactionDate` DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `amount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  `cardType` varchar(20) NOT NULL DEFAULT '',
+  `balance` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+alter table Payments add column `transactionID` int(11) unsigned ;
+ALTER TABLE Payments ADD CONSTRAINT fk_tran_id FOREIGN KEY (transactionID) REFERENCES CardHistory(id);
+
+CREATE TABLE `DailyTransaction` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`startTime` DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `endTime` DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `totalSale` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `barSale` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+	`foodSale` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `totalTax` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `barTax` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `foodTax` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `cashPayment` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `cardPayment` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `yoyocardPayment` DOUBLE(20, 2) NOT NULL DEFAULT '0',
+    `active` int(1) unsigned NOT NULL,
+    `label` varchar(30) NOT NULL DEFAULT '',
+    PRIMARY KEY (`id`)
+);
+
+
 
 
