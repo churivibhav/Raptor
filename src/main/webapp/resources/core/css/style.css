@@ -1084,3 +1084,7 @@ body{
 .padding-right-0{
 	padding-right:0 !important;
 }
+
+.custom-width .modal-lg{
+	width:1000px !important;
+}
