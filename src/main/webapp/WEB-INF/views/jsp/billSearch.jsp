@@ -688,6 +688,34 @@
 			
 	})
   });
+  
+	$(function() {
+		var criteriaDTO = {
+			"className" : "Bill",
+			"restrictions" : [ {
+				"column" : "tableNumber",
+				"operation" : "EQUAL",
+				"data1" : "44"
+			} ]
+		};
+		alert(JSON.stringify(criteriaDTO));
+		$.ajax({
+            url: 'getByCriteria',
+            data: JSON.stringify(criteriaDTO),
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                alert(JSON.stringify(data));
+            },
+            error:function(data){
+            	alert("Server Failure");
+            	console.log(data);
+            }
+        });
+	});
 </script>
 </body>
 </html>

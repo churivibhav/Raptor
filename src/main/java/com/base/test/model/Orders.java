@@ -31,7 +31,7 @@ public class Orders {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false, updatable = false)
 	private Date creationDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
@@ -123,5 +123,10 @@ public class Orders {
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return id == ((Orders) obj).getId();
 	}
 }
