@@ -31,8 +31,6 @@ public class ReportView extends AbstractExcelView{
 	  header.createCell(1).setCellValue("Amount");
 	  header.createCell(2).setCellValue("Tax Amount");
 	  header.createCell(3).setCellValue("Total Amount");
-	  header.createCell(4).setCellValue("Payment Mode");
-	  header.createCell(5).setCellValue("Card Number");
 	  
 	  int counter = 1;
 	  for (Bill e : bills) {
@@ -42,8 +40,6 @@ public class ReportView extends AbstractExcelView{
 	   row.createCell(1).setCellValue(e.getAmount());
 	   row.createCell(2).setCellValue(e.getTaxAmount());
 	   row.createCell(3).setCellValue(e.getTotalAmount());
-	   row.createCell(4).setCellValue(e.getPaymentMode());
-	   row.createCell(5).setCellValue(e.getCardNumber());
 	  }
 
 	}
