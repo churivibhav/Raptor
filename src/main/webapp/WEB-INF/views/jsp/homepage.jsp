@@ -178,8 +178,8 @@
 												<button class="btn btn-lg login-button generate-bill">Print Bill</button>
 												<button class="btn btn-lg login-button settle-bill">Settle Bill</button>
 												<button class="btn btn-lg login-button active-bills">Active Bills</button>
-												<a href="report" class="btn btn-lg login-button report-link">Report</a>
-												<a href="getSearch" class="btn btn-lg login-button search-bill">Search</a>
+												<a href="#" class="btn btn-lg login-button report-link">Report</a>
+												<a href="#" class="btn btn-lg login-button search-link">Search</a>
 											</div>
 										</div>
 									</div>
@@ -1625,7 +1625,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				}
 				$('.total-cost').val('0');
 			});
-
+	
+	 
 	$(document).on('change', '.quantity-value', function() {
 		var row = $(this).closest('tr');
 		var val = $(row).find('.quantity-value').val();
@@ -2391,4 +2392,21 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			}	
 		}
 	});
+	
+	$(document).on(
+			'click',
+			'.search-link',
+			function() {
+				var url = "getSearch";
+				window.open(url, '_blank');
+			});
+	
+	$(document).on(
+			'click',
+			'.report-link',
+			function() {
+				var url = "report";
+				window.open(url, '_blank');
+			});
+	
 </script>
