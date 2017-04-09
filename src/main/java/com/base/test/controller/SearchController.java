@@ -1,7 +1,6 @@
 package com.base.test.controller;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,17 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.base.test.DTO.ColumnInfoDTO;
 import com.base.test.DTO.CriteriaDTO;
 import com.base.test.DTO.SearchDTO;
+import com.base.test.Services.SearchService;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
-import com.base.test.model.Cards;
 import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
 import com.base.test.model.Waiter;
+import com.base.test.utility.DisplayUtility;
 
 @Controller
 public class SearchController {
@@ -61,7 +62,7 @@ public class SearchController {
 		model.put("allBarMenu", barMenuService.getAll());
 		model.put("allFoodMenu", foodMenuService.getAll());
 
-		return new ModelAndView("billSearch", "model", model);
+		return new ModelAndView("Search", "model", model);
 	}
 
 	@RequestMapping(value = "/getSearchCriteria", method = RequestMethod.POST, produces = {
@@ -72,13 +73,13 @@ public class SearchController {
 		Class searchClass = Class.forName("com.base.test.model." + className);
 
 		Field[] fields = searchClass.getDeclaredFields();
-		List<String> columns = Arrays.stream(fields).map(b -> b.getName()).collect(Collectors.toList());
-		List<String> operations = new ArrayList<>();
-		operations.add("BETWEEN");
-		operations.add("EQUAL");
-
-		result = new SearchDTO(columns, operations);
-
+		List<ColumnInfoDTO> columnMap = Arrays.stream(fields)
+				.filter(b -> b.getType() != List.class)
+				.map(b -> new ColumnInfoDTO(b.getName(), DisplayUtility.getDisplayName(b.getName()), b.getType().getName()))
+				.collect(Collectors.toList());
+		Map<String, String> operations = new HashMap<>();
+		SearchService.addCriteriaOperations(operations);
+		result = new SearchDTO(columnMap, operations);
 		return result;
 	}
 
@@ -89,6 +90,9 @@ public class SearchController {
 		Class searchClass = Class.forName("com.base.test.model." + criteria.getClassName());
 		List list = searchService.getByCriteria(searchClass, criteria);
 
+		/**
+		 * TODO : create annotation to make it generic.
+		 */
 		if (criteria.getClassName().equals("Bill")) {
 			for (Object bill : list) {
 				Bill bill1 = (Bill) bill;
@@ -98,6 +102,18 @@ public class SearchController {
 				for (Payments payment : bill1.getPayments()) {
 					payment.setBill(null);
 				}
+			}
+		}
+		if (criteria.getClassName().equals("Orders")) {
+			for (Object order : list) {
+				Orders order1 = (Orders) order;
+				order1.setBill(null);
+			}
+		}
+		if (criteria.getClassName().equals("Payments")) {
+			for (Object payment : list) {
+				Payments payment1 = (Payments) payment;
+				payment1.setBill(null);
 			}
 		}
 		return list;

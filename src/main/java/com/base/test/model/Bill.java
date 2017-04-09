@@ -15,6 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.base.test.serializer.LocalDateSerializer;
+import com.base.test.serializer.WaiterNameSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(name = "Bill")
 public class Bill {
@@ -25,17 +29,21 @@ public class Bill {
 
 	private String tableNumber;
 	private double amount;
+	private double charges;
 	private double taxAmount;
 	private double totalAmount;
 	private int isActive;
+	
+	@JsonSerialize(using = WaiterNameSerializer.class)
 	private long waiterID;
-	private double charges;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false, updatable = false)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private Date creationDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private Date modificationDate;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = CascadeType.ALL)

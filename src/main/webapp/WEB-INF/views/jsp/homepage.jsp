@@ -2329,26 +2329,17 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$('.total-balance').val(cardBalance + cardRecharge);
 		return true;
 	});
-
 	
 	/*search*/
 	$('#menu_select').multiselect({
 		enableFiltering: true,
 		enableCaseInsensitiveFiltering:true,
-	    //filterBehavior: 'value',
 		onChange: function(option, checked) {
-			//console.log(option);
-			//console.log(checked);
-			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
-			//alert(option[0].text+' '+option[0].value);
-			
 			if(checked){
 				var price = $(option).attr('data-cost');
 				var type = $(option).attr('type');
 				var item = option[0].text;
-							
-				var className = (item).replace(/ /g, '-');
-					
+				var className = (item).replace(/ /g, '-');		
 				var tr = "";
 				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
 					 '<td class="orderItem">'+item+'</td><input type="hidden" value="'+type+'" id="type" />'+
@@ -2366,24 +2357,15 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					  
 				$('#mainTable tbody').append(tr);
 				fnCalculateTotalPrice();
-			}
-			
-				
+			}				
 		}
 	});
-
 
 	/*search*/
 	$('#menu_select_edit').multiselect({
 		enableFiltering: true,
 		enableCaseInsensitiveFiltering:true,
-	    //filterBehavior: 'value',
 		onChange: function(option, checked) {
-			//console.log(option);
-			//console.log(checked);
-			//alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
-			//alert(option[0].text+' '+option[0].value);
-			
 			if(checked){
 				var price = $(option).attr('data-cost');
 				var item = option[0].text;
@@ -2406,9 +2388,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					  
 				$('#editMainTable tbody').append(tr);
 				fnCalculateTotalPrice("edit");
-			}
-			
-				
+			}	
 		}
 	});
 </script>
