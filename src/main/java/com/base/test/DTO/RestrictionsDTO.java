@@ -2,9 +2,25 @@ package com.base.test.DTO;
 
 public class RestrictionsDTO {
 	private String column;
+	private String columnDataType;
 	private String operation;
 	private String data1;
 	private String data2;
+
+	/**
+	 * @return the columnDataType
+	 */
+	public String getColumnDataType() {
+		return columnDataType;
+	}
+
+	/**
+	 * @param columnDataType
+	 *            the columnDataType to set
+	 */
+	public void setColumnDataType(String columnDataType) {
+		this.columnDataType = columnDataType;
+	}
 
 	public String getColumn() {
 		return column;

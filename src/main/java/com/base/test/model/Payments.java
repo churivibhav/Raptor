@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.base.test.serializer.LocalDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(name = "Payments")
 public class Payments {
@@ -28,9 +31,11 @@ public class Payments {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false, updatable = false)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private Date creationDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private Date modificationDate;
 
 	@ManyToOne
