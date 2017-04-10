@@ -1,5 +1,7 @@
 package com.base.test.Services;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,6 +13,9 @@ import com.base.test.DAO.BillDao;
 import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.TaxDetailDAO;
 import com.base.test.model.Bill;
+import com.base.test.model.Cards;
+import com.base.test.model.Orders;
+import com.base.test.model.Payments;
 import com.base.test.model.TaxDetail;
 
 @Service("billService")
@@ -25,6 +30,9 @@ public class BillService extends AbstractService<Bill> {
 
 	@Autowired
 	private TaxDetailDAO taxDetailDAO;
+	
+	@Autowired
+	private ServiceInterface<Cards> cardService;
 
 	@Override
 	public DaoInterface<Bill> getEntityDAO() {
@@ -39,7 +47,7 @@ public class BillService extends AbstractService<Bill> {
 	}
 
 	@Transactional
-	public List<Bill> getActiveBills() {
+	public List<Bill> getActiveEntity() {
 		List<Bill> activeBills = billDAO.getActiveBills();
 		for (Bill bill : activeBills) {
 			lazyLoadToEgar(bill);
@@ -52,9 +60,42 @@ public class BillService extends AbstractService<Bill> {
 		super.create(bill);
 	}
 
+	@Override
+	@Transactional
 	public Bill update(Long id, Bill bill) {
-		bill = bill.getIsActive() == false ? bill : calculateTax(bill);
-		super.update(id, bill);
+		Bill bill_old = findByID(bill.getId());
+		bill_old.setModificationDate(new Date());
+		bill_old.setIsActive(bill.getIsActive());
+		bill_old.setWaiterID(bill.getWaiterID());
+
+		if (bill.getIsActive() == true) {
+			for (Orders order : bill.getOrders()) {
+				if (!bill_old.getOrders().contains(order)) {
+					order.setModificationDate(new Date());
+					order.setBill(bill_old);
+					bill_old.getOrders().add(order);
+				}
+			}
+		}
+
+		if (bill.getPayments() == null) {
+			bill.setPayments(new ArrayList<>());
+		}
+
+		for (Payments payemnt : bill.getPayments()) {
+			bill_old.getPayments().add(payemnt);
+			payemnt.setModificationDate(new Date());
+			payemnt.setBill(bill_old);
+			if (payemnt.getCardNumber() != null) {
+				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+				Cards card = cardService.getByName(payemnt.getCardNumber());
+				card.setBalance(card.getBalance() - payemnt.getCost());
+				cardService.update(card.getId(), card);
+			}
+		}
+		
+		bill_old = bill_old.getIsActive() == false ? bill_old : calculateTax(bill_old);
+		super.update(id, bill_old);
 		return findByID(id);
 	}
 
