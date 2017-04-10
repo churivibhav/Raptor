@@ -1293,6 +1293,31 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			]
 		}]
 	} ];
+	
+	/*Print bill code - Ameya*/
+	$('.print-bill').on('click', function() {
+		var section = $('.section-select-conetnt .btn.active').attr('data-show');
+		if($('.'+section).find('.occupied.selected').length > 0){
+			var tableNumber = $('.settleBillTableNumber').text();
+	    	var data = {
+		    		"tableNumber":tableNumber
+		    	};
+	    	$.ajax({
+	            url: 'printBill',
+	            data: tableNumber,
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	        });
+		}
+		else
+			alert('Please select occupied table');
+		}
+	);
+	
+	/**/
 
 	/*** new code *********/
 
