@@ -25,7 +25,7 @@ public interface ServiceInterface<T> {
 		return null;
 	}
 	
-	public default List<T> getActiveBills() {
+	public default List<T> getActiveEntity() {
 		return null;
 	}
 	

@@ -1,6 +1,5 @@
 package com.base.test.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +77,7 @@ public class HomeController {
 	@RequestMapping(value = "/getBills", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody List<Bill> getBills(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---------GET BILLS----------");
-		List<Bill> bills = billService.getActiveBills();
+		List<Bill> bills = billService.getActiveEntity();
 		for (Bill bill : bills) {
 			for (Orders order : bill.getOrders()) {
 				order.setBill(null);
@@ -109,37 +108,7 @@ public class HomeController {
 	public @ResponseBody Bill editOrder(@RequestBody Bill bill, HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("---------EDIT ORDER---------");
-		Bill bill_old = billService.findByID(bill.getId());
-		bill_old.setModificationDate(new Date());
-		bill_old.setIsActive(bill.getIsActive());
-		bill_old.setWaiterID(bill.getWaiterID());
-
-		if (bill.getIsActive() == true) {
-			for (Orders order : bill.getOrders()) {
-				if (!bill_old.getOrders().contains(order)) {
-					order.setModificationDate(new Date());
-					order.setBill(bill_old);
-					bill_old.getOrders().add(order);
-				}
-			}
-		}
-
-		if (bill.getPayments() == null) {
-			bill.setPayments(new ArrayList<>());
-		}
-
-		for (Payments payemnt : bill.getPayments()) {
-			bill_old.getPayments().add(payemnt);
-			payemnt.setModificationDate(new Date());
-			payemnt.setBill(bill_old);
-			if (payemnt.getCardNumber() != null) {
-				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
-				Cards card = cardService.getByName(payemnt.getCardNumber());
-				card.setBalance(card.getBalance() - payemnt.getCost());
-				cardService.update(card.getId(), card);
-			}
-		}
-		billService.update(bill_old.getId(), bill_old);
+		billService.update(bill.getId(), bill);
 
 		if (bill.getIsActive() == false) {
 			Tables table = tablesService.getByTableNumber(bill.getTableNumber());
