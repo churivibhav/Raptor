@@ -1,6 +1,6 @@
 package com.base.test.DAO;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,30 +21,26 @@ public class TaxDetailDAO extends AbstractDao<TaxDetail> {
 		return Orders.class;
 	}
 
-	public List<TaxDetail> taxList;
+	public Map<String, TaxDetail> taxList;
 
-	public List<TaxDetail> getTaxList(String itemTpe) {
+	public Map<String, TaxDetail> getTaxList() {
 		taxList = Optional.ofNullable(taxList).orElse(getAllTaxDetail());
-		return taxList.stream().filter(b -> b.getItemType().equals(itemTpe)).collect(Collectors.toList());
-	}
-
-	public List<TaxDetail> getTaxDetail(String itemTpe, String taxType) {
-		return taxList.stream().filter(b -> (b.getItemType().equals(itemTpe)) && b.getTaxType().equals(taxType))
-				.collect(Collectors.toList());
-	}
-
-	public List<TaxDetail> getAllTaxDetail() {
-		return findAll();
+		return taxList;
 	}
 
 	/*
-	 * public TaxDetail getTaxDetail(String itemTpe, String taxType){ String sql
-	 * = "from " + getEntityName() + " where itemType= '" + itemTpe +
-	 * "' and taxType = '"+ taxType + "'"; return
-	 * (TaxDetail)getSession().createQuery(sql).uniqueResult(); }
+	 * public List<TaxDetail> getTaxList(String itemTpe) { taxList =
+	 * Optional.ofNullable(taxList).orElse(getAllTaxDetail()); return
+	 * taxList.stream().filter(b ->
+	 * b.getItemType().equals(itemTpe)).collect(Collectors.toList()); }
 	 * 
-	 * public List<TaxDetail> getTaxList(String itemTpe){ String sql = "from " +
-	 * getEntityName() + " where itemType= '" + itemTpe + "'"; List<TaxDetail>
-	 * taxList = getSession().createQuery(sql).list(); return taxList; }
+	 * public List<TaxDetail> getTaxDetail(String itemTpe, String taxType) {
+	 * return taxList.stream().filter(b -> (b.getItemType().equals(itemTpe)) &&
+	 * b.getTaxType().equals(taxType)) .collect(Collectors.toList()); }
 	 */
+
+	public Map<String, TaxDetail> getAllTaxDetail() {
+		return findAll().stream()
+				.collect(Collectors.toMap(b -> b.getItemType() + "_" + b.getTaxType().replace(' ', '_'), b -> b));
+	}
 }

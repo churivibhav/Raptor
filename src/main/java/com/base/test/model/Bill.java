@@ -29,11 +29,13 @@ public class Bill {
 
 	private String tableNumber;
 	private double amount;
+	private int discount;
 	private double charges;
 	private double taxAmount;
 	private double totalAmount;
 	private int isActive;
-	
+	private long userID;
+
 	@JsonSerialize(using = WaiterNameSerializer.class)
 	private long waiterID;
 
@@ -45,6 +47,10 @@ public class Bill {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private Date modificationDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	private Date businessDay;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = CascadeType.ALL)
 	private List<Orders> orders;
@@ -150,6 +156,30 @@ public class Bill {
 
 	public void setCharges(double charges) {
 		this.charges = charges;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public long getUserID() {
+		return userID;
+	}
+
+	public void setUserID(long userID) {
+		this.userID = userID;
+	}
+
+	public Date getBusinessDay() {
+		return businessDay;
+	}
+
+	public void setBusinessDay(Date businessDay) {
+		this.businessDay = businessDay;
 	}
 
 	@Override

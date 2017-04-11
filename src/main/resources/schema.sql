@@ -180,7 +180,7 @@ CREATE TABLE `CardHistory` (
   `cardNumber` varchar(30) NOT NULL DEFAULT '',
   `transactionDate` DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` DOUBLE(20, 2) NOT NULL DEFAULT '0',
-  `cardType` varchar(20) NOT NULL DEFAULT '',
+  `transactionType` varchar(20) NOT NULL DEFAULT '',
   `balance` DOUBLE(20, 2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -206,7 +206,3 @@ CREATE TABLE `DailyTransaction` (
     `reportFile` BLOB,
     PRIMARY KEY (`id`)
 );
-
-
-
-

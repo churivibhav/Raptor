@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.base.test.serializer.LocalDateSerializer;
+import com.base.test.serializer.OrderItemSerializer;
+import com.base.test.serializer.WaiterNameSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
@@ -24,11 +26,16 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String orderItem;
+	@JsonSerialize(using = OrderItemSerializer.class)
+	private long orderItemID;
+	
 	private double cost;
 	private int quantity;
 	private String type;
 	private String kot;
+	private String chalanID;
+
+	@JsonSerialize(using = WaiterNameSerializer.class)
 	private long waiterID;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -50,14 +57,6 @@ public class Orders {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getOrderItem() {
-		return orderItem;
-	}
-
-	public void setOrderItem(String orderItem) {
-		this.orderItem = orderItem;
 	}
 
 	public double getCost() {
@@ -92,12 +91,6 @@ public class Orders {
 		this.kot = kot;
 	}
 
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", orderItem=" + orderItem + ", cost=" + cost + ", quantity=" + quantity + ", type="
-				+ type + ", kot=" + kot + ", bill=" + bill + "]";
-	}
-
 	public Bill getBill() {
 		return bill;
 	}
@@ -130,8 +123,30 @@ public class Orders {
 		this.modificationDate = modificationDate;
 	}
 
+	public long getOrderItemID() {
+		return orderItemID;
+	}
+
+	public void setOrderItemID(long orderItemID) {
+		this.orderItemID = orderItemID;
+	}
+
+	public String getChalanID() {
+		return chalanID;
+	}
+
+	public void setChalanID(String chalanID) {
+		this.chalanID = chalanID;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return id == ((Orders) obj).getId();
+	}
+
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", orderItemid=" + orderItemID + ", cost=" + cost + ", quantity=" + quantity
+				+ ", type=" + type + ", kot=" + kot + ", bill=" + bill + "]";
 	}
 }

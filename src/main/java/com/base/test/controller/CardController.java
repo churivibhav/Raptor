@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.base.test.Services.ServiceInterface;
+import com.base.test.enums.TransactionType;
 import com.base.test.model.Cards;
 
 @Controller
@@ -21,6 +22,7 @@ public class CardController {
 
 	@Autowired
 	private ServiceInterface<Cards> cardService;
+
 	private static final Logger logger = LogManager.getLogger(CardController.class);
 
 	@RequestMapping(value = "/getBalance", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -32,14 +34,52 @@ public class CardController {
 		return card;
 	}
 
-	@RequestMapping(value = "/updateBalance", method = RequestMethod.POST, produces = {
+	@RequestMapping(value = "/refundBalance", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Cards updateBalance(@RequestBody Cards card, HttpServletRequest request,
+	public @ResponseBody Cards refundBalance(@RequestBody Cards card, HttpServletRequest request,
 			HttpServletResponse response) {
-		Double bal = card.getBalance();
-		card = cardService.getByName(card.getCardNumber().substring(14, 19));
-		card.setBalance(bal);
-		card = cardService.update(card.getId(), card);
+		card.setCardNumber(card.getCardNumber().substring(14, 19));
+		Cards card_old = cardService.getByName(card.getCardNumber());
+		Double bal_old = card_old.getBalance();
+		card_old.setBalance(0.0);
+		card = cardService.update(card_old.getId(), card_old);
+		/**
+		 * Add to history.
+		 */
+		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
+				TransactionType.REFUND);
+		return card;
+	}
+
+	@RequestMapping(value = "/cleanBalance", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Cards cleanBalance(@RequestBody Cards card, HttpServletRequest request,
+			HttpServletResponse response) {
+		card.setCardNumber(card.getCardNumber().substring(14, 19));
+		Cards card_old = cardService.getByName(card.getCardNumber());
+		Double bal_old = card_old.getBalance();
+		card_old.setBalance(0.0);
+		card = cardService.update(card_old.getId(), card_old);
+		/**
+		 * Add to history.
+		 */
+		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
+				TransactionType.CLEAN);
+		return card;
+	}
+
+	@RequestMapping(value = "/addBalance", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Cards addBalance(@RequestBody Cards card, HttpServletRequest request,
+			HttpServletResponse response) {
+		Cards card_old = cardService.getByName(card.getCardNumber().substring(14, 19));
+		Double bal_old = card_old.getBalance();
+		card_old.setBalance(card.getBalance());
+		card = cardService.update(card_old.getId(), card_old);
+		/**
+		 * Add to history.
+		 */
+		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
+				TransactionType.CREDIT);
 		return card;
 	}
 }
