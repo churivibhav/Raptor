@@ -50,7 +50,7 @@ public class DailyTransactionController {
 	@RequestMapping(value = "/checkCardsBalance", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody List<Cards> getCardsBalance(HttpServletRequest request, HttpServletResponse response) {
-		List<Cards> list = cardService.getAll().stream().filter(b -> b.getBalance() > 0).collect(Collectors.toList());
+		List<Cards> list = cardService.getActiveEntity();
 		return list;
 	}
 
@@ -70,7 +70,7 @@ public class DailyTransactionController {
 	private void checkActiveEntities(boolean isBOD) {
 		if (isBOD) {
 			List<DailyTransaction> activeDay = dailyTransactionService.getActiveEntity();
-			if (activeDay == null || !activeDay.isEmpty()) {
+			if (activeDay != null || !activeDay.isEmpty()) {
 				throw new RuntimeException("Day is already Active....");
 			}
 		}
@@ -78,10 +78,10 @@ public class DailyTransactionController {
 				.collect(Collectors.toList());
 		List<Bill> activeBills = billService.getActiveEntity();
 
-		if (activeBills == null || !activeBills.isEmpty()) {
+		if (activeBills != null || !activeBills.isEmpty()) {
 			throw new RuntimeException("Bills are Active....");
 		}
-		if (activeTables == null || !activeTables.isEmpty()) {
+		if (activeTables != null || !activeTables.isEmpty()) {
 			throw new RuntimeException("Tables are Active....");
 		}
 	}

@@ -22,8 +22,8 @@ public abstract class AbstractService<T> implements ServiceInterface<T> {
 	}
 
 	@Override
-	public void create(T entity) {
-		getEntityDAO().persist(entity);
+	public long create(T entity) {
+		return getEntityDAO().persist(entity);
 	}
 
 	@Override

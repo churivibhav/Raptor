@@ -2271,7 +2271,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     	
     	alert(JSON.stringify(data));
     	$.ajax({
-            url: 'updateBalance',
+            url: 'addBalance',
             data: JSON.stringify(data),
             type: "POST",           
             beforeSend: function(xhr) {

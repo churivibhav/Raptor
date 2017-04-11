@@ -42,6 +42,8 @@ public class Payments {
 	@JoinColumn(name = "billID")
 	private Bill bill;
 
+	private long transactionID;
+
 	public long getId() {
 		return id;
 	}
@@ -104,6 +106,14 @@ public class Payments {
 
 	public void setDenomination(String denomination) {
 		this.denomination = denomination;
+	}
+
+	public long getTransactionID() {
+		return transactionID;
+	}
+
+	public void setTransactionID(long transactionID) {
+		this.transactionID = transactionID;
 	}
 
 }

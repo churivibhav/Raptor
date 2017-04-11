@@ -1,12 +1,12 @@
 package com.base.test.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,11 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
-import com.base.test.model.Cards;
 import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
+import com.base.test.model.Users;
 import com.base.test.model.Waiter;
 
 @Controller
@@ -46,7 +46,7 @@ public class HomeController {
 	ServiceInterface<Bill> billService;
 
 	@Autowired
-	private ServiceInterface<Cards> cardService;
+	private ServiceInterface<Users> userService;
 
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
@@ -65,12 +65,7 @@ public class HomeController {
 		System.out.println("---------GET ORDER----------");
 		System.out.println(tableNumber);
 		Bill bill = billService.getByTableNumber(tableNumber);
-		for (Orders order : bill.getOrders()) {
-			order.setBill(null);
-		}
-		for (Payments payment : bill.getPayments()) {
-			payment.setBill(null);
-		}
+		clearForJsonParser(bill);
 		return bill;
 	}
 
@@ -79,12 +74,7 @@ public class HomeController {
 		System.out.println("---------GET BILLS----------");
 		List<Bill> bills = billService.getActiveEntity();
 		for (Bill bill : bills) {
-			for (Orders order : bill.getOrders()) {
-				order.setBill(null);
-			}
-			for (Payments payment : bill.getPayments()) {
-				payment.setBill(null);
-			}
+			clearForJsonParser(bill);
 		}
 		return bills;
 	}
@@ -92,15 +82,12 @@ public class HomeController {
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---------SAVE ORDER----------");
-		bill.setModificationDate(new Date());
-		for (Orders order : bill.getOrders()) {
-			order.setModificationDate(new Date());
-			order.setBill(bill);
-		}
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("username");
+		bill.setUserID(userService.getByName(userName).getId());
 		billService.create(bill);
-		Tables table = tablesService.getByTableNumber(bill.getTableNumber());
-		table.setIsActive(true);
-		tablesService.update(table.getId(), table);
+		bill = billService.getByTableNumber(bill.getTableNumber());
+		clearForJsonParser(bill);
 		return bill;
 	}
 
@@ -108,14 +95,12 @@ public class HomeController {
 	public @ResponseBody Bill editOrder(@RequestBody Bill bill, HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("---------EDIT ORDER---------");
-		billService.update(bill.getId(), bill);
+		bill = billService.update(bill.getId(), bill);
+		clearForJsonParser(bill);
+		return bill;
+	}
 
-		if (bill.getIsActive() == false) {
-			Tables table = tablesService.getByTableNumber(bill.getTableNumber());
-			table.setIsActive(false);
-			tablesService.update(table.getId(), table);
-		}
-
+	private void clearForJsonParser(Bill bill) {
 		for (Orders order : bill.getOrders()) {
 			order.setBill(null);
 		}
@@ -123,6 +108,5 @@ public class HomeController {
 		for (Payments payment : bill.getPayments()) {
 			payment.setBill(null);
 		}
-		return bill;
 	}
 }

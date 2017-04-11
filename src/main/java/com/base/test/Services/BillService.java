@@ -3,6 +3,8 @@ package com.base.test.Services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -12,14 +14,29 @@ import org.springframework.stereotype.Service;
 import com.base.test.DAO.BillDao;
 import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.TaxDetailDAO;
+import com.base.test.enums.TransactionType;
 import com.base.test.model.Bill;
 import com.base.test.model.Cards;
+import com.base.test.model.DailyTransaction;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
+import com.base.test.model.Tables;
 import com.base.test.model.TaxDetail;
 
 @Service("billService")
 public class BillService extends AbstractService<Bill> {
+
+	private static final String BAR_SERVICE_TAX = "BAR_SERVICE_TAX";
+
+	private static final String BAR_SERVICE_CHARGE = "BAR_SERVICE_CHARGE";
+
+	private static final String BAR_VAT = "BAR_VAT";
+
+	private static final String FOOD_SERVICE_TAX = "FOOD_SERVICE_TAX";
+
+	private static final String FOOD_SERVICE_CHARGE = "FOOD_SERVICE_CHARGE";
+
+	private static final String FOOD_VAT = "FOOD_VAT";
 
 	public static final String ITEM_TYPE_BAR = "BAR";
 
@@ -30,9 +47,15 @@ public class BillService extends AbstractService<Bill> {
 
 	@Autowired
 	private TaxDetailDAO taxDetailDAO;
-	
+
 	@Autowired
 	private ServiceInterface<Cards> cardService;
+
+	@Autowired
+	ServiceInterface<Tables> tablesService;
+
+	@Autowired
+	ServiceInterface<DailyTransaction> dailyTransactionService;
 
 	@Override
 	public DaoInterface<Bill> getEntityDAO() {
@@ -55,24 +78,61 @@ public class BillService extends AbstractService<Bill> {
 		return activeBills;
 	}
 
-	public void create(Bill bill) {
+	@Override
+	@Transactional
+	public long create(Bill bill) {
+		canCreate(bill);
+		String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
+		bill.setModificationDate(new Date());
+		for (Orders order : bill.getOrders()) {
+			order.setModificationDate(new Date());
+			order.setBill(bill);
+			order.setChalanID(chalanID);
+		}
 		bill = calculateTax(bill);
+		bill.setBusinessDay(dailyTransactionService.getActiveEntity().get(0).getBusinessDay());
 		super.create(bill);
+
+		/**
+		 * Activating Table.
+		 */
+		Tables table = tablesService.getByTableNumber(bill.getTableNumber());
+		table.setIsActive(true);
+		tablesService.update(table.getId(), table);
+
+		printOrderTicket(bill, chalanID);
+
+		return bill.getId();
+	}
+
+	private void printOrderTicket(Bill bill, String chalanID) {
+		/*
+		 * iterate on orders and generate KOT/Bill for all orders with given
+		 * chalanID.
+		 */
+		for (Orders order : bill.getOrders()) {
+			if (order.getChalanID().equals(chalanID)) {
+				// add to print string.
+			}
+		}
 	}
 
 	@Override
 	@Transactional
 	public Bill update(Long id, Bill bill) {
+		String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
 		Bill bill_old = findByID(bill.getId());
 		bill_old.setModificationDate(new Date());
 		bill_old.setIsActive(bill.getIsActive());
 		bill_old.setWaiterID(bill.getWaiterID());
+		bill_old.setDiscount(bill.getDiscount());
 
 		if (bill.getIsActive() == true) {
 			for (Orders order : bill.getOrders()) {
 				if (!bill_old.getOrders().contains(order)) {
 					order.setModificationDate(new Date());
 					order.setBill(bill_old);
+					order.setChalanID(chalanID);
 					bill_old.getOrders().add(order);
 				}
 			}
@@ -88,14 +148,37 @@ public class BillService extends AbstractService<Bill> {
 			payemnt.setBill(bill_old);
 			if (payemnt.getCardNumber() != null) {
 				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
+				/**
+				 * updating card balance.
+				 */
 				Cards card = cardService.getByName(payemnt.getCardNumber());
+				Double bal_old = card.getBalance();
 				card.setBalance(card.getBalance() - payemnt.getCost());
 				cardService.update(card.getId(), card);
+				/**
+				 * Add to history.
+				 */
+				long cardHistoryID = cardService.addToCardHistory(card, card.getBalance() - bal_old, card.getBalance(),
+						TransactionType.DEBIT);
+				payemnt.setTransactionID(cardHistoryID);
 			}
 		}
-		
-		bill_old = bill_old.getIsActive() == false ? bill_old : calculateTax(bill_old);
+
+		// bill_old = bill_old.getIsActive() == false ? bill_old :
+		calculateTax(bill_old);
 		super.update(id, bill_old);
+
+		/**
+		 * Deactivating table.
+		 */
+		if (bill.getIsActive() == false) {
+			Tables table = tablesService.getByTableNumber(bill.getTableNumber());
+			table.setIsActive(false);
+			tablesService.update(table.getId(), table);
+		}
+
+		printOrderTicket(bill, chalanID);
+
 		return findByID(id);
 	}
 
@@ -121,40 +204,49 @@ public class BillService extends AbstractService<Bill> {
 		amount = amountBar + amountFood;
 		bill.setAmount(amount);
 
-		List<TaxDetail> taxList = taxDetailDAO.getTaxList(ITEM_TYPE_FOOD);
-		for (TaxDetail list : taxList) {
-			if (list.getTaxType().equalsIgnoreCase("VAT"))
-				vatPercent = list.getTaxValue();
-			if (list.getTaxType().equalsIgnoreCase("SERVICE CHARGE"))
-				serviceChargePercent = list.getTaxValue();
-			if (list.getTaxType().equalsIgnoreCase("SERVICE TAX"))
-				serviceTaxPercent = list.getTaxValue();
-		}
+		/**
+		 * reducing amount with discount for tax and total amount calculations.
+		 */
+		amountFood = amountFood - amountFood * (bill.getDiscount() / 100);
+		amountBar = amountBar - amountBar * (bill.getDiscount() / 100);
+
+		/**
+		 * Calculate tax for FOOD.
+		 */
+		Map<String, TaxDetail> taxList = taxDetailDAO.getTaxList();
+		vatPercent = taxList.get(FOOD_VAT).getTaxValue();
+		serviceChargePercent = taxList.get(FOOD_SERVICE_CHARGE).getTaxValue();
+		serviceTaxPercent = taxList.get(FOOD_SERVICE_TAX).getTaxValue();
+
 		double serviceChargeFood = amountFood * (serviceChargePercent / 100);
 		serviceTaxAmount += (amountFood + serviceChargeFood) * (serviceTaxPercent / 100);
 		vatAmount += (amountFood + serviceChargeFood) * (vatPercent / 100);
 		serviceChargeAmount += serviceChargeFood;
 
-		taxList = taxDetailDAO.getTaxList(ITEM_TYPE_BAR);
-		for (TaxDetail list : taxList) {
-			if (list.getTaxType().equalsIgnoreCase("VAT"))
-				vatPercent = list.getTaxValue();
-			if (list.getTaxType().equalsIgnoreCase("SERVICE CHARGE"))
-				serviceChargePercent = list.getTaxValue();
-			if (list.getTaxType().equalsIgnoreCase("SERVICE TAX"))
-				serviceTaxPercent = list.getTaxValue();
-		}
+		/**
+		 * Calculate tax for BAR.
+		 */
+		vatPercent = taxList.get(BAR_VAT).getTaxValue();
+		serviceChargePercent = taxList.get(BAR_SERVICE_CHARGE).getTaxValue();
+		serviceTaxPercent = taxList.get(BAR_SERVICE_TAX).getTaxValue();
+
 		double serviceChargeBar = amountBar * (serviceChargePercent / 100);
 		serviceTaxAmount += (amountBar + serviceChargeBar) * (serviceTaxPercent / 100);
 		vatAmount += (amountBar + serviceChargeBar) * (vatPercent / 100);
 		serviceChargeAmount += serviceChargeBar;
 
-		totalAmount += vatAmount + serviceTaxAmount + amount + serviceChargeAmount;
+		totalAmount += vatAmount + serviceTaxAmount + amountFood + amountBar + serviceChargeAmount;
 
 		bill.setTaxAmount(vatAmount + serviceTaxAmount);
 		bill.setCharges(serviceChargeAmount);
 		bill.setTotalAmount(totalAmount);
 
 		return bill;
+	}
+
+	private void canCreate(Bill bill) {
+		if (dailyTransactionService.getActiveEntity() == null) {
+			throw new RuntimeException("First Start New Day.....");
+		}
 	}
 }
