@@ -85,6 +85,10 @@ public class BillService extends AbstractService<Bill> {
 		String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
 		bill.setModificationDate(new Date());
 		for (Orders order : bill.getOrders()) {
+			if (order.getType().equals(ITEM_TYPE_FOOD))
+				order.setOrderItemID("F-" + order.getOrderItemID());
+			else if (order.getType().equals(ITEM_TYPE_BAR))
+				order.setOrderItemID("B-" + order.getOrderItemID());
 			order.setModificationDate(new Date());
 			order.setBill(bill);
 			order.setChalanID(chalanID);
@@ -129,7 +133,11 @@ public class BillService extends AbstractService<Bill> {
 
 		if (bill.getIsActive() == true) {
 			for (Orders order : bill.getOrders()) {
-				if (!bill_old.getOrders().contains(order)) {
+				if (order.getId()==0) {
+					if (order.getType().equals(ITEM_TYPE_FOOD))
+						order.setOrderItemID("F-" + order.getOrderItemID());
+					else if (order.getType().equals(ITEM_TYPE_BAR))
+						order.setOrderItemID("B-" + order.getOrderItemID());
 					order.setModificationDate(new Date());
 					order.setBill(bill_old);
 					order.setChalanID(chalanID);
@@ -163,9 +171,9 @@ public class BillService extends AbstractService<Bill> {
 				payemnt.setTransactionID(cardHistoryID);
 			}
 		}
-
-		// bill_old = bill_old.getIsActive() == false ? bill_old :
+		
 		calculateTax(bill_old);
+		lazyLoadToEgar(bill_old);
 		super.update(id, bill_old);
 
 		/**
@@ -177,9 +185,9 @@ public class BillService extends AbstractService<Bill> {
 			tablesService.update(table.getId(), table);
 		}
 
-		printOrderTicket(bill, chalanID);
+		printOrderTicket(bill_old, chalanID);
 
-		return findByID(id);
+		return bill_old;
 	}
 
 	private void lazyLoadToEgar(Bill bill) {
@@ -207,8 +215,9 @@ public class BillService extends AbstractService<Bill> {
 		/**
 		 * reducing amount with discount for tax and total amount calculations.
 		 */
-		amountFood = amountFood - amountFood * (bill.getDiscount() / 100);
-		amountBar = amountBar - amountBar * (bill.getDiscount() / 100);
+		double discount = bill.getDiscount();
+		amountFood = amountFood - amountFood * (discount / 100);
+		amountBar = amountBar - amountBar * (discount / 100);
 
 		/**
 		 * Calculate tax for FOOD.
@@ -245,7 +254,7 @@ public class BillService extends AbstractService<Bill> {
 	}
 
 	private void canCreate(Bill bill) {
-		if (dailyTransactionService.getActiveEntity() == null) {
+		if (dailyTransactionService.getActiveEntity().isEmpty()) {
 			throw new RuntimeException("First Start New Day.....");
 		}
 	}

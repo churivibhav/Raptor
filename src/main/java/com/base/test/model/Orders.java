@@ -27,7 +27,7 @@ public class Orders {
 	private long id;
 
 	@JsonSerialize(using = OrderItemSerializer.class)
-	private long orderItemID;
+	private String orderItemID;
 	
 	private double cost;
 	private int quantity;
@@ -123,11 +123,11 @@ public class Orders {
 		this.modificationDate = modificationDate;
 	}
 
-	public long getOrderItemID() {
+	public String getOrderItemID() {
 		return orderItemID;
 	}
 
-	public void setOrderItemID(long orderItemID) {
+	public void setOrderItemID(String orderItemID) {
 		this.orderItemID = orderItemID;
 	}
 

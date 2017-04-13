@@ -53,7 +53,9 @@ public class DailyTransactionService extends AbstractService<DailyTransaction> {
 	@Override
 	public List<DailyTransaction> getActiveEntity() {
 		List<DailyTransaction> list = new ArrayList<>();
-		list.add(dailyTransactionDAO.getActiveDay());
+		if (dailyTransactionDAO.getActiveDay() != null) {
+			list.add(dailyTransactionDAO.getActiveDay());
+		}
 		return list;
 	}
 

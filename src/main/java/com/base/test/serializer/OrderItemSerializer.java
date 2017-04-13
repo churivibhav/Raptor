@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 @Component
-public class OrderItemSerializer extends JsonSerializer<Long> {
+public class OrderItemSerializer extends JsonSerializer<String> {
 
 	@Autowired
 	ServiceInterface<BarMenu> barMenuService;
@@ -23,17 +23,22 @@ public class OrderItemSerializer extends JsonSerializer<Long> {
 	ServiceInterface<FoodMenu> foodMenuService;
 
 	@Override
-	public void serialize(Long orderItemID, JsonGenerator gen, SerializerProvider provider)
+	public void serialize(String orderItemID, JsonGenerator gen, SerializerProvider provider)
 			throws IOException, JsonProcessingException {
-		FoodMenu foodMenu = foodMenuService.findByID(orderItemID);
-		if (foodMenu != null) {
-			gen.writeString(foodMenu.getItemName());
-		} else {
-			BarMenu barMenu = barMenuService.findByID(orderItemID);
+		String[] s = orderItemID.split("-");
+		long id = Long.parseLong(s[1]);
+		String itemName = "Other Order Item";
+		if(s[0].equals("F")){
+			FoodMenu foodMenu = foodMenuService.findByID(id);
+			if (foodMenu != null) {
+				itemName = foodMenu.getItemName();
+			}
+		}else{
+			BarMenu barMenu = barMenuService.findByID(id);
 			if (barMenu != null) {
-				gen.writeString(barMenu.getItemName());
-			} else
-				gen.writeString("Other Order Item");
+				itemName =barMenu.getItemName();
+			}
 		}
+		gen.writeString(itemName);
 	}
 }

@@ -207,11 +207,11 @@ CREATE TABLE `DailyTransaction` (
     PRIMARY KEY (`id`)
 );
 
-alter table Bill add column businessDay Date NOT NULL;
+alter table Bill add column businessDay Date NOT NULL default '2017-01-01';
 
 alter table DailyTransaction add column businessDay Date NOT NULL;
-alter table DailyTransaction add column isActive Date NOT NULL;
-alter table DailyTransaction add column reportFile varchar(30)
+alter table DailyTransaction add column isActive int(1) unsigned NOT NULL;
+alter table DailyTransaction add column reportFile BLOB;
 
 alter table Bill add column userID int(11) unsigned NOT NULL;
 alter table Bill add column discount int(2) unsigned;
@@ -220,4 +220,11 @@ alter table Orders add chalanID varchar(100) NOT NULL ;
 alter table Orders drop column orderItem;
 alter table Orders add column orderItemID int(11) unsigned NOT NULL;
 
+update Bill set Discount=0 ;
+INSERT INTO CardHistory(cardNumber,amount,transctionType,balance)
+VALUES ('10193',-1200,'DEBIT', 0.0);
+update Payments set transactionID=2 ;
+
+ALTER TABLE Payments DROP FOREIGN KEY fk_tran_id;
+alter table Orders modify column orderItemID varchar(10) NOT NULL;
 

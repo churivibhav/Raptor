@@ -198,7 +198,7 @@
 										<div class="bod-eod box">
 											<div class="box-header">Daily(BOD/EOD)</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button satrt-day">Start Day</button>
+												<button class="btn btn-lg login-button start-day">Start Day</button>
 												<button class="btn btn-lg login-button end-day">End Day</button>
 											</div>
 										</div>
@@ -469,20 +469,20 @@
 						 <optgroup label="Veg" class="group-1">
 							<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 								<c:if test="${allFoodMenu.veg == 'true'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
 								</c:if>
 							</c:forEach>
 						</optgroup>
 						<optgroup label="Non Veg" class="group-2">
 						  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 							<c:if test="${allFoodMenu.veg == 'false'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD">${allFoodMenu.itemName}</option>
+									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
 							</c:if>
 						  </c:forEach>
 						</optgroup>
 						<optgroup label="Bar" class="group-3">
 						  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR">${allBarMenu.itemName}</option>
+							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR" id="${allBarMenu.id}">${allBarMenu.itemName}</option>
 						  </c:forEach>
 						</optgroup>
 						</select>
@@ -583,20 +583,20 @@
 								 <optgroup label="Veg" class="group-1">
 									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 										<c:if test="${allFoodMenu.veg == 'true'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
 										</c:if>
 									</c:forEach>
 								</optgroup>
 								<optgroup label="Non Veg" class="group-2">
 								  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 									<c:if test="${allFoodMenu.veg == 'false'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}">${allFoodMenu.itemName}</option>
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
 									</c:if>
 								  </c:forEach>
 								</optgroup>
 								<optgroup label="Bar" class="group-3">
 								  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-									<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}">${allBarMenu.itemName}</option>
+									<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR" id="${allBarMenu.id}">${allBarMenu.itemName}</option>
 								  </c:forEach>
 								</optgroup>
 							</select>
@@ -1261,7 +1261,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					<c:if test="${allFoodMenu.veg == 'true'}">
 						{
 							text : "${allFoodMenu.itemName}",
-							tags : [${allFoodMenu.cost},'FOOD']
+							tags : [${allFoodMenu.cost},'FOOD',${allFoodMenu.id}]
 						},
 					</c:if>
 				</c:forEach>
@@ -1273,7 +1273,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					<c:if test="${allFoodMenu.veg == 'false'}">
 						{
 							text : "${allFoodMenu.itemName}",
-							tags : [${allFoodMenu.cost},'FOOD']
+							tags : [${allFoodMenu.cost},'FOOD',${allFoodMenu.id}]
 						},
 					</c:if>
 				</c:forEach>
@@ -1287,7 +1287,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				<c:forEach items="${model.allBarMenu}" var="allBarMenu">
 					{
 						text : "${allBarMenu.itemName}",
-						tags : [${allBarMenu.cost},'BAR']
+						tags : [${allBarMenu.cost},'BAR',${allBarMenu.id}]
 					},
 				</c:forEach>	
 			]
@@ -1416,7 +1416,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                $('#billModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
 	                for (var i = 0; i < data.orders.length; i++) {
 	                	var id = data.orders[i].id;
-	                	var item = data.orders[i].orderItem;
+	                	var item = data.orders[i].orderItemID;
 						var price = data.orders[i].cost;
 						var quantity = data.orders[i].quantity;
 						var className = (item).replace(/ /g, '-');
@@ -2022,15 +2022,16 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	data.orders = [];
 	    	$('#mainTable tbody tr').each(function() {
 	    		  $this = $(this)
-	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var orderItemID = $this.find('input.orderItemID').val();;
 	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  var type = $this.find('input').val();
+	    		  var type = $this.find('input.orderType').val();
 	    		  var cost = $this.find("td.total-row-price").html();
-	    		  data.orders.push({"orderItem":orderItem,
+	    		  data.orders.push({
+	    			  	"orderItemID":orderItemID,
 	    			 	"cost":cost,
 	        			"quantity":quantity,
 	        			"type":type,
-	        			"kot":"false",
+	        			"kot":"true",
 	        			"waiterID":waiterID
 	    			  }	);
 	    	});
@@ -2072,15 +2073,16 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	$('#editMainTable tbody tr').each(function() {
 	    		  $this = $(this);
 	    		  var orderID = $this.attr('id');
-	    		  var orderItem = $this.find("td.orderItem").html();
+	    		  var orderItemID = $this.find('input.orderItemID').val();
 	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  var type = $this.find('input.orderType').val();
 	    		  var cost = $this.find("td.total-row-price").html();
 	    		  data.orders.push({
 	    			  	"id":orderID,
-	    			  	"orderItem":orderItem,
+	    			  	"orderItemID":orderItemID,
 	    			 	"cost":cost,
 	        			"quantity":quantity,
-	        			"type":"Food",
+	        			"type":type,
 	        			"kot":"false",
 	        			"waiterID":waiterID
 	    			  }	);
@@ -2131,7 +2133,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
                 $('#editModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
                 for (var i = 0; i < data.orders.length; i++) {
                 	var id = data.orders[i].id;
-                	var item = data.orders[i].orderItem;
+                	var item = data.orders[i].orderItemID;
 					var price = data.orders[i].cost;
 					var quantity = data.orders[i].quantity;
 					var className = (item).replace(/ /g, '-');
@@ -2174,6 +2176,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).on('click', '.save-settle-bill', function () {
     	var billID = $('#settleBillID').val();
     	var tableNumber = $('.settleBillTableNumber').text();
+    	var discount = $('.discount-amount').val();
     	var totalAmount = $('.settleBilltotal').find('input').val();
     	var paymentMode = $('.payment-option option:selected').text();
     	var waiterID = $('#billModal .waiter-select :selected').val();	  
@@ -2182,6 +2185,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     			"id":billID,
 	    		"tableNumber":tableNumber,
 	    	 	"amount":totalAmount,
+	    	 	"discount":discount,
 	    	    "totalAmount":totalAmount,
 	    	    "paymentMode":paymentMode,
 	    	    "isActive":"false",
@@ -2364,11 +2368,13 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			if(checked){
 				var price = $(option).attr('data-cost');
 				var type = $(option).attr('type');
+				var id = $(option).attr('id');
 				var item = option[0].text;
 				var className = (item).replace(/ /g, '-');		
 				var tr = "";
 				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
-					 '<td class="orderItem">'+item+'</td><input type="hidden" value="'+type+'" id="type" />'+
+					 '<td class="orderItem">'+item+'</td><input class="orderType" type="hidden" value="'+type+'" />'+
+					 '<input class="orderItemID" type="hidden" value="'+id+'" />'+
 					 '<td>'+
 						'<div class="input-group spinner">'+
 							'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
@@ -2395,11 +2401,14 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			if(checked){
 				var price = $(option).attr('data-cost');
 				var item = option[0].text;
-			
+				var type = $(option).attr('type');
+				var id = $(option).attr('id');
 				var className = (item).replace(/ /g, '-');
 					
 				var tr = "";
-				tr = '<tr class="'+className+'" data-unit-price="'+price+'"><td class="orderItem">'+item+'</td>'+
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
+					 '<td class="orderItem">'+item+'</td><input class="orderType" type="hidden" value="'+type+'" />'+
+					 '<input class="orderItemID" type="hidden" value="'+id+'" />'+
 					 '<td>'+
 						'<div class="input-group spinner">'+
 							'<input type="text" class="form-control quantity-value" value="1" min="0" max="100">'+
@@ -2432,6 +2441,28 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			function() {
 				var url = "report";
 				window.open(url, '_blank');
+			});
+	
+	$(document).on(
+			'click',
+			'.start-day',
+			function() {
+				$.ajax({
+		            url: 'startBusinessDay',
+		            data: '',
+		            type: "POST",           
+		            beforeSend: function(xhr) {
+		                xhr.setRequestHeader("Accept", "application/json");
+		                xhr.setRequestHeader("Content-Type", "application/json");
+		            },
+		            success: function(data){
+		            	alert(JSON.stringify(data));
+		            },
+		            error: function(xhr, textStatus, errorThrown){
+		                alert('request failed');
+		                return false;
+		            }
+		        });
 			});
 	
 </script>
