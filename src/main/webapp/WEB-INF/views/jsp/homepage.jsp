@@ -1,4 +1,4 @@
-<%@page import="com.base.test.Utils.Utils"%>
+<%@page import="com.base.test.utility.Utils"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>

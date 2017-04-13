@@ -206,3 +206,18 @@ CREATE TABLE `DailyTransaction` (
     `reportFile` BLOB,
     PRIMARY KEY (`id`)
 );
+
+alter table Bill add column businessDay Date NOT NULL;
+
+alter table DailyTransaction add column businessDay Date NOT NULL;
+alter table DailyTransaction add column isActive Date NOT NULL;
+alter table DailyTransaction add column reportFile varchar(30)
+
+alter table Bill add column userID int(11) unsigned NOT NULL;
+alter table Bill add column discount int(2) unsigned;
+
+alter table Orders add chalanID varchar(100) NOT NULL ;
+alter table Orders drop column orderItem;
+alter table Orders add column orderItemID int(11) unsigned NOT NULL;
+
+

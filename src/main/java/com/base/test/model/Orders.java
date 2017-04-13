@@ -149,4 +149,21 @@ public class Orders {
 		return "Orders [id=" + id + ", orderItemid=" + orderItemID + ", cost=" + cost + ", quantity=" + quantity
 				+ ", type=" + type + ", kot=" + kot + ", bill=" + bill + "]";
 	}
+	
+	@Override
+	public Orders clone() throws CloneNotSupportedException {
+		Orders order = new Orders();
+		order.setBill(bill);
+		order.setChalanID(chalanID);
+		order.setCost(cost);
+		order.setCreationDate(creationDate);
+		order.setId(id);
+		order.setKot(kot);
+		order.setModificationDate(modificationDate);
+		order.setOrderItemID(orderItemID);
+		order.setQuantity(quantity);
+		order.setType(type);
+	
+		return order;
+	}
 }
