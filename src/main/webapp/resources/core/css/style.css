@@ -891,7 +891,7 @@ a.fa	{
 	margin-top:2px;
 	width:100%;
 	height:auto;
-	margin-bottom:10px;
+	margin-bottom:-3px;
 	background: rgba(17, 24, 52,0.7);
 }
 
@@ -988,6 +988,7 @@ a.fa	{
 
 .padding-left-0{
 	padding-left:0px;
+	padding-right:1px;
 }
    
    
@@ -1069,7 +1070,7 @@ body{
 }
 
 .multiselect-container.dropdown-menu{
-	max-height:250px;
+	max-height:400px;
 	overflow-y:auto;
 }
 
@@ -1087,4 +1088,17 @@ body{
 
 .custom-width .modal-lg{
 	width:1000px !important;
+}
+
+.container-fluid{
+	padding-left:0px !important;
+	padding-right:0px !important;
+}
+
+.all-btns .btn{
+	width:110px !important;
+}
+
+.multiselect-container.dropdown-menu{
+	width:100%;
 }

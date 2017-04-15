@@ -54,7 +54,7 @@
 					</div>
 					<div class="project-title hidden-xs hidden-sm hidden-md">
 						YOYO Bar and Gril</div>
-					<div class="pull-right logout-btn">
+					<div class="pull-right logout-btn" style="margin-right:5px;">
 						<a href="logout" title="Logout" data-toggle="tooltip"
 							data-placement="left" title="Logout"><i
 							class="fa fa-power-off fa-lg fa-2x"></i></a>
@@ -80,13 +80,15 @@
 
 
 						<div class="row">
-							<div class="col-sm-8">
-								<div class="box-content section-select-conetnt">
-									<a href="#bar" class="btn btn-lg login-button active"
-										data-show="bar">Bar</a> <a href="#lounge"
-										class="btn btn-lg login-button" data-show="lounge">Lounge</a> <a
-										href="#vip" class="btn btn-lg login-button" data-show="vip">VIP</a>
+							<div class="col-sm-2" style="width:9%;padding-left:0px;">
+								<div class="box-content section-select-conetnt" style="padding-top:0px;">
+									<a href="#bar" class="btn btn-lg login-button active" data-show="bar" style="margin-bottom:0px;margin-left:2px;width:120px;">Bar</a>
+									 <a href="#lounge" class="btn btn-lg login-button" data-show="lounge" style="margin-bottom:0px;margin-left:2px;width:120px;">Lounge</a>
+									 <a href="#vip" class="btn btn-lg login-button" data-show="vip" style="margin-bottom:0px;margin-left:2px;width:120px;">VIP</a>
 								</div>
+							</div>
+							<div class="col-sm-8" style="width:68%;padding-right:10px;padding-left:10px;">
+								
 								<div class="table-layout-section">
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
@@ -160,14 +162,19 @@
 							</div>
 
 
-							<div class="col-sm-4" style="margin-top:10px;">
+							<div class="col-sm-2 all-btns" style="padding-right:0px;width:23%;padding-left:0px;" >
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
 											<div class="box-header">Order Management</div>
-											<div class="box-content">
-												<button class="btn btn-lg login-button new-order">New Order</button>
-												<button class="btn btn-lg login-button edit-order">Edit Order</button>
+											<div class="box-content clearfix">
+												<div style="width:49%;display:inline-block;float:left;">
+													<button class="btn new-order btn-default">New Order</button>
+												</div>
+												<div style="display:inline-block;width:50%;">
+													<button class="btn edit-order btn-default">Edit Order</button>
+												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -175,11 +182,28 @@
 										<div class="bill-management box">
 											<div class="box-header">Bill Management</div>
 											<div class="box-content">
-												<button class="btn btn-lg login-button generate-bill">Print Bill</button>
-												<button class="btn btn-lg login-button settle-bill">Settle Bill</button>
-												<button class="btn btn-lg login-button active-bills">Active Bills</button>
-												<a href="#" class="btn btn-lg login-button report-link">Report</a>
-												<a href="#" class="btn btn-lg login-button search-link">Search</a>
+												<div class="clearfix">
+													<div style="width:49%;display:inline-block;float:left;">
+														<button class="btn generate-bill btn-default">Print Bill</button>
+													</div>
+													<div style="width:50%;display:inline-block;float:left;">
+														<button class="btn settle-bill btn-default">Settle Bill</button>
+													</div>
+													
+												</div>
+												<div class="clearfix">
+													<div style="width:49%;display:inline-block;float:left;">
+														<button class="btn active-bills btn-default">Active Bills</button>
+													</div>
+													<div style="width:50%;display:inline-block;float:left;">
+														<a href="#" class="btn btn-default report-link btn-default">Report</a>
+													</div>
+												</div>
+												<div class="clearfix">
+													<div style="width:49%;display:inline-block;float:left;">
+														<a href="#" class="btn btn-default search-link btn-default">Search</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -187,9 +211,13 @@
 									<div class="col-sm-12 padding-left-0">
 										<div class="bill-management box">
 											<div class="box-header">YOYO Card</div>
-											<div class="box-content">
-												<button class="btn btn-lg login-button card-recharge">Card Recharge</button>
-												<button class="btn btn-lg login-button card-clean">Refund</button>
+											<div class="box-content clearfix">
+												<div style="width:49%;display:inline-block;float:left;">
+													<button class="btn card-recharge btn-default">Card Recharge</button>
+												</div>
+												<div style="width:50%;display:inline-block;float:left;">
+													<button class="btn card-clean btn-default">Refund</button>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -197,9 +225,14 @@
 									<div class="col-sm-12 padding-left-0">
 										<div class="bod-eod box">
 											<div class="box-header">Daily(BOD/EOD)</div>
-											<div class="box-content">
-												<button class="btn btn-lg login-button start-day">Start Day</button>
-												<button class="btn btn-lg login-button end-day">End Day</button>
+											<div class="box-content clearfix">
+												<div style="width:49%;display:inline-block;float:left;">
+													<button class="btn start-day btn-default">Start Day</button>
+												</div>
+												
+												<div style="width:50%;display:inline-block;float:left;">
+													<button class="btn end-day btn-default">End Day</button>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -422,7 +455,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">New Order</h4>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="min-height:475px;">
 					<div class="modal-top row">
 						<div class="col-sm-6 modal-top-title">
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
@@ -460,7 +493,7 @@
 						</div>
 					</div>
 					<div class="row modal-main-content">
-						<div class="col-sm-6 tree-view">
+						<div class="col-sm-4 tree-view">
 							<!--<div class="search-tree">
 								<input type="text" class="form-control" id="searchTree" placeholder="Search..." />
 							</div>-->
@@ -487,9 +520,9 @@
 						</optgroup>
 						</select>
 							
-						<div id="tree"></div>
+						<!-- <div id="tree"></div>-->
 						</div>
-						<div class="col-sm-6 order-table">
+						<div class="col-sm-8 order-table">
 							<div class="table-responsive">
 								<table id="mainTable"
 									class="table table-striped table-bordered hover"
@@ -534,7 +567,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Edit Order</h4>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="min-height:475px;">
 					<div class="modal-top row">
 						<div class="col-sm-6 modal-top-title">
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
@@ -549,7 +582,7 @@
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> <input type="text" class="form-control other-waiter-text"
@@ -572,7 +605,7 @@
 						</div>
 					</div>
 					<div class="row modal-main-content">
-						<div class="col-sm-6 tree-view">
+						<div class="col-sm-4 tree-view">
 							
 							<!-- <div class="search-tree">
 								<input type="text" class="form-control" id="editsearchTree"
@@ -601,9 +634,9 @@
 								</optgroup>
 							</select>
 							
-							<div id="editTree"></div>
+							<!--  <div id="editTree"></div>-->
 						</div>
-						<div class="col-sm-6 order-table">
+						<div class="col-sm-8 order-table">
 							<div class="table-responsive">
 								<input type="hidden" value="" id="editBillID" />
 								<table id="editMainTable"
@@ -662,7 +695,7 @@
 							<select
 								class="form-control waiter-select" disabled style="width:70%;">							
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> 
@@ -694,7 +727,7 @@
 										class="form-control bill-total-cost" value="900" disabled />
 								</div>
 								<div class="text-right form-inline" style="margin-top:10px;">
-									<label>Discount : </label> <input type="text"
+									<label>Discount %: </label> <input type="text"
 										class="form-control discount-amount" value="0" style="margin-right:10px;" />
 										
 									<label>Actual Amount : </label>
@@ -716,7 +749,8 @@
 						</div>
 					</div>
 					<div class="table-resposive money-table" style="display: none;">
-						<table class="moneyTable table table-striped table-bordered hover"
+						<table id="yoyoDenominationTableDirect" 
+						class="moneyTable table table-striped table-bordered hover"
 							cellspacing="0" width="100%">
 							<thead>
 								<tr>
@@ -1161,15 +1195,21 @@
 
 	$('.card-recharge').on('click',function(){
 		$('#cardRechargeModal').modal('show');
-		$('.register-no').val('');
-		$('.balance-amount').val('');
-		$('.recharge-amount').val('');
-		$('.total-balance').val('');
+		
+		$('#cardRechargeModal .register-no').val('');
+		$('#cardRechargeModal .balance-amount').val('');
+		$('#cardRechargeModal .recharge-amount').val('');
+		$('#cardRechargeModal .total-balance').val('');
+		
+		$('#cardRechargeModal .register-no').focus();
 	});
 	
 	$('.card-clean').on('click',function(){
 		$('#cleanYoyoCards').modal('show');
 	});
+	
+	
+	
 	
 	$('.discount-amount').on('change',function(){
 	
@@ -1177,10 +1217,14 @@
 			var disamnt = $(this).val();
 			var amnt = $(this).closest('.modal').find('.bill-total-cost').val();
 			
-			if(parseInt(disamnt) > parseInt(amnt))
-				alert('Please enter correct amount');
+			if(parseInt(amnt)*(parseInt(disamnt)/100) > parseInt(amnt))
+			{
+				alert('Discount Amount cannot be greater than Bill Amount');
+				$(this).closest('.modal').find('.discount-amount').val('');
+				$(this).closest('.modal').find('.actual-amount').val(amnt);
+			}
 			else{
-				var actual_amount = amnt - disamnt;
+				var actual_amount = amnt - (amnt*(disamnt/100));
 				$(this).closest('.modal').find('.actual-amount').val(actual_amount);
 			}
 		}
@@ -1252,7 +1296,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	
 });			
 
-	var treeData = [ {
+	/*var treeData = [ {
 		text : "Food Menu",
 		nodes : [ {
 			text : "Veg",
@@ -1292,7 +1336,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				</c:forEach>	
 			]
 		}]
-	} ];
+	} ];*/
 	
 	/*Print bill code - Ameya*/
 	$('.print-bill').on('click', function() {
@@ -1389,7 +1433,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			alert('Please select occupied table');
 	});
 
-	$('.settle-bill').on('click', function() {
+	//$('.settle-bill').on('click', function() {
+	$(document).on('click','.settle-bill', function() {
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 		
 		//if($('.'+section).find('.occupied.selected').length > 0){
@@ -1413,7 +1458,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            success: function(data){
 	            	alert(JSON.stringify(data));
 	            	var selectedWaiterId = data.waiterID;
-	                $('#billModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
+	                $('#billModal .waiter-select [waiter-name="'+selectedWaiterId+'"]').attr('selected','true');
 	                for (var i = 0; i < data.orders.length; i++) {
 	                	var id = data.orders[i].id;
 	                	var item = data.orders[i].orderItemID;
@@ -1522,6 +1567,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$('.'+section).find('.selected').removeClass('selected');
 		location.reload(true);
 	})
+	
+	$('.modal').on('hidden.bs.modal', function () {
+		location.reload(true);
+	});
 	
 	$('#editModal').on('hidden.bs.modal', function () {
 		//var section = $('.sec-select').val();
@@ -1753,7 +1802,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	}*/
 	
 
-	$('#searchTree').on('keyup', newOrdersearch);
+	/*$('#searchTree').on('keyup', newOrdersearch);
 	$('#editsearchTree').on('keyup', editOrdersearch);
 
 	var tree = $('#tree')
@@ -1792,19 +1841,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('#mainTable tbody').append(tr);
 								fnCalculateTotalPrice();
 							}
-						}/*,
-						onNodeUnchecked : function(event, node) {
-							console.log(node);
-							if (node.nodes == undefined) {
-								var item = node.text;
-								var price = node.tags[0];
-								var className = (item).replace(/ /g, '-');
-								$('.' + className).remove();
-								fnCalculateTotalPrice();
-							}
-						}*/
+						}
 					});
-	
+	*//*
 	var edittree = $('#editTree')
 			.treeview(
 					{
@@ -1842,18 +1881,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 								$('#editMainTable tbody').append(tr);
 								fnCalculateTotalPrice("edit");
 							}
-						}/*,
-						onNodeUnchecked : function(event, node) {
-							console.log(node);
-							if (node.nodes == undefined) {
-								var item = node.text;
-								var price = node.tags[0];
-								var className = (item).replace(/ /g, '-');
-								$('.' + className).remove();
-								fnCalculateTotalPrice("edit");
-							}
-						}*/
-					});	
+						}
+					});	*/
 	
 	$(document).ready(function () {
 		
@@ -1918,7 +1947,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			$('#YoyomPaymentModal').find('.yoyo-total-cost').val(total_cost);
 			$('#YoyomPaymentModal').find('.yoyo-remaining-amount').val(total_cost);
 			$('#YoyomPaymentModal').find('.yoyo-registration-number').val('');
-			$('#YoyomPaymentModal').modal('show')
+			$('#YoyomPaymentModal').modal('show');
+			
+			$('#YoyomPaymentModal').find('.yoyo-registration-number').focus();
 		}
 		else if(paymentMode == '1'){
 			$(this).closest('.modal').find('.money-table').show();
@@ -2048,6 +2079,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
 	                $(btn).attr('disabled','true');
+	            },
+	            error:function(data){
+	            	alert("Server Failure");
+	            	console.log(data);
 	            }
 	        });
 	        return true;
@@ -2129,8 +2164,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
             },
             success: function(data){ 
                 //alert(JSON.stringify(data));
-                var selectedWaiterId = data.waiterID;
-                $('#editModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
+                var selectedWaiterId = data.waiterID;//its returning waiter name
+
+                $('#editModal .waiter-select [waiter-name="'+selectedWaiterId+'"]').attr('selected','true');
                 for (var i = 0; i < data.orders.length; i++) {
                 	var id = data.orders[i].id;
                 	var item = data.orders[i].orderItemID;
@@ -2207,42 +2243,117 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     			  }	);
     	});
     	
-    	data.payments = [];
-    	var cardBalance = $('.yoyo-balance-amount').val();
-    	var cardNumber = $('.yoyo-registration-number').val();
-    	if(cardBalance != 0){
-    		data.payments.push({
-    			"paymentMode":paymentMode,	
-    			"cost":cardBalance,
-    			"cardNumber":cardNumber
-    		});
+    	if(paymentMode == 'YOYO Club Card')
+    		{
+    		data.payments = [];
+        	var cardBalance = $('.yoyo-balance-amount').val();
+        	var totalAmount = $('.yoyo-total-cost').val();
+        	var cardNumber = $('.yoyo-registration-number').val();
+        	var updatedCardBalance = 0;
+        	var updatedTotalAmount = 0;
+        	if(cardBalance != 0){
+        		if(parseInt(cardBalance) > parseInt(totalAmount))
+        		{
+        			updatedCardBalance = cardBalance-totalAmount;
+        			updatedTotalAmount = totalAmount;
+        		}
+        		else
+        		{
+        			updatedCardBalance = cardBalance;
+        			updatedTotalAmount = cardBalance;
+        		}
+        		data.payments.push({
+        			"paymentMode":paymentMode,	
+        			"cost":updatedTotalAmount,
+        			"balance":updatedCardBalance,
+        			"cardNumber":cardNumber
+        		});
+        	}
+        	var secondPayment = $('.yoyo-payment-option option:selected').text();
+        	var remainingAmount = $('.yoyo-remaining-amount').val();
+        	var denomination = '';
+        	var totalCash = 0;
+        	$('#yoyoDenominationTable tbody tr').each(function() {
+        		  $this = $(this);
+        		  var quantity = $this.find('.spinner').find('input').val();
+        		  //if(typeof qauntity === "undefined"){
+        		  //quantity = 0;
+        		  //}
+        		  var cost = $this.find("td.total-row-price").text();
+        		  totalCash = totalCash + parseInt(cost);
+        		  denomination = denomination + quantity +',' + cost + ';';
+        	});
+        	if(remainingAmount > 0 && secondPayment == 'None')
+        		{
+        		alert("Please select partial payment");
+    	    	return false;
+    	    	}    		
+    				if(secondPayment == 'Cash'){
+    	        		if(remainingAmount!= totalCash){
+    	        			alert("Cash is not matching");
+    	        			return false;
+    	        		}
+    	        		data.payments.push({
+    	        			"paymentMode":secondPayment,	
+    	        			"cost":remainingAmount,
+    	        			"balance":updatedCardBalance,
+    	        			"denomination":denomination
+    	        		});
+    	        	}else if(secondPayment == 'Debit/Credit Card'){
+    	        		data.payments.push({
+    	        			"paymentMode":secondPayment,	
+    	        			"cost":remainingAmount,
+    	        			"balance":updatedCardBalance,
+    	        			"denomination":denomination
+    	        		});
+    	        	}
+			}
+    	else if(paymentMode == 'Debit/Credit Card' || paymentMode == 'Cash')
+    		{
+    		data.payments = [];
+        	var totalAmount = $('.actual-amount').val();
+        	var denomination = '';
+        	var totalCash = 0;
+        	$('#yoyoDenominationTableDirect tbody tr').each(function() {
+        		  $this = $(this);
+        		  var quantity = $this.find('.spinner').find('input').val();
+        		  //if(typeof qauntity === "undefined"){
+        		  //quantity = 0;
+        		  //}
+        		  var cost = $this.find("td.total-row-price").text();
+        		  totalCash = totalCash + parseInt(cost);
+        		  denomination = denomination + quantity +',' + cost + ';';
+        	});
+        	
+        	if(paymentMode == 'Cash')
+        	{
+    	       if(totalAmount!= totalCash)
+    	        {
+    	        	alert("Cash is not matching");
+    	        	return false;
+    	        }
+    	        		data.payments.push({
+    	        			"paymentMode":paymentMode,	
+    	        			"cost":totalAmount,
+    	        			"denomination":denomination
+    	        		});
+    	     }
+        	else if(paymentMode == 'Debit/Credit Card')
+    	        {
+    	        		data.payments.push({
+    	        			"paymentMode":paymentMode,	
+    	        			"cost":totalAmount,
+    	        			"denomination":denomination
+    	        		});
+    	        }
     	}
-    	var secondPayment = $('.yoyo-payment-option option:selected').text();
-    	var remainingAmount = $('.yoyo-remaining-amount').val();
-    	var denomination = '';
-    	var totalCash = 0;
-    	$('#yoyoDenominationTable tbody tr').each(function() {
-    		  $this = $(this);
-    		  var quantity = $this.find('.spinner').find('input').val();
-    		  if(typeof qauntity === "undefined"){
-    			  quantity = 0;
-    		  }
-    		  var cost = $this.find("td.total-row-price").text();
-    		  totalCash = totalCash + parseInt(cost);
-    		  denomination = denomination + quantity +',' + cost + ';';
-    	});
-    	if(secondPayment != 'none'){
-    		if(remainingAmount!= totalCash){
-    			alert("Cash is not matching");
-    			return false;
+    	else
+    		{
+    		alert('Please select payment option');
+    		return false;
     		}
-    		data.payments.push({
-    			"paymentMode":secondPayment,	
-    			"cost":remainingAmount,
-    			"denomination":denomination
-    		});
-    	}
     	
+    		
     	alert(JSON.stringify(data));
     	$.ajax({
             url: 'editOrder',
@@ -2310,7 +2421,11 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){
 	            	$('.yoyo-balance-amount').val(data.balance);
-	            	$('.yoyo-remaining-amount').val(totalCost-data.balance);
+	            	if(data.balance<totalCost)
+	            	{$('.yoyo-remaining-amount').val(totalCost-data.balance);}
+	            	else
+	            	{$('.yoyo-remaining-amount').val(0);}
+	            		
 	            },
 	            error: function(xhr, textStatus, errorThrown){
 	                alert('request failed');
@@ -2464,5 +2579,34 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		            }
 		        });
 			});
+	
+	$('.end-day').on('click',function(){
+		var r = confirm("Are you sure want to End the day?")
+		if(r){
+			$.ajax({
+	            url: 'endBusinessDay',
+	            data: '',
+	            type: "POST",           
+	            beforeSend: function(xhr) {
+	                xhr.setRequestHeader("Accept", "application/json");
+	                xhr.setRequestHeader("Content-Type", "application/json");
+	            },
+	            success: function(data){
+	            	alert(JSON.stringify(data));
+	            	if(data == "yes"){
+	            		alert('Ended the day successfully');
+	            	}
+	            	else{
+	            		alert('Can not end the day due to active bills');
+	            	}
+	            },
+	            error: function(xhr, textStatus, errorThrown){
+	                alert('request failed');
+	                return false;
+	            }
+	        });
+			
+		}
+	});
 	
 </script>
