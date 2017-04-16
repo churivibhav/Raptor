@@ -916,7 +916,7 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="active-bill-tbody">
 									</tbody>
 								</table>
 							</div>
@@ -1501,7 +1501,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	});
 
 	//$('.settle-bill').on('click', function() {
-	$(document).on('click','.settle-bill', function() {
+	$(document).on('click','.settle-bill', settleBill);
+	
+	function settleBill() {
 		var section = $('.section-select-conetnt .btn.active').attr('data-show');
 		
 		//if($('.'+section).find('.occupied.selected').length > 0){
@@ -1564,7 +1566,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		//else
 			//alert('Please select occupied table');
 
-	});
+	}
 	
 	$('.active-bills').on('click',function(){
 		$('#activeBills').modal('show');
@@ -1592,7 +1594,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 					   + '<td>' + amount + '</td>'
 					   + '<td>' + taxAmount + '</td>'
 					   + '<td>' + totalAmount + '</td>'
-					   + '<td><button type="button" class="btn btn-success settle-bill">Settle Bill</button></td>'
+					   + '<td><button type="button" class="btn btn-success active-settle-bill">Settle Bill</button></td>'
 					   + '</tr>';
 
 					$('#activeBills tbody').append(tr);
@@ -1601,6 +1603,16 @@ $(document).on('click','.section-select-conetnt .btn',function(){
             },
         });
 	});
+	
+	/*Settle bill from active bills*/
+	$('.active-bill-tbody').on('click', '.active-settle-bill', function () {
+		var currentRow = $(this).closest("tr");
+		$('#activeBills').modal('hide');
+		$('.settleBillTableNumber').text(currentRow.find("td").eq(0).text());
+		var tn = $('.settleBillTableNumber').text();
+		settleBill();
+	});
+	
 	
 	/*$(document).on('click','#activeBills .settle-active-bill',function({
 		$('#activeBills').modal('hide');
