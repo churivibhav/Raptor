@@ -166,6 +166,7 @@
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
+										<!-- <c:out value=${model.role}/> -->
 											<div class="box-header">Order Management</div>
 											<div class="box-content clearfix">
 												<div style="width:49%;display:inline-block;float:left;">

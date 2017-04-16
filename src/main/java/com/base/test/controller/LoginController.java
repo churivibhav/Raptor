@@ -58,9 +58,10 @@ public class LoginController {
 
 			session.setAttribute("sessionID", sessionID);
 			session.setAttribute("username", username);
+			session.setAttribute("role", user.getRole());
 
 			userService.update(userId, user);
-			logger.info(username + " logged in");
+			logger.info(username + " logged in");	
 			return new ModelAndView("redirect:/home");
 		} else if (!(password.equals(user.getPassword()))) {
 			errorMsg.put("loginError", 1);

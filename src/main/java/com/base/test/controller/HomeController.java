@@ -49,12 +49,14 @@ public class HomeController {
 	private ServiceInterface<Users> userService;
 
 	@RequestMapping("/home")
-	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("allTables", tablesService.getAll());
 		model.put("allWaiter", waiterService.getAll());
 		model.put("allBarMenu", barMenuService.getAll());
 		model.put("allFoodMenu", foodMenuService.getAll());
+		model.put("role", session.getAttribute("role"));
+		
 
 		return new ModelAndView("homepage", "model", model);
 	}

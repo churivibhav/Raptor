@@ -228,3 +228,16 @@ update Payments set transactionID=2 ;
 ALTER TABLE Payments DROP FOREIGN KEY fk_tran_id;
 alter table Orders modify column orderItemID varchar(10) NOT NULL;
 
+
+/*for role management 16 Apr 17*/
+
+alter table Users add role varchar(30);
+
+
+
+
+
+
+
+
+
