@@ -166,7 +166,7 @@
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
-										<!-- <c:out value=${model.role}/> -->
+										<!-- <c:out value="${model.role}"/> -->
 											<div class="box-header">Order Management</div>
 											<div class="box-content clearfix">
 												<div style="width:49%;display:inline-block;float:left;">
@@ -217,7 +217,7 @@
 													<button class="btn card-recharge btn-default">Card Recharge</button>
 												</div>
 												<div style="width:50%;display:inline-block;float:left;">
-													<button class="btn card-clean btn-default">Refund</button>
+													<button class="btn card-refund btn-default">Refund</button>
 												</div>
 											</div>
 										</div>
@@ -932,7 +932,7 @@
 	</div>
 	
 	
-	<div id="cleanYoyoCards" class="modal fade custom-width" role="dialog" data-backdrop="static">
+	<div id="refundYoyoCards" class="modal fade custom-width" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -944,7 +944,7 @@
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">
-								<table id="cleancardsYoyo" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
+								<table id="refundcardsYoyo" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Card No</th>
@@ -954,18 +954,6 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>12345</td>
-											<td>500</td>
-											<td><input type="text" class="form-control refund-amount" /></td>
-											<td><button class="btn btn-primary refund-bill">Refund</button></td>
-										</tr>
-										<tr>
-											<td>12345</td>
-											<td>500</td>
-											<td><input type="text" class="form-control refund-amount" /></td>
-											<td><button class="btn btn-primary refund-bill">Refund</button></td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -1204,11 +1192,89 @@
 		
 		$('#cardRechargeModal .register-no').focus();
 	});
-	
-	$('.card-clean').on('click',function(){
-		$('#cleanYoyoCards').modal('show');
+		
+	$('.card-refund').on('click',function(){
+		$('#refundYoyoCards').modal('show');
+		$('#refundYoyoCards tbody').html('');
+		
+		$.ajax({
+            url: 'getAllCardsBalances',
+            type: "GET",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {	
+                
+                	var cardNumber = data[i].cardNumber;
+                	var balance = data[i].balance;
+	                var tr = "";
+	                
+					tr = '<tr>'
+					   + '<td class="card-number">' + cardNumber + '</td>'
+					   + '<td class="balance">' + balance + '</td>'
+					   + '<td><input type="text" class="form-control refund-amount" value="' + balance + '"/></td>'
+					   + '<td><button class="btn btn-primary refund-card-balance">Refund</button></td>'
+					   + '</tr>';
+
+					$('#refundYoyoCards tbody').append(tr);
+					$('#refundYoyoCards').modal('show');
+				}
+            },
+        });
 	});
 	
+	$(document).on('click', '.refund-card-balance', function () {
+		
+		var row = $(this).closest('tr');
+		var refundAmount = $(row).find('.refund-amount').val();
+		
+		if(refundAmount == "" || refundAmount == "undefined"){
+			alert("Please enter refund amount");
+			return;
+		}
+			
+		var cardNumber = $(row).find('.card-number').text();
+		var balance = $(row).find('.balance').text();
+		
+		if(parseInt(refundAmount) > parseInt(balance))
+		{
+			alert("Refund Amount cannot be greater than Balance Amount");
+			return;
+		}
+		else if(parseInt(refundAmount) <= parseInt(balance))
+		{
+		balance = balance - refundAmount;
+		}
+		
+    	var data = {
+	    		"cardNumber":cardNumber,
+	    	 	"balance":balance,
+	    	};
+    	
+    	alert(JSON.stringify(data));
+    	$.ajax({
+            url: 'refundBalance',
+            data: JSON.stringify(data),
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                alert(JSON.stringify(data));
+                $('#refundYoyoCards').modal('hide');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+        return true;
+    });
+
 	
 	
 	

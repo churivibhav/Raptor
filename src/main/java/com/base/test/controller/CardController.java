@@ -29,6 +29,7 @@ public class CardController {
 	public @ResponseBody Cards getBalance(@RequestBody String cardNumber, HttpServletRequest request,
 			HttpServletResponse response) {
 		// ;3333203131003101936666?
+		// ;3333203131003101946666?
 		cardNumber = cardNumber.substring(14, 19);
 		Cards card = cardService.getByName(cardNumber);
 		return card;
@@ -38,10 +39,12 @@ public class CardController {
 			MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Cards refundBalance(@RequestBody Cards card, HttpServletRequest request,
 			HttpServletResponse response) {
-		card.setCardNumber(card.getCardNumber().substring(14, 19));
+		//card.setCardNumber(card.getCardNumber().substring(14, 19));
+		card.setCardNumber(card.getCardNumber());
 		Cards card_old = cardService.getByName(card.getCardNumber());
 		Double bal_old = card_old.getBalance();
-		card_old.setBalance(0.0);
+		//card_old.setBalance(0.0);
+		card_old.setBalance(card.getBalance());
 		card = cardService.update(card_old.getId(), card_old);
 		/**
 		 * Add to history.

@@ -233,11 +233,7 @@ alter table Orders modify column orderItemID varchar(10) NOT NULL;
 
 alter table Users add role varchar(30);
 
-
-
-
-
-
-
-
-
+INSERT INTO Cards(cardNumber,balance)
+VALUES ('10194',3000);
+INSERT INTO Cards(cardNumber,balance)
+VALUES ('10195',6000);
