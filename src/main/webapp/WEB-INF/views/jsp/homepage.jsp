@@ -677,7 +677,7 @@
 
 	<!-- Modal -->
 	<div id="billModal" class="modal fade custom-width" role="dialog"
-		data-backdrop="static">
+		data-backdrop="static" style="z-index:9999;">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -1464,7 +1464,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                $('#billModal .waiter-select [value="'+selectedWaiterId+'"]').attr('selected','true');
 	                for (var i = 0; i < data.orders.length; i++) {
 	                	var id = data.orders[i].id;
-	                	var item = data.orders[i].orderItem;
+	                	var item = data.orders[i].orderItemID;
 						var price = data.orders[i].cost;
 						var quantity = data.orders[i].quantity;
 						var className = (item).replace(/ /g, '-');
@@ -1607,22 +1607,23 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	/*Settle bill from active bills*/
 	$('.active-bill-tbody').on('click', '.active-settle-bill', function () {
 		var currentRow = $(this).closest("tr");
-		$('#activeBills').modal('hide');
+		//$('#activeBills').modal('hide');
 		$('.settleBillTableNumber').text(currentRow.find("td").eq(0).text());
 		var tn = $('.settleBillTableNumber').text();
 		settleBill();
+		//$('#billModal').modal('show');
 	});
 	
 	
 	/*$(document).on('click','#activeBills .settle-active-bill',function({
 		$('#activeBills').modal('hide');
 		$('#bill').modal('show');
-	});*/
+	});
 	
 	$('#activeBills .settle-active-bill').on('click',function(){
 		$('#activeBills').modal('hide');
 		$('#bill').modal('show');
-	})
+	})*/
 	
 	/****** code to occupy table ****/
 
@@ -2672,7 +2673,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            },
 	            success: function(data){
 	            	alert(JSON.stringify(data));
-	            	if(data == "yes"){
+	            	if(data == "Success"){
 	            		alert('Ended the day successfully');
 	            	}
 	            	else{

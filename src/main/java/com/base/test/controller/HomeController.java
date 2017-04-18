@@ -93,7 +93,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---------SAVE ORDER----------");
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");
