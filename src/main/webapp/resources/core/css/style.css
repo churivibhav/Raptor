@@ -1102,3 +1102,9 @@ body{
 .multiselect-container.dropdown-menu{
 	width:100%;
 }
+
+.toast-top-center{
+	/*margin-left:40% !important;
+	margin-top:20px;*/
+	left:auto !important;
+}

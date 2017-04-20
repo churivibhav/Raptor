@@ -20,6 +20,9 @@
 <spring:url value="/resources/core/js/lib/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/resources/core/css/lib/bootstrap-multiselect.css" var="multiselectCss" />
 <spring:url value="/resources/core/js/lib/bootstrap-multiselect.js" var="multiselectJs" />
+<spring:url value="/resources/core/js/lib/toastr.js" var="toastrJs" />
+<spring:url value="/resources/core/css/lib/toastr.css" var="toastrCss" />
+
 
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${fontCss}" />
@@ -30,10 +33,12 @@
 <link rel="stylesheet" href="${treeViewCss}" />
 <link rel="stylesheet" href="${spinnerCss}" />
 <link rel="stylesheet" href="${multiselectCss}" />
+<link rel="stylesheet" href="${toastrCss}" />
 
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
 <script src="${multiselectJs}"></script>
+<script src="${toastrJs}"></script>
 
 </head>
 
@@ -470,6 +475,7 @@
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
+								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="${allWaiter.id}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
@@ -553,7 +559,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success give-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+					<button type="button" class="btn btn-success settle-bill" disabled>Settle Bill</button>
 				</div>
 			</div>
 		</div>
@@ -582,6 +588,7 @@
 						<div class="col-sm-6">
 							<label>Waiter Name : </label> <select
 								class="form-control waiter-select">
+								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
@@ -694,7 +701,8 @@
 						<div class="col-sm-6 modal-top-title form-inline">
 							<span class="title">Waiter : </span>
 							<select
-								class="form-control waiter-select" disabled style="width:70%;">							
+								class="form-control waiter-select" disabled style="width:70%;">	
+								<option value="-1">Select</option>						
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
 									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
@@ -1735,6 +1743,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			'click',
 			'.delete-item',
 			function() {
+				if($(this).attr('disabled')){
+					alert('Order is already placed.You can not delete it.');
+					return;
+				}
 				var row = $(this).closest('tr');
 				var mode = "new";
 				if(row.closest('#editMainTable').length > 0)
@@ -1750,6 +1762,19 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				}
 				var item = $(this).closest('tr').attr('class').replace(/-/g,
 						' ');
+				
+				var value = $(row).attr('data-value');
+				
+				if(mode == "new"){
+					$('#menu_select').multiselect('deselect', [value]);
+					$('#menu_select').multiselect('updateButtonText');
+				}
+				else{
+					$('#menu_select_edit').multiselect('deselect', [value]);
+					$('#menu_select_edit').multiselect('updateButtonText');
+				}
+				
+				
 				$('.node-tree').each(
 						function() {
 							var text = $(this).contents().filter(function() {
@@ -2117,9 +2142,24 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		});
 	});
 	
+	
+	toastr.options = {"positionClass":"toast-top-center"};
+	
 	$(document).ready(function () {
 	    $(document).on('click', '.give-order', function () {
 	    	var btn = $(this);
+	    	
+	    	
+	    	
+	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
+	    		toastr.error("Please select a waiter.");
+	    		return;
+	    	}
+	    	
+	    	if($('#mainTable tbody').children().length <= 0){
+	    		toastr.error("Order is empty.You can not place an order.");
+	    		return;
+	    	}
 	    	var tableNumber = $('.newOrderTableNumber').text();
 	    	var totalAmount = $('.total-cost').val();
 	    	var waiterID = $('#newModal .waiter-select :selected').val();
@@ -2159,6 +2199,11 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
 	                $(btn).attr('disabled','true');
+	                $(btn).closest('.modal').find('.settle-bill').removeAttr('disabled');
+	                
+	                $(btn).closest('.modal').find('.delete-item').each(function(){
+	                	$(this).attr('disabled','true');
+	                })
 	            },
 	            error:function(data){
 	            	alert("Server Failure");
@@ -2215,6 +2260,11 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	            success: function(data){ 
 	                alert(JSON.stringify(data));
 	                $(btn).attr('disabled','true');
+	                
+	                $(btn).closest('.modal').find('.delete-item').each(function(){
+	                	$(this).attr('disabled','true');
+	                })
+	                
 	            },
 	            error:function(data){
 	            	alert("Server Failure");
@@ -2544,16 +2594,20 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 	});
 	
-	$('.recharge-amount').keypress(function(e) {
-		var cardBalance = parseInt($('.balance-amount').val());
-		var cardRecharge = parseInt($('.recharge-amount').val());
-		if(isNaN(cardRecharge)){
-			cardRecharge = 0;
+	$('.recharge-amount').on('change',function(){
+	
+		if(!isNaN($(this).val()))
+		{
+			var cardRecharge = $(this).val();
+			var cardBalance = $(this).closest('.modal').find('.balance-amount').val();
+			
+			var cardBalance = parseInt(cardBalance) + parseInt(cardRecharge);
+			$(this).closest('.modal').find('.total-balance').val(cardBalance);
+			
 		}
-		cardRecharge = cardRecharge * 10 + parseInt(e.key);
-		$('.total-balance').val(cardBalance + cardRecharge);
-		return true;
-	});
+		else
+			alert('Please enter correct amount');
+	})
 	
 	/*search*/
 	$('#menu_select').multiselect({
@@ -2565,9 +2619,10 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				var type = $(option).attr('type');
 				var id = $(option).attr('id');
 				var item = option[0].text;
+				var value = option[0].value;
 				var className = (item).replace(/ /g, '-');		
 				var tr = "";
-				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'" data-value="'+value+'">'+
 					 '<td class="orderItem">'+item+'</td><input class="orderType" type="hidden" value="'+type+'" />'+
 					 '<input class="orderItemID" type="hidden" value="'+id+'" />'+
 					 '<td>'+
@@ -2599,9 +2654,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				var type = $(option).attr('type');
 				var id = $(option).attr('id');
 				var className = (item).replace(/ /g, '-');
-					
+				var value = option[0].value;	
 				var tr = "";
-				tr = '<tr class="'+className+'" data-unit-price="'+price+'">'+
+				tr = '<tr class="'+className+'" data-unit-price="'+price+'" data-value="'+value+'">'+
 					 '<td class="orderItem">'+item+'</td><input class="orderType" type="hidden" value="'+type+'" />'+
 					 '<input class="orderItemID" type="hidden" value="'+id+'" />'+
 					 '<td>'+
@@ -2638,10 +2693,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 				window.open(url, '_blank');
 			});
 	
-	$(document).on(
-			'click',
-			'.start-day',
-			function() {
+	$('.start-day').on('click',function() {
 				$.ajax({
 		            url: 'startBusinessDay',
 		            data: '',
