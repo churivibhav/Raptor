@@ -2508,16 +2508,62 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).on('click', '.save-card-recharge', function () {
 		var cardNumber = $('.register-no').val();
 		var balance = $('.total-balance').val();
-		
-    	var data = {
-	    		"cardNumber":cardNumber,
-	    	 	"balance":balance
+		var rechargeAmount = $('.recharge-amount').val();
+		var paymentMode = $('.recharge-payment-option option:selected').text();
+		var denomination = '';
+    	
+    	if(paymentMode == 'Debit/Credit Card' || paymentMode == 'Cash')
+		{
+			
+	    	var totalAmount = rechargeAmount;    	
+	    	var totalCash = 0;
+	    	$('#cardRechargeTable tbody tr').each(function() {
+	    		  $this = $(this);
+	    		  var quantity = $this.find('.spinner').find('input').val();
+	    		  
+	    		  var cost = $this.find("td.total-row-price").text();
+
+	    		  totalCash = totalCash + parseInt(cost);
+	    		  denomination = denomination + quantity +',' + cost + ';';
+	    	});
+	    	
+	    	if(paymentMode == 'Cash')
+	    	{
+		       	if(totalAmount != totalCash)
+		        {
+		        	alert("Cash is not matching" + totalAmount + " " + totalCash);
+		        	return false;
+		        }
+		    }
+		}
+		else
+		{
+			alert('Please select payment option');
+			return false;
+		}
+    	
+    	var cardData = {
+	    		"cardNumber": cardNumber,
+	    	 	"balance": balance
 	    	};
+    	var billData = {
+    			"tableNumber": "YOYOCard",
+	    	 	"amount": balance,
+	    	    "totalAmount": balance,
+	    	    "isActive": "false",
+	    	    "waiterID": 0
+    		
+    		};
+    	var paymentData = {
+    			"paymentMode" : paymentMode,
+    			"cost": balance,
+    			"denomination": denomination
+    		};
     	
     	alert(JSON.stringify(data));
     	$.ajax({
             url: 'addBalance',
-            data: JSON.stringify(data),
+            data: JSON.stringify({cardData:cardData, billData:billData, paymentData:paymentData}),
             type: "POST",           
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Accept", "application/json");

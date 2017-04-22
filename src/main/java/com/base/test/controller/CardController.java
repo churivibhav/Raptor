@@ -1,5 +1,8 @@
 package com.base.test.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,14 +18,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.base.test.Services.ServiceInterface;
 import com.base.test.enums.TransactionType;
+import com.base.test.model.Bill;
 import com.base.test.model.Cards;
+import com.base.test.model.Payments;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class CardController {
 
 	@Autowired
 	private ServiceInterface<Cards> cardService;
-
+	
+	@Autowired
+	private ServiceInterface<Bill> billService;
+	
 	private static final Logger logger = LogManager.getLogger(CardController.class);
 
 	@RequestMapping(value = "/getBalance", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -72,9 +83,21 @@ public class CardController {
 	}
 
 	@RequestMapping(value = "/addBalance", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Cards addBalance(@RequestBody Cards card, HttpServletRequest request,
-			HttpServletResponse response) {
+	public @ResponseBody Cards addBalance(@RequestBody String str, HttpServletRequest request,
+			HttpServletResponse response) throws JsonProcessingException, IOException {
+		/*Getting card data*/
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.readTree(str);
+		Cards card = (Cards)mapper.convertValue(node.get("cardData"), Cards.class);
+		
+		/*Getting Bill data*/
+		Bill bill = (Bill)mapper.convertValue(node.get("billData"), Bill.class);
+		bill.setOrders(new ArrayList<>());
+		
+		Payments payment = (Payments)mapper.convertValue(node.get("paymentData"), Payments.class);
+		
 		Cards card_old = cardService.getByName(card.getCardNumber().substring(14, 19));
+
 		Double bal_old = card_old.getBalance();
 		card_old.setBalance(card.getBalance());
 		card = cardService.update(card_old.getId(), card_old);
@@ -83,6 +106,14 @@ public class CardController {
 		 */
 		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
 				TransactionType.CREDIT);
+		
+		Long id = billService.create(bill);
+		bill.setPayments(new ArrayList<>());
+		bill.getPayments().add(payment);
+		payment.setBill(bill);
+		System.out.println("bill id " + bill.getId() + " " + payment.getBill());
+		billService.update(id, bill);
+		
 		return card;
 	}
 }

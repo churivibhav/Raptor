@@ -153,7 +153,8 @@ public class BillService extends AbstractService<Bill> {
 		for (Payments payemnt : bill.getPayments()) {
 			bill_old.getPayments().add(payemnt);
 			payemnt.setModificationDate(new Date());
-			payemnt.setBill(bill_old);
+			if(bill_old != null)
+				payemnt.setBill(bill_old);
 			if (payemnt.getCardNumber() != null) {
 				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
 				/**
