@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 @Component
 public class LocalDateSerializer extends JsonSerializer<Date> {
-	public static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
+	public static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+	public static final SimpleDateFormat DATE_PICKER_DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
 
 	@Override
 	public void serialize(Date date, JsonGenerator gen, SerializerProvider provider)

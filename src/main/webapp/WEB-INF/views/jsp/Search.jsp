@@ -180,7 +180,7 @@
 											<option value="0">Bill</option>
 											<option value="1">Tables</option>
 											<option value="2">Cards</option>
-											<option value="3">CardsHistory</option>
+											<option value="3">CardHistory</option>
 											<option value="4">DailyTransaction</option>
 											<option value="5">FoodMenu</option>
 											<option value="6">BarMenu</option>
@@ -767,7 +767,7 @@
 					xhr.setRequestHeader("Content-Type", "application/json");
 				},
 				success : function(data) {
-					alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
 					$('.column-select').append($('<option>', {
 						value : -1
 					}).text('Select Column'));
@@ -836,7 +836,7 @@
 									"data2" : data2
 								} ]
 							};
-							alert(JSON.stringify(criteriaDTO));
+							//alert(JSON.stringify(criteriaDTO));
 							var tr = '<tr id="header">';
 							$('.column-select option').each(
 									function() {

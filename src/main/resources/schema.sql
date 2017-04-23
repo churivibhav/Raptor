@@ -238,9 +238,8 @@ VALUES ('10194',3000);
 INSERT INTO Cards(cardNumber,balance)
 VALUES ('10195',6000);
 
-alter table CardHistory drop column transactionDate
-alter table CardHistory drop column transactionType
-alter table CardHistory add column transactionType varchar(30)
+alter table CardHistory drop column transactionType;
+alter table CardHistory add column transactionType varchar(30);
 
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
 VALUES ('YOYOCard','Extra','5','1');

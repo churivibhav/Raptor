@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.base.test.DTO.ReturnMessageDTO;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.Bill;
 import com.base.test.model.Cards;
@@ -36,33 +37,32 @@ public class DailyTransactionController {
 
 	@RequestMapping(value = "/startBusinessDay", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody String startBusinessDay(HttpServletRequest request, HttpServletResponse response) {
-		String result = "Success";
+	public @ResponseBody ReturnMessageDTO startBusinessDay(HttpServletRequest request, HttpServletResponse response) {
+		ReturnMessageDTO result = new ReturnMessageDTO();
+		result.setStatus("Success");
+		result.setMessage("Business Day Started..");
 		try {
 			checkActiveEntities(true);
 			dailyTransactionService.create(null);
 		} catch (Exception e) {
-			result = e.getMessage();
+			result.setStatus("Failure");
+			result.setMessage(e.getMessage());
 		}
 		return result;
 	}
 
-	@RequestMapping(value = "/checkCardsBalance", method = RequestMethod.POST, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody List<Cards> getCardsBalance(HttpServletRequest request, HttpServletResponse response) {
-		List<Cards> list = cardService.getActiveEntity();
-		return list;
-	}
-
 	@RequestMapping(value = "/endBusinessDay", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody String endBusinessDay(HttpServletRequest request, HttpServletResponse response) {
-		String result = "Success";
+	public @ResponseBody ReturnMessageDTO endBusinessDay(HttpServletRequest request, HttpServletResponse response) {
+		ReturnMessageDTO result = new ReturnMessageDTO();
+		result.setStatus("Success");
+		result.setMessage("Business Day Closed..");
 		try {
 			checkActiveEntities(false);
 			dailyTransactionService.update(null, null);
 		} catch (Exception e) {
-			result = e.getMessage();
+			result.setStatus("Failure");
+			result.setMessage(e.getMessage());
 		}
 		return result;
 	}

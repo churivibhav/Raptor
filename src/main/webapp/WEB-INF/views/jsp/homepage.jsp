@@ -8,18 +8,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YOYO</title>
 
-<spring:url value="/resources/core/css/lib/font-awesome.min.css" var="fontCss" />
-<spring:url value="/resources/core/css/lib/bootstrap.min.css" var="bootstrapCss" />
+<spring:url value="/resources/core/css/lib/font-awesome.min.css"
+	var="fontCss" />
+<spring:url value="/resources/core/css/lib/bootstrap.min.css"
+	var="bootstrapCss" />
 <spring:url value="/resources/core/css/menu.css" var="menuCss" />
 <spring:url value="/resources/core/css/style.css" var="styleCss" />
 <!--<spring:url value="/resources/core/css/lib/checkbox.css" var="checkboxCss" />-->
-<spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css" var="dataTablesCss" />
-<spring:url value="/resources/core/css/lib/bootstrap-treeview.css" var="treeViewCss" />
-<spring:url value="/resources/core/css/lib/bootstrap-spinner.css" var="spinnerCss" />
-<spring:url value="/resources/core/js/lib/jquery-1.9.1.min.js" var="jqueryJs" />
-<spring:url value="/resources/core/js/lib/bootstrap.min.js" var="bootstrapJs" />
-<spring:url value="/resources/core/css/lib/bootstrap-multiselect.css" var="multiselectCss" />
-<spring:url value="/resources/core/js/lib/bootstrap-multiselect.js" var="multiselectJs" />
+<spring:url value="/resources/core/css/lib/dataTables.bootstrap.min.css"
+	var="dataTablesCss" />
+<spring:url value="/resources/core/css/lib/bootstrap-treeview.css"
+	var="treeViewCss" />
+<spring:url value="/resources/core/css/lib/bootstrap-spinner.css"
+	var="spinnerCss" />
+<spring:url value="/resources/core/js/lib/jquery-1.9.1.min.js"
+	var="jqueryJs" />
+<spring:url value="/resources/core/js/lib/bootstrap.min.js"
+	var="bootstrapJs" />
+<spring:url value="/resources/core/css/lib/bootstrap-multiselect.css"
+	var="multiselectCss" />
+<spring:url value="/resources/core/js/lib/bootstrap-multiselect.js"
+	var="multiselectJs" />
 <spring:url value="/resources/core/js/lib/toastr.js" var="toastrJs" />
 <spring:url value="/resources/core/css/lib/toastr.css" var="toastrCss" />
 
@@ -59,7 +68,7 @@
 					</div>
 					<div class="project-title hidden-xs hidden-sm hidden-md">
 						YOYO Bar and Gril</div>
-					<div class="pull-right logout-btn" style="margin-right:5px;">
+					<div class="pull-right logout-btn" style="margin-right: 5px;">
 						<a href="logout" title="Logout" data-toggle="tooltip"
 							data-placement="left" title="Logout"><i
 							class="fa fa-power-off fa-lg fa-2x"></i></a>
@@ -81,19 +90,26 @@
 								</div>
 							</div>
 						</div>-->
-						
+
 
 
 						<div class="row">
-							<div class="col-sm-2" style="width:9%;padding-left:0px;">
-								<div class="box-content section-select-conetnt" style="padding-top:0px;">
-									<a href="#bar" class="btn btn-lg login-button active" data-show="bar" style="margin-bottom:0px;margin-left:2px;width:120px;">Bar</a>
-									 <a href="#lounge" class="btn btn-lg login-button" data-show="lounge" style="margin-bottom:0px;margin-left:2px;width:120px;">Lounge</a>
-									 <a href="#vip" class="btn btn-lg login-button" data-show="vip" style="margin-bottom:0px;margin-left:2px;width:120px;">VIP</a>
+							<div class="col-sm-2" style="width: 9%; padding-left: 0px;">
+								<div class="box-content section-select-conetnt"
+									style="padding-top: 0px;">
+									<a href="#bar" class="btn btn-lg login-button active"
+										data-show="bar"
+										style="margin-bottom: 0px; margin-left: 2px; width: 120px;">Bar</a>
+									<a href="#lounge" class="btn btn-lg login-button"
+										data-show="lounge"
+										style="margin-bottom: 0px; margin-left: 2px; width: 120px;">Lounge</a>
+									<a href="#vip" class="btn btn-lg login-button" data-show="vip"
+										style="margin-bottom: 0px; margin-left: 2px; width: 120px;">VIP</a>
 								</div>
 							</div>
-							<div class="col-sm-8" style="width:68%;padding-right:10px;padding-left:10px;">
-								
+							<div class="col-sm-8"
+								style="width: 68%; padding-right: 10px; padding-left: 10px;">
+
 								<div class="table-layout-section">
 									<div class="label">Table Layout</div>
 									<div class="table-layout-container bar">
@@ -167,20 +183,23 @@
 							</div>
 
 
-							<div class="col-sm-2 all-btns" style="padding-right:0px;width:23%;padding-left:0px;" >
+							<div class="col-sm-2 all-btns"
+								style="padding-right: 0px; width: 23%; padding-left: 0px;">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
 										<div class="order-management box">
-										<!-- <c:out value="${model.role}"/> -->
+											<!-- <c:out value="${model.role}"/> -->
 											<div class="box-header">Order Management</div>
 											<div class="box-content clearfix">
-												<div style="width:49%;display:inline-block;float:left;">
-													<button class="btn new-order btn-default">New Order</button>
+												<div style="width: 49%; display: inline-block; float: left;">
+													<button class="btn new-order btn-default">New
+														Order</button>
 												</div>
-												<div style="display:inline-block;width:50%;">
-													<button class="btn edit-order btn-default">Edit Order</button>
+												<div style="display: inline-block; width: 50%;">
+													<button class="btn edit-order btn-default">Edit
+														Order</button>
 												</div>
-												
+
 											</div>
 										</div>
 									</div>
@@ -189,60 +208,72 @@
 											<div class="box-header">Bill Management</div>
 											<div class="box-content">
 												<div class="clearfix">
-													<div style="width:49%;display:inline-block;float:left;">
-														<button class="btn generate-bill btn-default">Print Bill</button>
+													<div
+														style="width: 49%; display: inline-block; float: left;">
+														<button class="btn generate-bill btn-default">Print
+															Bill</button>
 													</div>
-													<div style="width:50%;display:inline-block;float:left;">
-														<button class="btn settle-bill btn-default">Settle Bill</button>
+													<div
+														style="width: 50%; display: inline-block; float: left;">
+														<button class="btn settle-bill btn-default">Settle
+															Bill</button>
 													</div>
-													
+
 												</div>
 												<div class="clearfix">
-													<div style="width:49%;display:inline-block;float:left;">
-														<button class="btn active-bills btn-default">Active Bills</button>
+													<div
+														style="width: 49%; display: inline-block; float: left;">
+														<button class="btn active-bills btn-default">Active
+															Bills</button>
 													</div>
-													<div style="width:50%;display:inline-block;float:left;">
-														<a href="#" class="btn btn-default report-link btn-default">Report</a>
+													<div
+														style="width: 50%; display: inline-block; float: left;">
+														<a href="#"
+															class="btn btn-default report-link btn-default">Report</a>
 													</div>
 												</div>
 												<div class="clearfix">
-													<div style="width:49%;display:inline-block;float:left;">
-														<a href="#" class="btn btn-default search-link btn-default">Search</a>
+													<div
+														style="width: 49%; display: inline-block; float: left;">
+														<a href="#"
+															class="btn btn-default search-link btn-default">Search</a>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-sm-12 padding-left-0">
 										<div class="bill-management box">
 											<div class="box-header">YOYO Card</div>
 											<div class="box-content clearfix">
-												<div style="width:49%;display:inline-block;float:left;">
-													<button class="btn card-recharge btn-default">Card Recharge</button>
+												<div style="width: 49%; display: inline-block; float: left;">
+													<button class="btn card-recharge btn-default">Card
+														Recharge</button>
 												</div>
-												<div style="width:50%;display:inline-block;float:left;">
+												<div style="width: 50%; display: inline-block; float: left;">
 													<button class="btn card-refund btn-default">Refund</button>
 												</div>
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-sm-12 padding-left-0">
 										<div class="bod-eod box">
 											<div class="box-header">Daily(BOD/EOD)</div>
 											<div class="box-content clearfix">
-												<div style="width:49%;display:inline-block;float:left;">
-													<button class="btn start-day btn-default">Start Day</button>
+												<div style="width: 49%; display: inline-block; float: left;">
+													<button class="btn start-day btn-default">Start
+														Day</button>
 												</div>
-												
-												<div style="width:50%;display:inline-block;float:left;">
+
+												<div style="width: 50%; display: inline-block; float: left;">
 													<button class="btn end-day btn-default">End Day</button>
 												</div>
 											</div>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
@@ -251,10 +282,11 @@
 			</div>
 		</header>
 	</div>
-	
+
 	<!--  card recharge modal -->
-	
-	<div id="cardRechargeModal" class="modal fade custom-width" role="dialog" data-backdrop="static">
+
+	<div id="cardRechargeModal" class="modal fade custom-width"
+		role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -264,53 +296,53 @@
 					<h4 class="modal-title">Card Recharge</h4>
 				</div>
 				<div class="modal-body">
-					<div class="row" style="margin-bottom:10px;">
+					<div class="row" style="margin-bottom: 10px;">
 						<div class="col-sm-4">
 							<label>Registration No.</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="password" class="form-control register-no" autofocus/>
+							<input type="password" class="form-control register-no" autofocus />
 						</div>
 					</div>
-					<div class="row" style="margin-bottom:10px;">
+					<div class="row" style="margin-bottom: 10px;">
 						<div class="col-sm-4">
 							<label>Balance</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="text" class="form-control balance-amount" disabled/>
+							<input type="text" class="form-control balance-amount" disabled />
 						</div>
 					</div>
-					<div class="row" style="margin-bottom:10px;">
+					<div class="row" style="margin-bottom: 10px;">
 						<div class="col-sm-4">
 							<label>Recharge Amount</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="text" class="form-control recharge-amount"/>
+							<input type="text" class="form-control recharge-amount" />
 						</div>
 					</div>
-					<div class="row" style="margin-bottom:10px;">
+					<div class="row" style="margin-bottom: 10px;">
 						<div class="col-sm-4">
 							<label>Total Balance</label>
 						</div>
 						<div class="col-sm-6">
-							<input type="text" class="form-control total-balance" disabled/>
+							<input type="text" class="form-control total-balance" disabled />
 						</div>
 					</div>
-					<div class="row payement-options" style="margin-bottom:10px;">
+					<div class="row payement-options" style="margin-bottom: 10px;">
 						<div class="col-sm-4">
 							<label>Payment By : </label>
 						</div>
-						<div class="col-sm-6">	 
-							<select
-									class="form-control recharge-payment-option">
-										<option value="0">-----Select-----</option>
-										<option value="1">Cash</option>
-										<option value="2">Debit/Credit Card</option>
-										
-								</select>
-						</div>		
+						<div class="col-sm-6">
+							<select class="form-control recharge-payment-option">
+								<option value="0">-----Select-----</option>
+								<option value="1">Cash</option>
+								<option value="2">Debit/Credit Card</option>
+
+							</select>
 						</div>
-						<div class="table-resposive recharge-money-table" style="display: none;">
+					</div>
+					<div class="table-resposive recharge-money-table"
+						style="display: none;">
 						<table class="moneyTable table table-striped table-bordered hover"
 							cellspacing="0" width="100%">
 							<thead>
@@ -439,16 +471,16 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success save-card-recharge">Recharge</button>
 				</div>
-			</div>	
-		</div>	
-	</div>	
-	
-	
+			</div>
+		</div>
+	</div>
+
+
 
 	<!-- Modal -->
 	<div id="newModal" class="modal fade newModal" role="dialog"
@@ -461,7 +493,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">New Order</h4>
 				</div>
-				<div class="modal-body" style="min-height:475px;">
+				<div class="modal-body" style="min-height: 475px;">
 					<div class="modal-top row">
 						<div class="col-sm-6 modal-top-title">
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
@@ -504,30 +536,36 @@
 							<!--<div class="search-tree">
 								<input type="text" class="form-control" id="searchTree" placeholder="Search..." />
 							</div>-->
-						
-						<select id="menu_select" multiple="multiple">
-						 <optgroup label="Veg" class="group-1">
-							<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
-								<c:if test="${allFoodMenu.veg == 'true'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
-								</c:if>
-							</c:forEach>
-						</optgroup>
-						<optgroup label="Non Veg" class="group-2">
-						  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
-							<c:if test="${allFoodMenu.veg == 'false'}">
-									<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
-							</c:if>
-						  </c:forEach>
-						</optgroup>
-						<optgroup label="Bar" class="group-3">
-						  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-							<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR" id="${allBarMenu.id}">${allBarMenu.itemName}</option>
-						  </c:forEach>
-						</optgroup>
-						</select>
-							
-						<!-- <div id="tree"></div>-->
+
+							<select id="menu_select" multiple="multiple">
+								<optgroup label="Veg" class="group-1">
+									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+										<c:if test="${allFoodMenu.veg == 'true'}">
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
+												data-cost="${allFoodMenu.cost}" type="FOOD"
+												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
+										</c:if>
+									</c:forEach>
+								</optgroup>
+								<optgroup label="Non Veg" class="group-2">
+									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+										<c:if test="${allFoodMenu.veg == 'false'}">
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
+												data-cost="${allFoodMenu.cost}" type="FOOD"
+												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
+										</c:if>
+									</c:forEach>
+								</optgroup>
+								<optgroup label="Bar" class="group-3">
+									<c:forEach items="${model.allBarMenu}" var="allBarMenu">
+										<option value="${allBarMenu.id}+${allBarMenu.itemName}"
+											data-cost="${allBarMenu.cost}" type="BAR"
+											id="${allBarMenu.id}">${allBarMenu.itemName}</option>
+									</c:forEach>
+								</optgroup>
+							</select>
+
+							<!-- <div id="tree"></div>-->
 						</div>
 						<div class="col-sm-8 order-table">
 							<div class="table-responsive">
@@ -559,7 +597,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success give-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill" disabled>Settle Bill</button>
+					<button type="button" class="btn btn-success settle-bill" disabled>Settle
+						Bill</button>
 				</div>
 			</div>
 		</div>
@@ -574,7 +613,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Edit Order</h4>
 				</div>
-				<div class="modal-body" style="min-height:475px;">
+				<div class="modal-body" style="min-height: 475px;">
 					<div class="modal-top row">
 						<div class="col-sm-6 modal-top-title">
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
@@ -590,7 +629,8 @@
 								class="form-control waiter-select">
 								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}"
+										waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> <input type="text" class="form-control other-waiter-text"
@@ -614,34 +654,40 @@
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-4 tree-view">
-							
+
 							<!-- <div class="search-tree">
 								<input type="text" class="form-control" id="editsearchTree"
 									placeholder="Search..." />
 							</div> -->
-							
+
 							<select id="menu_select_edit" multiple="multiple">
-								 <optgroup label="Veg" class="group-1">
+								<optgroup label="Veg" class="group-1">
 									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
 										<c:if test="${allFoodMenu.veg == 'true'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
+												data-cost="${allFoodMenu.cost}" type="FOOD"
+												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
 										</c:if>
 									</c:forEach>
 								</optgroup>
 								<optgroup label="Non Veg" class="group-2">
-								  <c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
-									<c:if test="${allFoodMenu.veg == 'false'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}" data-cost="${allFoodMenu.cost}" type="FOOD" id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
-									</c:if>
-								  </c:forEach>
+									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
+										<c:if test="${allFoodMenu.veg == 'false'}">
+											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
+												data-cost="${allFoodMenu.cost}" type="FOOD"
+												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
+										</c:if>
+									</c:forEach>
 								</optgroup>
 								<optgroup label="Bar" class="group-3">
-								  <c:forEach items="${model.allBarMenu}" var="allBarMenu">
-									<option value="${allBarMenu.id}+${allBarMenu.itemName}" data-cost="${allBarMenu.cost}" type="BAR" id="${allBarMenu.id}">${allBarMenu.itemName}</option>
-								  </c:forEach>
+									<c:forEach items="${model.allBarMenu}" var="allBarMenu">
+										<option value="${allBarMenu.id}+${allBarMenu.itemName}"
+											data-cost="${allBarMenu.cost}" type="BAR"
+											id="${allBarMenu.id}">${allBarMenu.itemName}</option>
+									</c:forEach>
 								</optgroup>
 							</select>
-							
+
 							<!--  <div id="editTree"></div>-->
 						</div>
 						<div class="col-sm-8 order-table">
@@ -676,7 +722,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success add-order">Order</button>
-					<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+					<button type="button" class="btn btn-success settle-bill">Settle
+						Bill</button>
 				</div>
 			</div>
 		</div>
@@ -684,7 +731,7 @@
 
 	<!-- Modal -->
 	<div id="billModal" class="modal fade custom-width" role="dialog"
-		data-backdrop="static" style="z-index:9999;">
+		data-backdrop="static" style="z-index: 9999;">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -699,15 +746,15 @@
 							<span class="title">Section : </span> <span class="order-type">Bar</span>
 						</div>
 						<div class="col-sm-6 modal-top-title form-inline">
-							<span class="title">Waiter : </span>
-							<select
-								class="form-control waiter-select" disabled style="width:70%;">	
-								<option value="-1">Select</option>						
+							<span class="title">Waiter : </span> <select
+								class="form-control waiter-select" disabled style="width: 70%;">
+								<option value="-1">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}"
+										waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
-							</select> 
+							</select>
 						</div>
 						<div class="col-sm-3 modal-top-title text-right">
 							<span class="title">Table : </span> <span
@@ -735,13 +782,12 @@
 									<label>Total : </label> <input type="text"
 										class="form-control bill-total-cost" value="900" disabled />
 								</div>
-								<div class="text-right form-inline" style="margin-top:10px;">
+								<div class="text-right form-inline" style="margin-top: 10px;">
 									<label>Discount %: </label> <input type="text"
-										class="form-control discount-amount" value="0" style="margin-right:10px;" />
-										
-									<label>Actual Amount : </label>
-									<input type="text"
-										class="form-control actual-amount" value="0" disabled  />	
+										class="form-control discount-amount" value="0"
+										style="margin-right: 10px;" /> <label>Actual Amount :
+									</label> <input type="text" class="form-control actual-amount"
+										value="0" disabled />
 								</div>
 							</div>
 						</div>
@@ -758,8 +804,8 @@
 						</div>
 					</div>
 					<div class="table-resposive money-table" style="display: none;">
-						<table id="yoyoDenominationTableDirect" 
-						class="moneyTable table table-striped table-bordered hover"
+						<table id="yoyoDenominationTableDirect"
+							class="moneyTable table table-striped table-bordered hover"
 							cellspacing="0" width="100%">
 							<thead>
 								<tr>
@@ -938,9 +984,10 @@
 
 		</div>
 	</div>
-	
-	
-	<div id="refundYoyoCards" class="modal fade custom-width" role="dialog" data-backdrop="static">
+
+
+	<div id="refundYoyoCards" class="modal fade custom-width" role="dialog"
+		data-backdrop="static">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -952,7 +999,9 @@
 					<div class="row">
 						<div class="col-sm-12 order-table">
 							<div class="table-responsive">
-								<table id="refundcardsYoyo" class="table table-striped table-bordered hover" cellspacing="0" width="100%">
+								<table id="refundcardsYoyo"
+									class="table table-striped table-bordered hover"
+									cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Card No</th>
@@ -975,11 +1024,11 @@
 
 		</div>
 	</div>
-	
-	
+
+
 	<div id="YoyomPaymentModal"
-		class="modal fade yoyo-card-payment-details custom-width" role="dialog"
-		data-backdrop="static">
+		class="modal fade yoyo-card-payment-details custom-width"
+		role="dialog" data-backdrop="static" style="z-index: 9999;">
 		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
@@ -1200,91 +1249,6 @@
 		
 		$('#cardRechargeModal .register-no').focus();
 	});
-		
-	$('.card-refund').on('click',function(){
-		$('#refundYoyoCards').modal('show');
-		$('#refundYoyoCards tbody').html('');
-		
-		$.ajax({
-            url: 'getAllCardsBalances',
-            type: "GET",           
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
-            success: function(data){ 
-                //alert(JSON.stringify(data));
-                for (var i = 0; i < data.length; i++) {	
-                
-                	var cardNumber = data[i].cardNumber;
-                	var balance = data[i].balance;
-	                var tr = "";
-	                
-					tr = '<tr>'
-					   + '<td class="card-number">' + cardNumber + '</td>'
-					   + '<td class="balance">' + balance + '</td>'
-					   + '<td><input type="text" class="form-control refund-amount" value="' + balance + '"/></td>'
-					   + '<td><button class="btn btn-primary refund-card-balance">Refund</button></td>'
-					   + '</tr>';
-
-					$('#refundYoyoCards tbody').append(tr);
-					$('#refundYoyoCards').modal('show');
-				}
-            },
-        });
-	});
-	
-	$(document).on('click', '.refund-card-balance', function () {
-		
-		var row = $(this).closest('tr');
-		var refundAmount = $(row).find('.refund-amount').val();
-		
-		if(refundAmount == "" || refundAmount == "undefined"){
-			alert("Please enter refund amount");
-			return;
-		}
-			
-		var cardNumber = $(row).find('.card-number').text();
-		var balance = $(row).find('.balance').text();
-		
-		if(parseInt(refundAmount) > parseInt(balance))
-		{
-			alert("Refund Amount cannot be greater than Balance Amount");
-			return;
-		}
-		else if(parseInt(refundAmount) <= parseInt(balance))
-		{
-		balance = balance - refundAmount;
-		}
-		
-    	var data = {
-	    		"cardNumber":cardNumber,
-	    	 	"balance":balance,
-	    	};
-    	
-    	alert(JSON.stringify(data));
-    	$.ajax({
-            url: 'refundBalance',
-            data: JSON.stringify(data),
-            type: "POST",           
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
-            success: function(data){ 
-                alert(JSON.stringify(data));
-                $('#refundYoyoCards').modal('hide');
-            },
-            error: function(xhr, textStatus, errorThrown){
-                alert('request failed');
-                return false;
-            }
-        });
-        return true;
-    });
-
-	
-	
 	
 	$('.discount-amount').on('change',function(){
 	
@@ -2515,9 +2479,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     	if(paymentMode == 'Debit/Credit Card' || paymentMode == 'Cash')
 		{
 			
-	    	var totalAmount = rechargeAmount;    	
-	    	var totalCash = 0;
-	    	$('#cardRechargeTable tbody tr').each(function() {
+	    	var totalAmount = rechargeAmount;
+	    	var totalCash = $('.save-card-recharge').closest('.modal').find('.cash-amount').val();
+	    	$('#moneyTable tbody tr').each(function() {
 	    		  $this = $(this);
 	    		  var quantity = $this.find('.spinner').find('input').val();
 	    		  
@@ -2560,7 +2524,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     			"denomination": denomination
     		};
     	
-    	alert(JSON.stringify(data));
+    	JSON.stringify({cardData:cardData, billData:billData, paymentData:paymentData});
     	$.ajax({
             url: 'addBalance',
             data: JSON.stringify({cardData:cardData, billData:billData, paymentData:paymentData}),
@@ -2749,7 +2713,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		                xhr.setRequestHeader("Content-Type", "application/json");
 		            },
 		            success: function(data){
-		            	alert(JSON.stringify(data));
+		            	alert(data.message);
 		            },
 		            error: function(xhr, textStatus, errorThrown){
 		                alert('request failed');
@@ -2770,13 +2734,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	                xhr.setRequestHeader("Content-Type", "application/json");
 	            },
 	            success: function(data){
-	            	alert(JSON.stringify(data));
-	            	if(data == "Success"){
-	            		alert('Ended the day successfully');
-	            	}
-	            	else{
-	            		alert('Can not end the day due to active bills');
-	            	}
+	            	alert(data.message);
 	            },
 	            error: function(xhr, textStatus, errorThrown){
 	                alert('request failed');
@@ -2786,5 +2744,87 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 			
 		}
 	});
+	
+	$('.card-refund').on('click',function(){
+		$('#refundYoyoCards').modal('show');
+		$('#refundYoyoCards tbody').html('');
+		
+		$.ajax({
+            url: 'getAllCardsBalances',
+            type: "GET",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {	
+                
+                	var cardNumber = data[i].cardNumber;
+                	var balance = data[i].balance;
+	                var tr = "";
+	                
+					tr = '<tr>'
+					   + '<td class="card-number">' + cardNumber + '</td>'
+					   + '<td class="balance">' + balance + '</td>'
+					   + '<td><input type="text" class="form-control refund-amount" value="' + balance + '"/></td>'
+					   + '<td><button class="btn btn-primary refund-card-balance">Refund</button></td>'
+					   + '</tr>';
+
+					$('#refundYoyoCards tbody').append(tr);
+					$('#refundYoyoCards').modal('show');
+				}
+            },
+        });
+	});
+	
+	$(document).on('click', '.refund-card-balance', function () {
+		
+		var row = $(this).closest('tr');
+		var refundAmount = $(row).find('.refund-amount').val();
+		
+		if(refundAmount == "" || refundAmount == "undefined"){
+			alert("Please enter refund amount");
+			return;
+		}
+			
+		var cardNumber = $(row).find('.card-number').text();
+		var balance = $(row).find('.balance').text();
+		
+		if(parseInt(refundAmount) > parseInt(balance))
+		{
+			alert("Refund Amount cannot be greater than Balance Amount");
+			return;
+		}
+		else if(parseInt(refundAmount) <= parseInt(balance))
+		{
+		balance = balance - refundAmount;
+		}
+		
+    	var data = {
+	    		"cardNumber":cardNumber,
+	    	 	"balance":balance,
+	    	};
+    	
+    	alert(JSON.stringify(data));
+    	$.ajax({
+            url: 'refundBalance',
+            data: JSON.stringify(data),
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                alert(JSON.stringify(data));
+                $('#refundYoyoCards').modal('hide');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert('request failed');
+                return false;
+            }
+        });
+        return true;
+    });
 	
 </script>

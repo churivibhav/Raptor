@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
-import com.base.test.model.Cards;
 import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
@@ -45,9 +44,6 @@ public class HomeController {
 
 	@Autowired
 	ServiceInterface<Bill> billService;
-	
-	@Autowired
-	ServiceInterface<Cards> cardService;
 
 	@Autowired
 	private ServiceInterface<Users> userService;
@@ -60,7 +56,6 @@ public class HomeController {
 		model.put("allBarMenu", barMenuService.getAll());
 		model.put("allFoodMenu", foodMenuService.getAll());
 		model.put("role", session.getAttribute("role"));
-		
 
 		return new ModelAndView("homepage", "model", model);
 	}
@@ -84,16 +79,10 @@ public class HomeController {
 		}
 		return bills;
 	}
-	
-	@RequestMapping(value = "/getAllCardsBalances", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody List<Cards> getAllCardsBalances(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("---------GET All Cards Balances----------");
-		List<Cards> cards = cardService.getActiveEntity();
-		return cards;
-	}
-	
+
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("---------SAVE ORDER----------");
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");

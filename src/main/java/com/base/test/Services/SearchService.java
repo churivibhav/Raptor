@@ -135,7 +135,7 @@ public class SearchService extends AbstractService<CriteriaDTO> {
 			case "int":
 				return Integer.parseInt(data);
 			case "java.util.Date":
-				return LocalDateSerializer.DISPLAY_DATE_FORMAT.parse(data);
+				return LocalDateSerializer.DATE_PICKER_DATE_FORMAT.parse(data);
 			default:
 				break;
 			}
