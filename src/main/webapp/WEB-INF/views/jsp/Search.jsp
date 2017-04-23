@@ -68,27 +68,27 @@
 	opacity: 1 !important;
 }
 
-.dt-button{
-	padding:10px;
+.dt-button {
+	padding: 10px;
 }
 
-.margin-top-10{
-	margin-top:10px;
+.margin-top-10 {
+	margin-top: 10px;
 }
 
-.sort-hide::after{
-	content:"" !important;
-	display:none;
+.sort-hide::after {
+	content: "" !important;
+	display: none;
 }
 
-.modal-header{
-	background:rgb(0,112,192);
-	color:white;
+.modal-header {
+	background: rgb(0, 112, 192);
+	color: white;
 }
 
-.close{
-	opacity:1;
-	color:white;
+.close {
+	opacity: 1;
+	color: white;
 }
 </style>
 </head>
@@ -111,7 +111,7 @@
 				</a>
 
 				<div class="title"
-					style="display: inline-block;color:white; font-weight: 700; font-size: 28px; margin-left: -150px; margin-top: 5px;">YOYO
+					style="display: inline-block; color: white; font-weight: 700; font-size: 28px; margin-left: -150px; margin-top: 5px;">YOYO
 					BAR & GRILL</div>
 
 				<div class="navbar-custom-menu">
@@ -174,63 +174,67 @@
 							<!-- /.box-header -->
 							<div class="box-body">
 								<div>
-										<!-- <label for="email">Module Name: </label>-->
-										<select class="form-control select-module-name" style="width:130px;display:inline-block;margin-bottom:10px;">
-											<option value="-1">Select Module</option>
-											<option value="0">Bill</option>
-											<option value="1">Tables</option>
-											<option value="2">Cards</option>
-											<option value="3">CardHistory</option>
-											<option value="4">DailyTransaction</option>
-											<option value="5">FoodMenu</option>
-											<option value="6">BarMenu</option>
-											<option value="7">Orders</option>
-											<option value="8">Payments</option>
-											<option value="9">TaxDetails</option>
-											<option value="10">Waiter</option>
-											<option value="11">Users</option>
-										</select>
-										
-										<button type="submit" class="btn btn-success btn-flat search pull-right">Search</button>
-										<button class="btn btn-primary btn-flat pull-right add-more" style="margin-right:10px;">Add Criteria</button>
-									</div>
-									
-								<div class="search-container">	
-								<div class="form-inline row fixed-search-bar" style="margin-bottom: 15px;">
-									
-									<div class="form-group col-sm-2">
-										<!--  <label for="email">Columns: </label>-->
-										<select class="form-control column-select">
-											<option value="-1">Select Column</option>
-											<!--  <option value="0">Id</option>
+									<!-- <label for="email">Module Name: </label>-->
+									<select class="form-control select-module-name"
+										style="width: 130px; display: inline-block; margin-bottom: 10px;">
+										<option value="-1">Select Module</option>
+										<option value="0">Bill</option>
+										<option value="1">Tables</option>
+										<option value="2">Cards</option>
+										<option value="3">CardHistory</option>
+										<option value="4">DailyTransaction</option>
+										<option value="5">FoodMenu</option>
+										<option value="6">BarMenu</option>
+										<option value="7">Orders</option>
+										<option value="8">Payments</option>
+										<option value="9">TaxDetails</option>
+										<option value="10">Waiter</option>
+										<option value="11">Users</option>
+									</select>
+
+									<button type="submit"
+										class="btn btn-success btn-flat search pull-right">Search</button>
+									<button class="btn btn-primary btn-flat pull-right add-more"
+										style="margin-right: 10px;">Add Criteria</button>
+								</div>
+
+								<div class="search-container">
+									<div class="form-inline row fixed-search-bar"
+										style="margin-bottom: 15px;">
+
+										<div class="form-group col-sm-2">
+											<!--  <label for="email">Columns: </label>-->
+											<select class="form-control column-select">
+												<option value="-1">Select Column</option>
+												<!--  <option value="0">Id</option>
 											<option value="1">tableNumber</option>
 											<option value="2">Date</option>-->
-										</select>
+											</select>
+										</div>
+										<div class="form-group col-sm-2">
+											<!-- <label for="email">Operator : </label>-->
+											<select class="form-control operator-select">
+												<option value="-1">Select Operator</option>
+											</select>
+										</div>
+										<div class="form-group col-sm-2">
+											<input type="text" class="form-control dynamic-field1"
+												name="data1" placeholder="Value 1">
+										</div>
+										<div class="form-group col-sm-2">
+											<input type="text" class="form-control dynamic-field2"
+												name="data2" placeholder="Value 2">
+										</div>
 									</div>
-									<div class="form-group col-sm-2">
-										<!-- <label for="email">Operator : </label>-->
-										<select class="form-control operator-select">
-											<option value="-1">Select Operator</option>
-										</select>
-									</div>
-									<div class="form-group col-sm-2">
-										<input type="text" class="form-control dynamic-field1" name="data1"
-											placeholder="Value 1">
-									</div>
-									<div class="form-group col-sm-2">
-										<input type="text" class="form-control dynamic-field2" name="data2"
-											placeholder="Value 2" >
-									</div>
+								</div>
 
-									
-								</div>
-								</div>
-								
 								<div class="clearfix">
-									<button class="btn btn-info pull-right" id="add-btn" style="display:none;"><i class="fa fa-plus"></i> Add</button>
+									<button class="btn btn-info pull-right" id="add-btn"
+										style="display: none;">
+										<i class="fa fa-plus"></i> Add
+									</button>
 								</div>
-								
-								
+
 								<table id="searchTable"
 									class="table table-bordered table-striped">
 									<thead>
@@ -269,7 +273,7 @@
        immediately after the control sidebar -->
 
 	</div>
-	
+
 	<div id="TableModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -282,43 +286,43 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-					<div class="col-sm-4">
-						<label>Table No.</label>
+						<div class="col-sm-4">
+							<label>Table No.</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control table-no" />
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control table-no"/>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Capacity</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control capacity" />
+						</div>
+					</div>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Type</label>
+						</div>
+						<div class="col-sm-6">
+							<select class="form-control" class="table-type">
+								<option value="-1">Select Type</option>
+								<option value="1">Bar</option>
+								<option value="2">Lounge</option>
+								<option value="3">VIP</option>
+							</select>
+						</div>
 					</div>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Capacity</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control capacity"/>
-					</div>
+				<div class="modal-footer">
+					<button class="btn btn-success save-table">Save Changes</button>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Type</label>
-					</div>
-					<div class="col-sm-6">
-						<select class="form-control" class="table-type">
-							<option value="-1">Select Type</option>
-							<option value="1">Bar</option>
-							<option value="2">Lounge</option>
-							<option value="3">VIP</option>
-						</select>
-					</div>
-				</div>
-				</div>
-			<div class="modal-footer">
-			<button  class="btn btn-success save-table">Save Changes</button>
-		  </div>
 			</div>
 
 		</div>
 	</div>
-	
+
 	<div id="FoodModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -330,58 +334,60 @@
 					<h4 class="modal-title">Add / Edit Food Menu</h4>
 				</div>
 				<div class="modal-body">
-				<div class="row">
-					<div class="col-sm-4">
-						<label>Item Name</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control food-item-name"/>
-					</div>
-				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Type</label>
-					</div>
-					<div class="col-sm-6">
-						<select class="form-control" class="food-item-type">
-							<option value="-1">Select Type</option>
-							<option value="1">Starter</option>
-							<option value="2">Main Course</option>
-						</select>
-					</div>
-				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Veg</label>
-					</div>
-					<div class="col-sm-6 user-map-active">
-						<div class="radio radio-info radio-inline">
-							<input type="radio" id="inlineRadio1" value="yes" name="radioInline" checked="">
-							<label for="inlineRadio1">Yes</label>
+					<div class="row">
+						<div class="col-sm-4">
+							<label>Item Name</label>
 						</div>
-						<div class="radio radio-info radio-inline">
-							<input type="radio" id="inlineRadio1" value="no" name="radioInline">
-							<label for="inlineRadio1">No</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control food-item-name" />
 						</div>
 					</div>
-				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Cost</label>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Type</label>
+						</div>
+						<div class="col-sm-6">
+							<select class="form-control" class="food-item-type">
+								<option value="-1">Select Type</option>
+								<option value="1">Starter</option>
+								<option value="2">Main Course</option>
+							</select>
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control food-item-cost"/>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Veg</label>
+						</div>
+						<div class="col-sm-6 user-map-active">
+							<div class="radio radio-info radio-inline">
+								<input type="radio" id="inlineRadio1" value="yes"
+									name="radioInline" checked=""> <label
+									for="inlineRadio1">Yes</label>
+							</div>
+							<div class="radio radio-info radio-inline">
+								<input type="radio" id="inlineRadio1" value="no"
+									name="radioInline"> <label for="inlineRadio1">No</label>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Cost</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control food-item-cost" />
+						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success save-food-menu">Save
+						Changes</button>
 				</div>
-			<div class="modal-footer">
-			<button class="btn btn-success save-food-menu">Save Changes</button>
-		  </div>
 			</div>
 
 		</div>
 	</div>
-	
+
 	<div id="BarModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -394,43 +400,43 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-					<div class="col-sm-4">
-						<label>Item Name</label>
+						<div class="col-sm-4">
+							<label>Item Name</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control bar-item-name" />
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control bar-item-name"/>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Type</label>
+						</div>
+						<div class="col-sm-6">
+							<select class="form-control" class="bar-item-type">
+								<option value="-1">Select Type</option>
+								<option value="1">Whisky</option>
+								<option value="2">Rum</option>
+								<option value="3">Vodka</option>
+							</select>
+						</div>
+					</div>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Cost</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control bar-item-cost" />
+						</div>
 					</div>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Type</label>
-					</div>
-					<div class="col-sm-6">
-						<select class="form-control" class="bar-item-type">
-							<option value="-1">Select Type</option>
-							<option value="1">Whisky</option>
-							<option value="2">Rum</option>
-							<option value="3">Vodka</option>
-						</select>
-					</div>
+				<div class="modal-footer">
+					<button class="btn btn-success save-bar-menu">Save Changes</button>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Cost</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control bar-item-cost"/>
-					</div>
-				</div>
-				</div>
-			<div class="modal-footer">
-			<button  class="btn btn-success save-bar-menu">Save Changes</button>
-		  </div>
 			</div>
 
 		</div>
 	</div>
-	
+
 	<div id="WaiterModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -443,38 +449,38 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-					<div class="col-sm-4">
-						<label>First Name</label>
+						<div class="col-sm-4">
+							<label>First Name</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control first-name" />
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control first-name"/>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Last Name</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control last-name" />
+						</div>
+					</div>
+					<div class="row margin-top-10">
+						<div class="col-sm-4">
+							<label>Middle Name</label>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control middle-name" />
+						</div>
 					</div>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Last Name</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control last-name"/>
-					</div>
+				<div class="modal-footer">
+					<button class="btn btn-success save-bar-menu">Save Changes</button>
 				</div>
-				<div class="row margin-top-10">
-					<div class="col-sm-4">
-						<label>Middle Name</label>
-					</div>
-					<div class="col-sm-6">
-						<input type="text" class="form-control middle-name"/>
-					</div>
-				</div>
-				</div>
-			<div class="modal-footer">
-			<button class="btn btn-success save-bar-menu">Save Changes</button>
-		  </div>
 			</div>
 
 		</div>
-	</div>	
-	
+	</div>
+
 	<div id="displayModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -485,14 +491,12 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Details</h4>
 				</div>
-				<div class="modal-body">
-					
-				</div>
+				<div class="modal-body"></div>
 			</div>
 
 		</div>
 	</div>
-	
+
 	<!-- ./wrapp1er -->
 
 	<!-- ./wrapp1er -->
@@ -518,28 +522,28 @@
 		var="jqueryNicescrollJs" />
 	<spring:url value="/resources/core/js/lib/datepicker.js"
 		var="datepickerJs" />
-	
+
 	<spring:url value="/resources/core/js/lib/dataTables.buttons.min.js"
 		var="file_export1" />
-		
+
 	<spring:url value="/resources/core/js/lib/buttons.flash.min.js"
-		var="file_export2" />	
-		
+		var="file_export2" />
+
 	<spring:url value="/resources/core/js/lib/jszip.min.js"
 		var="file_export3" />
-		
+
 	<spring:url value="/resources/core/js/lib/pdfmake.min.js"
-		var="file_export4" />	
-		
+		var="file_export4" />
+
 	<spring:url value="/resources/core/js/lib/vfs_fonts.js"
 		var="file_export5" />
-		
+
 	<spring:url value="/resources/core/js/lib/buttons.html5.min.js"
-		var="file_export6" />	
-		
+		var="file_export6" />
+
 	<spring:url value="/resources/core/js/lib/buttons.print.min.js"
 		var="file_export7" />
-			
+
 	<!--<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"
 		var="file_export1" />
 		
@@ -559,7 +563,7 @@
 		var="file_export6" />	
 		
 	<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"
-		var="file_export7" />-->						
+		var="file_export7" />-->
 
 
 	<script src="${jqueryJs}"></script>
@@ -572,7 +576,7 @@
 	<script src="${responsiveBootstrapJs}"></script>
 	<script src="${jqueryNicescrollJs}"></script>
 	<script src="${datepickerJs}"></script>
-	
+
 	<script src="${file_export1}"></script>
 	<script src="${file_export2}"></script>
 	<script src="${file_export3}"></script>
@@ -580,7 +584,7 @@
 	<script src="${file_export5}"></script>
 	<script src="${file_export6}"></script>
 	<script src="${file_export7}"></script>
-	
+
 
 	<!-- page script -->
 	<script>
@@ -595,107 +599,97 @@
 				"autoWidth" : false
 			});
 		});
-		
+
 		$('.openPopup').on('')
-		
-		$(document).on('click','.openPopup',function(){
+
+		$(document).on('click', '.openPopup', function() {
 			$('#displayModal').modal('show');
 		})
-		
-		$('.modal').on('hidden.bs.modal',function(){
+
+		$('.modal').on('hidden.bs.modal', function() {
 			location.reload(true);
 		});
-		
-		$(document).on('click','.delete-btn',function(){
+
+		$(document).on('click', '.delete-btn', function() {
 			var module = $('.select-module-name option:selected').val();
-			
-			if(module == "1"){
+
+			if (module == "1") {
 				//table 
 				var r = confirm("Are you sure want to delete this table?");
 				if (r == true) {
-				    
-				} 
-				
-			}
-			else if(module == "5"){
+
+				}
+
+			} else if (module == "5") {
 				//foodmenu
 				var r = confirm("Are you sure want to delete this food menu?");
 				if (r == true) {
-				    
-				} 
-			}
-			else if(module == "6"){
+
+				}
+			} else if (module == "6") {
 				//barmenu
 				var r = confirm("Are you sure want to delete this bar menu?");
 				if (r == true) {
-				    
-				} 
-			}
-			else{
+
+				}
+			} else {
 				//waiter
 				var r = confirm("Are you sure want to delete this waiter?");
 				if (r == true) {
-				    
-				} 
-			}
-		})
-		
 
-		$(document).on('click','.edit-btn',function(){
+				}
+			}
+		})
+
+		$(document).on('click', '.edit-btn', function() {
 			var module = $('.select-module-name option:selected').val();
-			
-			if(module == "1"){
+
+			if (module == "1") {
 				//table 
 				$('#TableModal').modal('show');
-			}
-			else if(module == "5"){
+			} else if (module == "5") {
 				//foodmenu
 				$('#FoodModal').modal('show');
-			}
-			else if(module == "6"){
+			} else if (module == "6") {
 				//barmenu
 				$('#BarModal').modal('show');
-			}
-			else{
+			} else {
 				//waiter
 				$('#WaiterModal').modal('show');
 			}
 		})
-		
-		$('#add-btn').on('click',function(){
+
+		$('#add-btn').on('click', function() {
 			var module = $('.select-module-name option:selected').val();
-			
-			if(module == "1"){
+
+			if (module == "1") {
 				//table 
 				$('#TableModal').modal('show');
-			}
-			else if(module == "5"){
+			} else if (module == "5") {
 				//foodmenu
 				$('#FoodModal').modal('show');
-			}
-			else if(module == "6"){
+			} else if (module == "6") {
 				//barmenu
 				$('#BarModal').modal('show');
-			}
-			else{
+			} else {
 				//waiter
 				$('#WaiterModal').modal('show');
 			}
 		});
-		
-		$('.add-more').on('click',function(){
+
+		$('.add-more').on('click', function() {
 			var html = $('.search-container .fixed-search-bar')[0].outerHTML;
-			
+
 			$('.search-container').append(html);
-			
+
 		});
-		
-		$('.operator-select').on('change',function(){
-			$('.dynamic-field1').each(function(){
+
+		$('.operator-select').on('change', function() {
+			$('.dynamic-field1').each(function() {
 				$(this).val('');
 			})
-			
-			$('.dynamic-field2').each(function(){
+
+			$('.dynamic-field2').each(function() {
 				$(this).val('');
 			})
 		})
@@ -703,36 +697,40 @@
 		$('.column-select').on(
 				'change',
 				function() {
-					
-					$('.dynamic-field1').each(function(){
+
+					$('.dynamic-field1').each(function() {
 						$(this).val('');
 					})
-					
-					$('.dynamic-field2').each(function(){
+
+					$('.dynamic-field2').each(function() {
 						$(this).val('');
 					})
-					
-					$('.operator-select').each(function(){
+
+					$('.operator-select').each(function() {
 						$(this).find('option:selected').removeAttr('selected');
 					})
-					
+
 					var selcted_value = $(this).find('option:selected').attr(
 							'dataType');
 
 					if (selcted_value === 'java.util.Date') {
-						$(this).closest('.row').find('.dynamic-field1').datepicker({
-							format : 'dd-M-yyyy',
-							todayHighlight : true,
-							autoclose : true
-						});
-						$(this).closest('.row').find('.dynamic-field2').datepicker({
-							format : 'dd-M-yyyy',
-							todayHighlight : true,
-							autoclose : true
-						});
+						$(this).closest('.row').find('.dynamic-field1')
+								.datepicker({
+									format : 'dd-M-yyyy',
+									todayHighlight : true,
+									autoclose : true
+								});
+						$(this).closest('.row').find('.dynamic-field2')
+								.datepicker({
+									format : 'dd-M-yyyy',
+									todayHighlight : true,
+									autoclose : true
+								});
 					} else {
-						$(this).closest('.row').find('.dynamic-field1').datepicker('remove');
-						$(this).closest('.row').find('.dynamic-field2').datepicker('remove');
+						$(this).closest('.row').find('.dynamic-field1')
+								.datepicker('remove');
+						$(this).closest('.row').find('.dynamic-field2')
+								.datepicker('remove');
 					}
 
 				});
@@ -741,20 +739,20 @@
 			var className = $(this).find('option:selected').text();
 			$('.column-select').find('option').remove().end();
 			$('.operator-select').find('option').remove().end();
-			
-			$('.dynamic-field1').each(function(){
+
+			$('.dynamic-field1').each(function() {
 				$(this).val('');
 			})
-			
-			$('.dynamic-field2').each(function(){
+
+			$('.dynamic-field2').each(function() {
 				$(this).val('');
 			})
-			
-			$('.column-select').each(function(){
+
+			$('.column-select').each(function() {
 				$(this).find('option:selected').removeAttr('selected');
 			})
-			
-			$('.operator-select').each(function(){
+
+			$('.operator-select').each(function() {
 				$(this).find('option:selected').removeAttr('selected');
 			})
 
@@ -802,54 +800,90 @@
 						function() {
 							/*$('#searchTable tbody').html('');
 							$('#searchTable thead').html('');*/
-							
-							
-							
-							var module_select_value = $('.select-module-name option:selected').val();
-							
-							if(module_select_value == "-1"){
+
+							var module_select_value = $(
+									'.select-module-name option:selected')
+									.val();
+
+							if (module_select_value == "-1") {
 								alert('Please select module to Search.');
 								return;
 							}
-							
-							if(searchTable != "")
+
+							if (searchTable != "")
 								searchTable.destroy();
-							
+
 							var className = $(
 									'.select-module-name option:selected')
 									.text();
-							var column = $('.column-select option:selected')
-									.val();
-							var dataType = $('.column-select option:selected')
-									.attr('dataType');
-							var operation = $(
-									'.operator-select option:selected').val();
-							var data1 = $('.dynamic-field1').val();
-							var data2 = $('.dynamic-field2').val();
 							var criteriaDTO = {
-								"className" : className,
-								"restrictions" : [ {
-									"column" : column,
-									"columnDataType" : dataType,
-									"operation" : operation,
-									"data1" : data1,
-									"data2" : data2
-								} ]
+								"className" : className
 							};
+							criteriaDTO.restrictions = [];
+							$(".fixed-search-bar")
+									.each(
+											function() {
+												var column = $(this)
+														.find(
+																".column-select option:selected")
+														.val();
+												var dataType = $(this)
+														.find(
+																'.column-select option:selected')
+														.attr('dataType');
+												var operation = $(this)
+														.find(
+																'.operator-select option:selected')
+														.val();
+												var data1 = $(this).find(
+														'.dynamic-field1')
+														.val();
+												var data2 = $(this).find(
+														'.dynamic-field2')
+														.val();
+												criteriaDTO.restrictions
+														.push({
+															"column" : column,
+															"columnDataType" : dataType,
+															"operation" : operation,
+															"data1" : data1,
+															"data2" : data2
+														});
+											});
+
 							//alert(JSON.stringify(criteriaDTO));
+							var i = 0;
 							var tr = '<tr id="header">';
-							$('.column-select option').each(
-									function() {
-										$this = $(this);
-										if ($this.val() != -1)
-											tr = tr + '<th class="'
-													+ $this.val() + '">'
-													+ $this.text() + '</th>';
-									});
-							
-							if(["1","5","6","10"].indexOf(module_select_value) != -1)
+							$('.fixed-search-bar')
+									.each(
+											function() {
+												i = i + 1;
+												if (i > 1) {
+													return;
+												}
+												$(this)
+														.find(
+																'.column-select option')
+														.each(
+																function() {
+																	$this = $(this);
+																	if ($this
+																			.val() != -1)
+																		tr = tr
+																				+ '<th class="'
+																				+ $this
+																						.val()
+																				+ '">'
+																				+ $this
+																						.text()
+																				+ '</th>';
+																});
+											});
+
+							if ([ "1", "5", "6", "10" ]
+									.indexOf(module_select_value) != -1)
 								tr += "<th class='sort-hide text-center'>Action</th>";
-								
+
 							tr = tr + '</tr>';
 							$('#searchTable thead').html('');
 							$('#searchTable thead').append(tr);
@@ -866,16 +900,17 @@
 													"application/json");
 										},
 										success : function(data) {
-											//alert(JSON.stringify(data));
+											alert(JSON.stringify(data));
 											$('#searchTable tbody').html('');
-											
-											
-											
-											if(["1","5","6","10"].indexOf(module_select_value) != -1)
-												$('#add-btn').css('display','block');
+
+											if ([ "1", "5", "6", "10" ]
+													.indexOf(module_select_value) != -1)
+												$('#add-btn').css('display',
+														'block');
 											else
-												$('#add-btn').css('display','none');
-												
+												$('#add-btn').css('display',
+														'none');
+
 											for (var i = 0; i < data.length; i++) {
 												var tr = '<tr id="'+data[i].id+'"class="'+data[i].id+'">';
 												$
@@ -884,34 +919,41 @@
 																function(k, v) {
 																	if (jQuery
 																			.type(v) != "array")
-																		if(k == 'id'){
+																		if (k == 'id') {
 																			tr = tr
-																			+ '<td class="'+k+'">'
-																			+ '<a href="#" class="openPopup">'+v+'</a>'
-																			+ '</td>'
-																		}
-																		else{
+																					+ '<td class="'+k+'">'
+																					+ '<a href="#" class="openPopup">'
+																					+ v
+																					+ '</a>'
+																					+ '</td>'
+																		} else {
 																			tr = tr
-																			+ '<td class="'+k+'">'
-																			+ v
-																			+ '</td>'
+																					+ '<td class="'+k+'">'
+																					+ v
+																					+ '</td>'
 																		}
-																		
+
 																});
-												
-												if(["1","5","6","10"].indexOf(module_select_value) != -1)
+
+												if ([ "1", "5", "6", "10" ]
+														.indexOf(module_select_value) != -1)
 													tr += "<td class='text-center' ><a class='edit-btn' href='#' style='margin-right:5px;'><i class='fa fa-edit'></i></a><a class='delete-btn' href='#'><i class='fa fa-trash'></i></a></td>";
-													
+
 												tr += '</tr>';
-												$('#searchTable tbody').append(tr);
+												$('#searchTable tbody').append(
+														tr);
 											}
-												searchTable = $("#searchTable").DataTable({
-													dom: 'Bfrtip',
-											        buttons: [
-											             'csv', 'excel', 'pdf', 'print'
-											        ]
-												});
-											
+											searchTable = $("#searchTable")
+													.DataTable(
+															{
+																dom : 'Bfrtip',
+																buttons : [
+																		'csv',
+																		'excel',
+																		'pdf',
+																		'print' ]
+															});
+
 										},
 										error : function(xhr, textStatus,
 												errorThrown) {
