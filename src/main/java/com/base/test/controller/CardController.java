@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ import com.base.test.enums.TransactionType;
 import com.base.test.model.Bill;
 import com.base.test.model.Cards;
 import com.base.test.model.Payments;
+import com.base.test.model.Users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,10 +32,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CardController {
 
 	@Autowired
-	private ServiceInterface<Cards> cardService;
+	ServiceInterface<Cards> cardService;
 
 	@Autowired
-	private ServiceInterface<Bill> billService;
+	ServiceInterface<Bill> billService;
+	
+	@Autowired
+	ServiceInterface<Users> userService;
 
 	private static final Logger logger = LogManager.getLogger(CardController.class);
 
@@ -101,6 +106,11 @@ public class CardController {
 
 		/* Getting Bill data */
 		Bill bill = (Bill) mapper.convertValue(node.get("billData"), Bill.class);
+		
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("username");
+		bill.setUserID(userService.getByName(userName).getId());
+		
 		bill.setOrders(new ArrayList<>());
 
 		Payments payment = (Payments) mapper.convertValue(node.get("paymentData"), Payments.class);

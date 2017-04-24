@@ -52,7 +52,7 @@ public class SearchController {
 	ServiceInterface<Bill> billService;
 
 	@Autowired
-	ServiceInterface<CriteriaDTO> searchService;
+	SearchService searchService;
 
 	@RequestMapping(value = "/getSearch", method = RequestMethod.GET)
 	public ModelAndView getSearch(HttpServletRequest request, HttpServletResponse response) {

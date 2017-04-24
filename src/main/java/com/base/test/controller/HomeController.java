@@ -46,7 +46,7 @@ public class HomeController {
 	ServiceInterface<Bill> billService;
 
 	@Autowired
-	private ServiceInterface<Users> userService;
+	ServiceInterface<Users> userService;
 
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
