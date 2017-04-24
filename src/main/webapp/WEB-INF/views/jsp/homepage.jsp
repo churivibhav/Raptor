@@ -343,7 +343,8 @@
 					</div>
 					<div class="table-resposive recharge-money-table"
 						style="display: none;">
-						<table class="moneyTable table table-striped table-bordered hover"
+						<table id="cardRechargeDenomination"
+							class="moneyTable table table-striped table-bordered hover"
 							cellspacing="0" width="100%">
 							<thead>
 								<tr>
@@ -354,7 +355,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">Chillar</td>
+									<td></td>
+									<td class="chillarTotalRecharge total-row-price">0</td>
+								</tr>
+								<tr>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -372,7 +378,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -390,7 +396,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -408,7 +414,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -426,7 +432,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -444,7 +450,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -515,7 +521,7 @@
 							</select> <input type="text" class="form-control other-waiter-text"
 								style="display: none;" placeholder="Waiter name" />
 						</div>
-						<div class="col-sm-6 text-right">
+					    <!-- <div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
 							<div class="input-group spinner">
 								<input type="text" class="form-control" value="1" min="0"
@@ -528,8 +534,8 @@
 										<i class="fa fa-caret-down"></i>
 									</button>
 								</div>
-							</div>
-						</div>
+							</div> 
+						</div>-->
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-4 tree-view">
@@ -629,14 +635,13 @@
 								class="form-control waiter-select">
 								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}"
-										waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> <input type="text" class="form-control other-waiter-text"
 								style="display: none;" placeholder="Waiter name" />
 						</div>
-						<div class="col-sm-6 text-right">
+						<!-- <div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
 							<div class="input-group spinner">
 								<input type="text" class="form-control" value="1" min="0"
@@ -650,7 +655,7 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-4 tree-view">
@@ -785,7 +790,7 @@
 								<div class="text-right form-inline" style="margin-top: 10px;">
 									<label>Discount %: </label> <input type="text"
 										class="form-control discount-amount" value="0"
-										style="margin-right: 10px;" /> <label>Actual Amount :
+										style="margin-right: 10px;" /> <label>Final Bill Amount :
 									</label> <input type="text" class="form-control actual-amount"
 										value="0" disabled />
 								</div>
@@ -816,7 +821,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">Chillar</td>
+									<td></td>
+									<td class="chillarTotalDirect total-row-price">0</td>
+								</tr>
+								<tr>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -834,7 +844,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -852,7 +862,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -870,7 +880,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -888,7 +898,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -906,7 +916,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1085,12 +1095,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>Chillar</td>
+									<td class="type-of-note">Chillar</td>
 									<td></td>
 									<td class="chillarTotal total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1108,7 +1118,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1126,7 +1136,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1144,7 +1154,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1162,7 +1172,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1180,7 +1190,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td  class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1998,6 +2008,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		
 		if(paymentMode == '1'){
 			$(this).closest('.modal').find('.recharge-money-table').show();
+			var remaining = $('.recharge-amount').val();
+			var chillar = remaining % 10;
+			$('.chillarTotalRecharge').text(chillar);
 		}
 		else
 			$(this).closest('.modal').find('.recharge-money-table').hide();
@@ -2007,7 +2020,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var paymentMode = $('.payment-option option:selected').val();
 		var section = $(this).closest('.modal').find('.order-type').text();
 		var tableNo = $(this).closest('.modal').find('.settleBillTableNumber').text();
-		var total_cost = $(this).closest('.modal').find('.bill-total-cost').val();
+		var total_cost = $(this).closest('.modal').find('.actual-amount').val();
 		
 		if(paymentMode == '3'){
 			$(this).closest('.modal').find('.money-table').hide();
@@ -2022,6 +2035,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 		else if(paymentMode == '1'){
 			$(this).closest('.modal').find('.money-table').show();
+			var remaining = $('.actual-amount').val();
+			var chillar = remaining % 10;
+			$('.chillarTotalDirect').text(chillar);
 		}
 		else
 			$(this).closest('.modal').find('.money-table').hide();
@@ -2370,12 +2386,17 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         	$('#yoyoDenominationTable tbody tr').each(function() {
         		  $this = $(this);
         		  var quantity = $this.find('.spinner').find('input').val();
-        		  //if(typeof qauntity === "undefined"){
-        		  //quantity = 0;
-        		  //}
+        		  if(typeof quantity === "undefined"){
+        		  quantity = 1;
+        		  }
         		  var cost = $this.find("td.total-row-price").text();
+        		  var typeofnote = $this.find("td.type-of-note").text();
+        		  if(typeofnote == 'Chillar')
+        			{
+        			  typeofnote = cost;
+        			}
         		  totalCash = totalCash + parseInt(cost);
-        		  denomination = denomination + quantity +',' + cost + ';';
+        		  denomination = denomination + quantity +',' + typeofnote + ';';
         	});
         	if(remainingAmount > 0 && secondPayment == 'None')
         		{
@@ -2383,7 +2404,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     	    	return false;
     	    	}    		
     				if(secondPayment == 'Cash'){
-    	        		if(remainingAmount!= totalCash){
+    	        		if(remainingAmount!= parseInt(totalCash)){
     	        			alert("Cash is not matching");
     	        			return false;
     	        		}
@@ -2411,17 +2432,22 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         	$('#yoyoDenominationTableDirect tbody tr').each(function() {
         		  $this = $(this);
         		  var quantity = $this.find('.spinner').find('input').val();
-        		  //if(typeof qauntity === "undefined"){
-        		  //quantity = 0;
-        		  //}
+        		  if(typeof quantity === "undefined"){
+        			  quantity = 1;
+        		  }
         		  var cost = $this.find("td.total-row-price").text();
+        		  var typeofnote = $this.find("td.type-of-note").text();
+        		  if(typeofnote == 'Chillar')
+      				{
+      			  		typeofnote = cost;
+      				}
         		  totalCash = totalCash + parseInt(cost);
-        		  denomination = denomination + quantity +',' + cost + ';';
+        		  denomination = denomination + quantity +',' + typeofnote + ';';
         	});
         	
         	if(paymentMode == 'Cash')
         	{
-    	       if(totalAmount!= totalCash)
+    	       if(totalAmount!= parseInt(totalCash))
     	        {
     	        	alert("Cash is not matching");
     	        	return false;
@@ -2480,22 +2506,29 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		{
 			
 	    	var totalAmount = rechargeAmount;
-	    	var totalCash = $('.save-card-recharge').closest('.modal').find('.cash-amount').val();
-	    	$('#moneyTable tbody tr').each(function() {
+	    	//var totalCash = $('.save-card-recharge').closest('.modal').find('.cash-amount').val();
+	    	var totalCash = 0;
+	    	$('#cardRechargeDenomination tbody tr').each(function() {
 	    		  $this = $(this);
 	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  
+	    		  if(typeof quantity === "undefined"){
+        			  quantity = 1;
+        		  }
 	    		  var cost = $this.find("td.total-row-price").text();
-
+	    		  var typeofnote = $this.find("td.type-of-note").text();
+	    		  if(typeofnote == 'Chillar')
+    				{
+    			  		typeofnote = cost;
+    				}
 	    		  totalCash = totalCash + parseInt(cost);
-	    		  denomination = denomination + quantity +',' + cost + ';';
+	    		  denomination = denomination + quantity +',' + typeofnote + ';';
 	    	});
 	    	
 	    	if(paymentMode == 'Cash')
 	    	{
-		       	if(totalAmount != totalCash)
+		       	if(rechargeAmount != parseInt(totalCash))
 		        {
-		        	alert("Cash is not matching" + totalAmount + " " + totalCash);
+		        	alert("Cash is not matching");
 		        	return false;
 		        }
 		    }
