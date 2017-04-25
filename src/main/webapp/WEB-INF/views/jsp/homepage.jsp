@@ -241,7 +241,7 @@
 													<div
 														style="width: 50%; display: inline-block; float: left;">
 														<a href="#"
-															class="btn btn-default active-orders btn-default">Active KOTs</a>
+															class="btn btn-default active-orders btn-default">Active Orders</a>
 													</div>
 												</div>
 											</div>
@@ -998,7 +998,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Active KOTs</h4>
+					<h4 class="modal-title">Active Orders</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
