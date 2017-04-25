@@ -234,7 +234,7 @@
 										<i class="fa fa-plus"></i> Add
 									</button>
 								</div>
-
+								<div class="table-responsive">			
 								<table id="searchTable"
 									class="table table-bordered table-striped">
 									<thead>
@@ -244,6 +244,7 @@
 									<tbody>
 									</tbody>
 								</table>
+								</div>
 							</div>
 							<!-- /.box-body -->
 						</div>
@@ -274,7 +275,7 @@
 
 	</div>
 
-	<div id="TableModal" class="modal fade" role="dialog"
+	<div id="AddEditModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
 
@@ -285,202 +286,15 @@
 					<h4 class="modal-title">Add / Edit Table</h4>
 				</div>
 				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Table No.</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control table-no" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Capacity</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control capacity" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Type</label>
-						</div>
-						<div class="col-sm-6">
-							<select class="form-control" class="table-type">
-								<option value="-1">Select Type</option>
-								<option value="1">Bar</option>
-								<option value="2">Lounge</option>
-								<option value="3">VIP</option>
-							</select>
-						</div>
-					</div>
-				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success save-table">Save Changes</button>
 				</div>
+				</div>
 			</div>
-
 		</div>
 	</div>
 
-	<div id="FoodModal" class="modal fade" role="dialog"
-		data-backdrop="static">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add / Edit Food Menu</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Item Name</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control food-item-name" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Type</label>
-						</div>
-						<div class="col-sm-6">
-							<select class="form-control" class="food-item-type">
-								<option value="-1">Select Type</option>
-								<option value="1">Starter</option>
-								<option value="2">Main Course</option>
-							</select>
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Veg</label>
-						</div>
-						<div class="col-sm-6 user-map-active">
-							<div class="radio radio-info radio-inline">
-								<input type="radio" id="inlineRadio1" value="yes"
-									name="radioInline" checked=""> <label
-									for="inlineRadio1">Yes</label>
-							</div>
-							<div class="radio radio-info radio-inline">
-								<input type="radio" id="inlineRadio1" value="no"
-									name="radioInline"> <label for="inlineRadio1">No</label>
-							</div>
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Cost</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control food-item-cost" />
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success save-food-menu">Save
-						Changes</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<div id="BarModal" class="modal fade" role="dialog"
-		data-backdrop="static">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add / Edit BAR Menu</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Item Name</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control bar-item-name" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Type</label>
-						</div>
-						<div class="col-sm-6">
-							<select class="form-control" class="bar-item-type">
-								<option value="-1">Select Type</option>
-								<option value="1">Whisky</option>
-								<option value="2">Rum</option>
-								<option value="3">Vodka</option>
-							</select>
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Cost</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control bar-item-cost" />
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success save-bar-menu">Save Changes</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<div id="WaiterModal" class="modal fade" role="dialog"
-		data-backdrop="static">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add / Edit Waiter</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>First Name</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control first-name" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Last Name</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control last-name" />
-						</div>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col-sm-4">
-							<label>Middle Name</label>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" class="form-control middle-name" />
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success save-bar-menu">Save Changes</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
+	
 	<div id="displayModal" class="modal fade" role="dialog"
 		data-backdrop="static">
 		<div class="modal-dialog">
@@ -543,27 +357,6 @@
 
 	<spring:url value="/resources/core/js/lib/buttons.print.min.js"
 		var="file_export7" />
-
-	<!--<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"
-		var="file_export1" />
-		
-	<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"
-		var="file_export2" />	
-		
-	<spring:url value="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"
-		var="file_export3" />
-		
-	<spring:url value="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"
-		var="file_export4" />	
-		
-	<spring:url value="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"
-		var="file_export5" />
-		
-	<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"
-		var="file_export6" />	
-		
-	<spring:url value="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"
-		var="file_export7" />-->
 
 
 	<script src="${jqueryJs}"></script>
@@ -632,7 +425,7 @@
 				if (r == true) {
 
 				}
-			} else {
+			} else if (module == "10"){
 				//waiter
 				var r = confirm("Are you sure want to delete this waiter?");
 				if (r == true) {
@@ -644,69 +437,53 @@
 		$(document).on('click', '.edit-btn', function() {
 			var module = $('.select-module-name option:selected').val();
 
-			if (module == "1") {
-				//table 
-				$('#TableModal').modal('show');
-			} else if (module == "5") {
-				//foodmenu
-				$('#FoodModal').modal('show');
-			} else if (module == "6") {
-				//barmenu
-				$('#BarModal').modal('show');
-			} else {
-				//waiter
-				$('#WaiterModal').modal('show');
+			if (module == "1" || module == "5" || module == "6" || module == "10") {
+				$('#AddEditModal').modal('show');
 			}
 		})
 
 		$('#add-btn').on('click', function() {
 			var module = $('.select-module-name option:selected').val();
 
-			if (module == "1") {
-				//table 
-				$('#TableModal').modal('show');
-			} else if (module == "5") {
-				//foodmenu
-				$('#FoodModal').modal('show');
-			} else if (module == "6") {
-				//barmenu
-				$('#BarModal').modal('show');
-			} else {
-				//waiter
-				$('#WaiterModal').modal('show');
+			if (module == "1" || module == "5" || module == "6" || module == "10") {
+				$('#AddEditModal').modal('show');
 			}
 		});
 
 		$('.add-more').on('click', function() {
 			var html = $('.search-container .fixed-search-bar')[0].outerHTML;
-
+			
+			var delete_button = "<a href='#' style='margin-left:10px;color:red;'><i class='fa fa-trash'></i></a>";
+			
+			$(html).find('.form-group.col-sm-2').last().append(delete_button);
+			html = $(html)[0].outerHTML;
 			$('.search-container').append(html);
-
 		});
-
-		$('.operator-select').on('change', function() {
-			$('.dynamic-field1').each(function() {
+		
+		$(document).on('change','.operator-select',function(){
+		
+			$(this).closest('.row').find('.dynamic-field1').each(function() {
 				$(this).val('');
 			})
 
-			$('.dynamic-field2').each(function() {
+			$(this).closest('.row').find('.dynamic-field2').each(function() {
 				$(this).val('');
 			})
 		})
 
-		$('.column-select').on(
-				'change',
+		$(document).on(
+				'change','.column-select',
 				function() {
 
-					$('.dynamic-field1').each(function() {
+					$(this).closest('.row').find('.dynamic-field1').each(function() {
 						$(this).val('');
 					})
 
-					$('.dynamic-field2').each(function() {
+					$(this).closest('.row').find('.dynamic-field2').each(function() {
 						$(this).val('');
 					})
 
-					$('.operator-select').each(function() {
+					$(this).closest('.row').find('.operator-select').each(function() {
 						$(this).find('option:selected').removeAttr('selected');
 					})
 

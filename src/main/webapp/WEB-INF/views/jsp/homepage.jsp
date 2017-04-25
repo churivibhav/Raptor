@@ -788,14 +788,22 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div class="text-right form-inline settleBilltotal">
-									<label>Total : </label> <input type="text"
-										class="form-control bill-total-cost" value="900" disabled />
+								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
+									<label>Bill Amount : </label> <input type="text"
+										class="form-control bill-total-cost" value="900" style="margin-top: 10px;margin-right:10px" disabled />
+									<label style="margin-right:41px">Bill Amount After Tax:
+									</label> <input type="text" class="form-control bill-amt-after-tax"
+										value="0" disabled />
 								</div>
 								<div class="text-right form-inline" style="margin-top: 10px;">
 									<label>Discount %: </label> <input type="text"
 										class="form-control discount-amount" value="0"
-										style="margin-right: 10px;" /> <label>Final Bill Amount :
+										style="margin-right: 10px;" /> <label>Bill Amount after discount:
+									</label> <input type="text" class="form-control bill-amt-after-discount"
+										value="0" disabled />
+								</div>
+								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
+									<label>Final Bill Amount:
 									</label> <input type="text" class="form-control actual-amount"
 										value="0" disabled />
 								</div>
@@ -1315,10 +1323,12 @@
 			{
 				alert('Discount Amount cannot be greater than Bill Amount');
 				$(this).closest('.modal').find('.discount-amount').val('');
+				$(this).closest('.modal').find('.bill-amt-after-discount').val(amnt);
 				$(this).closest('.modal').find('.actual-amount').val(amnt);
 			}
 			else{
 				var actual_amount = amnt - (amnt*(disamnt/100));
+				$(this).closest('.modal').find('.bill-amt-after-discount').val(actual_amount);
 				$(this).closest('.modal').find('.actual-amount').val(actual_amount);
 			}
 		}
@@ -1580,6 +1590,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						$('#billMainTable tbody').append(tr);
 						$('#settleBillID').val(data.id);
 						$('.settleBilltotal').find('input').val(data.amount);
+						$('#billModal .bill-amt-after-tax').val(data.totalAmount);
+						$('#billModal .bill-amt-after-discount').val(data.amount);
 						$('#billModal .actual-amount').val(data.amount);
 						$('#billModal').modal('show');
 					}
@@ -2211,8 +2223,6 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).ready(function () {
 	    $(document).on('click', '.give-order', function () {
 	    	var btn = $(this);
-	    	
-	    	
 	    	
 	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
 	    		toastr.error("Please select a waiter.");
