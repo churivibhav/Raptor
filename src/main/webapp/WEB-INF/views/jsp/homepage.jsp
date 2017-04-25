@@ -238,6 +238,11 @@
 														<a href="#"
 															class="btn btn-default search-link btn-default">Search</a>
 													</div>
+													<div
+														style="width: 50%; display: inline-block; float: left;">
+														<a href="#"
+															class="btn btn-default active-orders btn-default">Active Orders</a>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -995,6 +1000,46 @@
 		</div>
 	</div>
 
+	<div id="activeOrders" class="modal fade custom-width" role="dialog"
+		data-backdrop="static">
+		<div class="modal-dialog modal-lg">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Active Orders</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12 order-table">
+							<div class="table-responsive">
+								<table id="activeOrdersTable"
+									class="table table-striped table-bordered hover"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Item</th>
+											<th>Amount</th>
+											<th>Quantity</th>
+											<th>Challan ID</th>
+											<th>Waiter</th>
+										</tr>
+									</thead>
+									<tbody class="active-orders-tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<div class="modal-footer">
+			<button type="button" class="btn btn-success settle-bill">Settle Bill</button>
+		  </div>-->
+			</div>
+
+		</div>
+	</div>
 
 	<div id="refundYoyoCards" class="modal fade custom-width" role="dialog"
 		data-backdrop="static">
@@ -1613,6 +1658,44 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		$(this).toggleClass('selected');
 	});*/
 
+	$('.active-orders').on('click',function(){
+		$('#activeOrders').modal('show');
+		$('#activeOrders tbody').html('');
+		
+		$.ajax({
+            url: 'getActiveOrders',
+            type: "POST",           
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(data){ 
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {	
+                	
+                	var orderItemID = data[i].orderItemID;
+                	var cost = data[i].cost;
+                	var quantity = data[i].quantity;
+                	var chalanID = data[i].chalanID;
+                	var waiterID = data[i].waiterID;
+                	
+	                var tr = "";
+					
+					tr = '<tr>'
+					   + '<td>' + orderItemID + '</td>'
+					   + '<td>' + cost + '</td>'
+					   + '<td>' + quantity + '</td>'
+					   + '<td>' + chalanID + '</td>'
+					   + '<td>' + waiterID + '</td>'
+					   + '</tr>';
+
+					$('#activeOrders tbody').append(tr);
+					$('#activeOrders').modal('show');
+				}
+            },
+        });
+	});
+	
 	$(document).on('click','.table-layout-container .table,.lounge-box,.vip-box',function(){
 		$(this).siblings().removeClass('selected');
 		if(!$(this).hasClass('selected'))

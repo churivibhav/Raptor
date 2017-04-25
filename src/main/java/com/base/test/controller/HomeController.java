@@ -1,5 +1,6 @@
 package com.base.test.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,22 @@ public class HomeController {
 		clearForJsonParser(bill);
 		return bill;
 	}
+	
+	@RequestMapping(value = "/getActiveOrders", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Orders> getActiveOrders(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("---------GET ACTIVE ORDERS----------");
+		List<Orders> activeOrders = new ArrayList<Orders>();
+		List<Bill> activeBills = billService.getActiveEntity();
+		if(activeBills.size() > 0){
+			for (Bill bill : activeBills){
+				activeOrders.addAll(bill.getOrders());
+			}
+		}
+		for(Orders order : activeOrders){
+			clearForJsonParser(order);
+		}
+		return activeOrders;
+	}
 
 	@RequestMapping(value = "/getBills", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody List<Bill> getBills(HttpServletRequest request, HttpServletResponse response) {
@@ -111,4 +128,9 @@ public class HomeController {
 			payment.setBill(null);
 		}
 	}
+	
+	private void clearForJsonParser(Orders order) {
+		order.setBill(null);
+	}
+	
 }
