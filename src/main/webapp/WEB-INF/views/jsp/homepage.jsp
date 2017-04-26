@@ -1283,6 +1283,8 @@
 
 
 	<div class="menu-overlay"></div>
+	
+	
 </body>
 </html>
 
@@ -1793,7 +1795,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 							btn.prev("disabled", true);
 						}
 						
-						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0){
+						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0 || $(btn).closest('#cardRechargeModal').length > 0){
 							var row = $(this).closest('tr');
 							fnChangeCashRowPrice(row, parseInt(input.val()));
 						}
@@ -2225,7 +2227,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	var btn = $(this);
 	    	
 	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
-	    		toastr.error("Please select a waiter.");
+	    		toastr.error("Please select a waiter");
 	    		return;
 	    	}
 	    	
@@ -2290,6 +2292,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).ready(function () {
 	    $(document).on('click', '.add-order', function () {
 	    	var btn = $(this);
+	    		    	
+	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
+	    		toastr.error("Please select a waiter");
+	    		return;
+	    	}
+	    	
 	    	var billID = $('#editBillID').val();
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var totalAmount = $('.editOrdertotal').find('input').val();
@@ -2413,7 +2421,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     });
     
 	$(document).on('click', '.save-settle-bill', function () {
-    	var billID = $('#settleBillID').val();
+    
+		var billID = $('#settleBillID').val();
     	var tableNumber = $('.settleBillTableNumber').text();
     	var discount = $('.discount-amount').val();
     	var totalAmount = $('.settleBilltotal').find('input').val();
@@ -2493,8 +2502,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         	});
         	if(remainingAmount > 0 && secondPayment == 'None')
         		{
-        		alert("Please select partial payment");
-    	    	return false;
+        		toastr.error("Please select partial payment");
+    	    	return;
     	    	}    		
     				if(secondPayment == 'Cash'){
     	        		if(remainingAmount!= parseInt(totalCash)){
@@ -2562,8 +2571,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     	}
     	else
     		{
-    		alert('Please select payment option');
-    		return false;
+    		toastr.error("Please select payment option");
+        	return;
     		}
     	
     		
@@ -2595,6 +2604,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var paymentMode = $('.recharge-payment-option option:selected').text();
 		var denomination = '';
     	
+		if(!rechargeAmount)
+			{
+			toastr.error("Please enter recharge amount");
+			return;
+			}
+		
     	if(paymentMode == 'Debit/Credit Card' || paymentMode == 'Cash')
 		{
 			
@@ -2628,8 +2643,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 		else
 		{
-			alert('Please select payment option');
-			return false;
+			toastr.error("Please select payment option");
+			return;
 		}
     	
     	var cardData = {
@@ -2638,15 +2653,15 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	};
     	var billData = {
     			"tableNumber": "YOYOCard",
-	    	 	"amount": balance,
-	    	    "totalAmount": balance,
+	    	 	"amount": rechargeAmount,
+	    	    "totalAmount": rechargeAmount,
 	    	    "isActive": "false",
 	    	    "waiterID": 0
     		
     		};
     	var paymentData = {
     			"paymentMode" : paymentMode,
-    			"cost": balance,
+    			"cost": rechargeAmount,
     			"denomination": denomination
     		};
     	
@@ -2910,7 +2925,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var refundAmount = $(row).find('.refund-amount').val();
 		
 		if(refundAmount == "" || refundAmount == "undefined"){
-			alert("Please enter refund amount");
+			toastr.error("Please enter refund amount");
 			return;
 		}
 			

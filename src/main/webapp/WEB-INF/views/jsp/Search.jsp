@@ -310,6 +310,8 @@
 
 		</div>
 	</div>
+	
+	<div id="demo"></div>
 
 	<!-- ./wrapp1er -->
 
@@ -393,14 +395,19 @@
 			});
 		});
 
-		$('.openPopup').on('')
+		//$('.openPopup').on('')
 
 		$(document).on('click', '.openPopup', function() {
 			$('#displayModal').modal('show');
 		})
 
 		$('.modal').on('hidden.bs.modal', function() {
-			location.reload(true);
+			//location.reload(true);
+			$('.search').trigger('click');
+		});
+		
+		$(document).on('click', '.save-table', function() {
+			$('.search').trigger('click');
 		});
 
 		$(document).on('click', '.delete-btn', function() {
@@ -453,11 +460,23 @@
 		$('.add-more').on('click', function() {
 			var html = $('.search-container .fixed-search-bar')[0].outerHTML;
 			
-			var delete_button = "<a href='#' style='margin-left:10px;color:red;'><i class='fa fa-trash'></i></a>";
+			$('#demo').html(html);
 			
-			$(html).find('.form-group.col-sm-2').last().append(delete_button);
-			html = $(html)[0].outerHTML;
-			$('.search-container').append(html);
+			var delete_button = "<a href='#' style='margin-left:10px;color:red;' class='delete-criteria'><i class='fa fa-trash'></i></a>";
+			
+			$('#demo').find('.form-group.col-sm-2').last().append(delete_button);
+			
+			var new_html = $('#demo').html();
+			
+			//$(html).find('.form-group.col-sm-2').last().append(delete_button);
+			//html = $(html)[0].outerHTML;
+			$('.search-container').append(new_html);
+			
+			$('#demo').html('');
+		});
+		
+		$(document).on('click','.delete-criteria',function(){
+			$(this).closest('.form-inline.row.fixed-search-bar').remove();
 		});
 		
 		$(document).on('change','.operator-select',function(){
