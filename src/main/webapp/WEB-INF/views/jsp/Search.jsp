@@ -365,6 +365,7 @@
 	<script src="${bootstrapJs}"></script>
 	<script src="${fastclickJs}"></script>
 	<script src="${appMinJs}"></script>
+	<script src="${demoJs}"></script>
 	<script src="${dataTablesJs}"></script>
 	<script src="${dataTablesbootstrapJs}"></script>
 	<script src="${dataTablesResponsiveJs}"></script>
