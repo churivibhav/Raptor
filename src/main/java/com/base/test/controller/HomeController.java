@@ -1,6 +1,7 @@
 package com.base.test.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,9 @@ public class HomeController {
 		model.put("allWaiter", waiterService.getAll());
 		model.put("allBarMenu", barMenuService.getAll());
 		model.put("allFoodMenu", foodMenuService.getAll());
-		model.put("role", session.getAttribute("role"));
+		String roles = (String) session.getAttribute("role");
+		List<String> rolesList = Arrays.asList(roles.split(",")); 
+		model.put("role", rolesList);
 
 		return new ModelAndView("homepage", "model", model);
 	}

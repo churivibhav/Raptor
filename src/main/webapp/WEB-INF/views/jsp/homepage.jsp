@@ -187,96 +187,115 @@
 								style="padding-right: 0px; width: 23%; padding-left: 0px;">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
-										<div class="order-management box">
-											<!-- <c:out value="${model.role}"/> -->
-											<div class="box-header">Order Management</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn new-order btn-default">New
-														Order</button>
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier')}">
+											<div class="order-management box">
+												<!-- <c:out value="${model.role}"/> -->
+												
+												<div class="box-header">Order Management</div>
+												<div class="box-content clearfix">
+													
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn new-order btn-default">New Order</button>
+													</div>
+														
+													<div style="display: inline-block; width: 50%;">
+														<button class="btn edit-order btn-default">Edit
+															Order</button>
+													</div>
 												</div>
-												<div style="display: inline-block; width: 50%;">
-													<button class="btn edit-order btn-default">Edit
-														Order</button>
-												</div>
-
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
 									</div>
-									<div class="col-sm-12 padding-left-0">
-										<div class="bill-management box">
-											<div class="box-header">Bill Management</div>
-											<div class="box-content">
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<button class="btn generate-bill btn-default">Print
-															Bill</button>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<button class="btn settle-bill btn-default">Settle
-															Bill</button>
-													</div>
-
-												</div>
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<button class="btn active-bills btn-default">Active
-															Bills</button>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default report-link btn-default">Report</a>
-													</div>
-												</div>
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default search-link btn-default">Search</a>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default active-orders btn-default">Active Orders</a>
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Admin')}">
+											<div class="col-sm-12 padding-left-0">
+												<div class="bill-management box">
+													<div class="box-header">Bill Management</div>
+													<div class="box-content">
+														<c:choose>
+		        											<c:when test="${model.role.contains('Cashier')}">
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn generate-bill btn-default">Print Bill</button>
+																	</div>
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<button class="btn settle-bill btn-default">Settle Bill</button>
+																	</div>
+																</div>
+														
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn active-bills btn-default">Active Bills</button>
+																	</div>
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default active-orders btn-default">Active Orders</a>
+																	</div>
+																</div>
+															</c:when>
+														</c:choose>
+														<c:choose>
+		        											<c:when test="${model.role.contains('Admin')}">
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default search-link btn-default">Search</a>
+																	</div>
+															
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default report-link btn-default">Report</a>
+																	</div>
+																
+																</div>
+															</c:when>
+														</c:choose>
 													</div>
 												</div>
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
+									
+									<div class="col-sm-12 padding-left-0">
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Podium')}">
+											<div class="bill-management box">
+											
+												<div class="box-header">YOYO Card</div>
+												<div class="box-content clearfix">
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn card-recharge btn-default">Card Recharge</button>
+													</div>
+													
+												<c:choose>
+	        										<c:when test="${model.role.contains('Cashier')}">
+														<div style="width: 50%; display: inline-block; float: left;">
+															<button class="btn card-refund btn-default">Refund</button>
+														</div>
+													</c:when>
+												</c:choose>
+												</div>
+											</div>
+										</c:when>
+									</c:choose>
 									</div>
 
 									<div class="col-sm-12 padding-left-0">
-										<div class="bill-management box">
-											<div class="box-header">YOYO Card</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn card-recharge btn-default">Card
-														Recharge</button>
-												</div>
-												<div style="width: 50%; display: inline-block; float: left;">
-													<button class="btn card-refund btn-default">Refund</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-sm-12 padding-left-0">
-										<div class="bod-eod box">
-											<div class="box-header">Daily(BOD/EOD)</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn start-day btn-default">Start
-														Day</button>
-												</div>
-
-												<div style="width: 50%; display: inline-block; float: left;">
-													<button class="btn end-day btn-default">End Day</button>
+									<c:choose>
+        								<c:when test="${model.role.contains('Admin')}">
+											<div class="bod-eod box">
+												<div class="box-header">Daily(BOD/EOD)</div>
+												<div class="box-content clearfix">
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn start-day btn-default">Start Day</button>
+													</div>
+	
+													<div style="width: 50%; display: inline-block; float: left;">
+														<button class="btn end-day btn-default">End Day</button>
+													</div>
 												</div>
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
 									</div>
 
 								</div>
