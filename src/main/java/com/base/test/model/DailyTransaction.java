@@ -48,6 +48,7 @@ public class DailyTransaction {
 	private int isActive;
 
 	private byte[] reportFile;
+	private int sequence;
 
 	/**
 	 * @return the reportFile
@@ -265,6 +266,14 @@ public class DailyTransaction {
 
 	public void setIsActive(boolean isActive) {
 		this.isActive = (isActive == true) ? 1 : 0;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
 
 }

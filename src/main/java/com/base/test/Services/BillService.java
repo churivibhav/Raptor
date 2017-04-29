@@ -1,27 +1,29 @@
 package com.base.test.Services;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.base.test.DAO.BillDao;
 import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.TaxDetailDAO;
 import com.base.test.enums.TransactionType;
+import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
 import com.base.test.model.Cards;
 import com.base.test.model.DailyTransaction;
+import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
 import com.base.test.model.TaxDetail;
+
 
 @Service("billService")
 public class BillService extends AbstractService<Bill> {
@@ -56,6 +58,12 @@ public class BillService extends AbstractService<Bill> {
 
 	@Autowired
 	ServiceInterface<DailyTransaction> dailyTransactionService;
+	
+	@Autowired
+	ServiceInterface<BarMenu> barMenuService;
+
+	@Autowired
+	ServiceInterface<FoodMenu> foodMenuService;
 
 	@Override
 	public DaoInterface<Bill> getEntityDAO() {
@@ -82,7 +90,9 @@ public class BillService extends AbstractService<Bill> {
 	@Transactional
 	public long create(Bill bill) {
 		canCreate(bill);
-		String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
+		//String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
+		String chalanID = Integer.toString(dailyTransactionService.getActiveEntity().get(0).getSequence() + 1);
+		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		bill.setModificationDate(new Date());
 		for (Orders order : bill.getOrders()) {
 			if (order.getType().equals(ITEM_TYPE_FOOD))
@@ -109,22 +119,35 @@ public class BillService extends AbstractService<Bill> {
 		return bill.getId();
 	}
 
-	private void printOrderTicket(Bill bill, String chalanID) {
+	private void printOrderTicket(Bill bill, String chalanID){
 		/*
 		 * iterate on orders and generate KOT/Bill for all orders with given
 		 * chalanID.
 		 */
-		for (Orders order : bill.getOrders()) {
-			if (order.getChalanID().equals(chalanID)) {
-				// add to print string.
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("/home/print.txt", "UTF-8");
+			StringBuilder sb = new StringBuilder();
+			sb.append("Chalan ID " + chalanID + "\n\n");
+			for (Orders order : bill.getOrders()) {
+				if (order.getChalanID().equals(chalanID)) {    
+					sb.append(getItemName(order.getOrderItemID()) + " " + order.getQuantity() + "\n");
+				}
 			}
+			writer.println(sb.toString());
+		    writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+	    
 	}
 
 	@Override
 	@Transactional
 	public Bill update(Long id, Bill bill) {
-		String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
+		String chalanID = Integer.toString(dailyTransactionService.getActiveEntity().get(0).getSequence() + 1);
+		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		Bill bill_old = findByID(bill.getId());
 		bill_old.setModificationDate(new Date());
 		bill_old.setIsActive(bill.getIsActive());
@@ -258,5 +281,23 @@ public class BillService extends AbstractService<Bill> {
 		if (dailyTransactionService.getActiveEntity().isEmpty()) {
 			throw new RuntimeException("First Start New Day.....");
 		}
+	}
+	
+	public String getItemName(String orderItemID){
+		String[] s = orderItemID.split("-");
+		long id = Long.parseLong(s[1]);
+		String itemName = null;
+		if(s[0].equals("F")){
+			FoodMenu foodMenu = foodMenuService.findByID(id);
+			if (foodMenu != null) {
+				itemName = foodMenu.getItemName();
+			}
+		}else{
+			BarMenu barMenu = barMenuService.findByID(id);
+			if (barMenu != null) {
+				itemName =barMenu.getItemName();
+			}
+		}
+		return itemName;
 	}
 }
