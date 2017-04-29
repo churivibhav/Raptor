@@ -2,25 +2,28 @@ package com.base.test.Services;
 
 import java.lang.reflect.Method;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.base.test.DAO.DaoInterface;
+import com.base.test.DTO.ColumnInfoDTO;
 import com.base.test.DTO.CriteriaDTO;
+import com.base.test.DTO.ReportsDTO;
 import com.base.test.DTO.RestrictionsDTO;
 import com.base.test.serializer.LocalDateSerializer;
 
 @Service("searchService")
-public class SearchService extends AbstractService<CriteriaDTO> {
+public class SearchService {
 
 	public static final String IS_NOT_NULL = "Is Not Null";
 	public static final String IS_NULL = "Is Null";
@@ -55,13 +58,7 @@ public class SearchService extends AbstractService<CriteriaDTO> {
 		return sessionFactory.getCurrentSession();
 	}
 
-	@Override
-	public DaoInterface<CriteriaDTO> getEntityDAO() {
-		return null;
-	}
-
 	@Transactional
-	@Override
 	public List getByCriteria(Class searchClass, CriteriaDTO criteriaDTO) {
 		Criteria criteria = getSession().createCriteria(searchClass);
 		for (RestrictionsDTO restriction : criteriaDTO.getRestrictions()) {
@@ -160,6 +157,36 @@ public class SearchService extends AbstractService<CriteriaDTO> {
 				}
 			}
 		}
+	}
+
+	@Transactional
+	public ReportsDTO fireReport(String query, String columns) {
+		ReportsDTO result = new ReportsDTO();
+		result.setColumns(getColumnListFromString(columns));
+
+		SQLQuery sqlQuery = getSession().createSQLQuery(query);
+		List<Object[]> rows = sqlQuery.list();
+		List<List<String>> data = new ArrayList<>();
+		for (Object[] row : rows) {
+			List<String> rowData = new ArrayList<>();
+			for (int i = 0; i < row.length; i++) {
+				rowData.add(row[i].toString());
+			}
+			data.add(rowData);
+		}
+		result.setData(data);
+		return result;
+	}
+
+	private List<ColumnInfoDTO> getColumnListFromString(String columns) {
+		ArrayList<ColumnInfoDTO> res = new ArrayList<>();
+		String[] data1 = columns.split(";");
+		for (int i = 0; i < data1.length; i++) {
+			String[] data2 = data1[i].split(",");
+			ColumnInfoDTO cid = new ColumnInfoDTO(null, data2[0], data2[1]);
+			res.add(cid);
+		}
+		return res;
 	}
 
 }

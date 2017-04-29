@@ -187,96 +187,115 @@
 								style="padding-right: 0px; width: 23%; padding-left: 0px;">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
-										<div class="order-management box">
-											<!-- <c:out value="${model.role}"/> -->
-											<div class="box-header">Order Management</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn new-order btn-default">New
-														Order</button>
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier')}">
+											<div class="order-management box">
+												<!-- <c:out value="${model.role}"/> -->
+												
+												<div class="box-header">Order Management</div>
+												<div class="box-content clearfix">
+													
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn new-order btn-default">New Order</button>
+													</div>
+														
+													<div style="display: inline-block; width: 50%;">
+														<button class="btn edit-order btn-default">Edit
+															Order</button>
+													</div>
 												</div>
-												<div style="display: inline-block; width: 50%;">
-													<button class="btn edit-order btn-default">Edit
-														Order</button>
-												</div>
-
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
 									</div>
-									<div class="col-sm-12 padding-left-0">
-										<div class="bill-management box">
-											<div class="box-header">Bill Management</div>
-											<div class="box-content">
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<button class="btn generate-bill btn-default">Print
-															Bill</button>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<button class="btn settle-bill btn-default">Settle
-															Bill</button>
-													</div>
-
-												</div>
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<button class="btn active-bills btn-default">Active
-															Bills</button>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default report-link btn-default">Report</a>
-													</div>
-												</div>
-												<div class="clearfix">
-													<div
-														style="width: 49%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default search-link btn-default">Search</a>
-													</div>
-													<div
-														style="width: 50%; display: inline-block; float: left;">
-														<a href="#"
-															class="btn btn-default active-orders btn-default">Active Orders</a>
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Admin')}">
+											<div class="col-sm-12 padding-left-0">
+												<div class="bill-management box">
+													<div class="box-header">Bill Management</div>
+													<div class="box-content">
+														<c:choose>
+		        											<c:when test="${model.role.contains('Cashier')}">
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn generate-bill btn-default">Print Bill</button>
+																	</div>
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<button class="btn settle-bill btn-default">Settle Bill</button>
+																	</div>
+																</div>
+														
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn active-bills btn-default">Active Bills</button>
+																	</div>
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default active-orders btn-default">Active Orders</a>
+																	</div>
+																</div>
+															</c:when>
+														</c:choose>
+														<c:choose>
+		        											<c:when test="${model.role.contains('Admin')}">
+																<div class="clearfix">
+																	<div style="width: 49%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default search-link btn-default">Search</a>
+																	</div>
+															
+																	<div style="width: 50%; display: inline-block; float: left;">
+																		<a href="#" class="btn btn-default report-link btn-default">Report</a>
+																	</div>
+																
+																</div>
+															</c:when>
+														</c:choose>
 													</div>
 												</div>
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
+									
+									<div class="col-sm-12 padding-left-0">
+									<c:choose>
+        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Podium')}">
+											<div class="bill-management box">
+											
+												<div class="box-header">YOYO Card</div>
+												<div class="box-content clearfix">
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn card-recharge btn-default">Card Recharge</button>
+													</div>
+													
+												<c:choose>
+	        										<c:when test="${model.role.contains('Cashier')}">
+														<div style="width: 50%; display: inline-block; float: left;">
+															<button class="btn card-refund btn-default">Refund</button>
+														</div>
+													</c:when>
+												</c:choose>
+												</div>
+											</div>
+										</c:when>
+									</c:choose>
 									</div>
 
 									<div class="col-sm-12 padding-left-0">
-										<div class="bill-management box">
-											<div class="box-header">YOYO Card</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn card-recharge btn-default">Card
-														Recharge</button>
-												</div>
-												<div style="width: 50%; display: inline-block; float: left;">
-													<button class="btn card-refund btn-default">Refund</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-sm-12 padding-left-0">
-										<div class="bod-eod box">
-											<div class="box-header">Daily(BOD/EOD)</div>
-											<div class="box-content clearfix">
-												<div style="width: 49%; display: inline-block; float: left;">
-													<button class="btn start-day btn-default">Start
-														Day</button>
-												</div>
-
-												<div style="width: 50%; display: inline-block; float: left;">
-													<button class="btn end-day btn-default">End Day</button>
+									<c:choose>
+        								<c:when test="${model.role.contains('Admin')}">
+											<div class="bod-eod box">
+												<div class="box-header">Daily(BOD/EOD)</div>
+												<div class="box-content clearfix">
+													<div style="width: 49%; display: inline-block; float: left;">
+														<button class="btn start-day btn-default">Start Day</button>
+													</div>
+	
+													<div style="width: 50%; display: inline-block; float: left;">
+														<button class="btn end-day btn-default">End Day</button>
+													</div>
 												</div>
 											</div>
-										</div>
+										</c:when>
+									</c:choose>
 									</div>
 
 								</div>
@@ -348,7 +367,8 @@
 					</div>
 					<div class="table-resposive recharge-money-table"
 						style="display: none;">
-						<table class="moneyTable table table-striped table-bordered hover"
+						<table id="cardRechargeDenomination"
+							class="moneyTable table table-striped table-bordered hover"
 							cellspacing="0" width="100%">
 							<thead>
 								<tr>
@@ -359,7 +379,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">Chillar</td>
+									<td></td>
+									<td class="chillarTotalRecharge total-row-price">0</td>
+								</tr>
+								<tr>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -377,7 +402,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -395,7 +420,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -413,7 +438,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -431,7 +456,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -449,7 +474,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -520,7 +545,7 @@
 							</select> <input type="text" class="form-control other-waiter-text"
 								style="display: none;" placeholder="Waiter name" />
 						</div>
-						<div class="col-sm-6 text-right">
+					    <!-- <div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
 							<div class="input-group spinner">
 								<input type="text" class="form-control" value="1" min="0"
@@ -533,8 +558,8 @@
 										<i class="fa fa-caret-down"></i>
 									</button>
 								</div>
-							</div>
-						</div>
+							</div> 
+						</div>-->
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-4 tree-view">
@@ -634,14 +659,13 @@
 								class="form-control waiter-select">
 								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}"
-										waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> <input type="text" class="form-control other-waiter-text"
 								style="display: none;" placeholder="Waiter name" />
 						</div>
-						<div class="col-sm-6 text-right">
+						<!-- <div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
 							<div class="input-group spinner">
 								<input type="text" class="form-control" value="1" min="0"
@@ -655,7 +679,7 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 					<div class="row modal-main-content">
 						<div class="col-sm-4 tree-view">
@@ -783,14 +807,22 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div class="text-right form-inline settleBilltotal">
-									<label>Total : </label> <input type="text"
-										class="form-control bill-total-cost" value="900" disabled />
+								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
+									<label>Bill Amount : </label> <input type="text"
+										class="form-control bill-total-cost" value="900" style="margin-top: 10px;margin-right:10px" disabled />
+									<label style="margin-right:41px">Bill Amount After Tax:
+									</label> <input type="text" class="form-control bill-amt-after-tax"
+										value="0" disabled />
 								</div>
 								<div class="text-right form-inline" style="margin-top: 10px;">
 									<label>Discount %: </label> <input type="text"
 										class="form-control discount-amount" value="0"
-										style="margin-right: 10px;" /> <label>Actual Amount :
+										style="margin-right: 10px;" /> <label>Bill Amount after discount:
+									</label> <input type="text" class="form-control bill-amt-after-discount"
+										value="0" disabled />
+								</div>
+								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
+									<label>Final Bill Amount:
 									</label> <input type="text" class="form-control actual-amount"
 										value="0" disabled />
 								</div>
@@ -821,7 +853,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">Chillar</td>
+									<td></td>
+									<td class="chillarTotalDirect total-row-price">0</td>
+								</tr>
+								<tr>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -839,7 +876,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -857,7 +894,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -875,7 +912,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -893,7 +930,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -911,7 +948,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1130,12 +1167,12 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>Chillar</td>
+									<td class="type-of-note">Chillar</td>
 									<td></td>
 									<td class="chillarTotal total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>10</td>
+									<td class="type-of-note">10</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1153,7 +1190,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>20</td>
+									<td class="type-of-note">20</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1171,7 +1208,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>50</td>
+									<td class="type-of-note">50</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1189,7 +1226,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>100</td>
+									<td class="type-of-note">100</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1207,7 +1244,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>500</td>
+									<td class="type-of-note">500</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1225,7 +1262,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td>2000</td>
+									<td  class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1265,6 +1302,8 @@
 
 
 	<div class="menu-overlay"></div>
+	
+	
 </body>
 </html>
 
@@ -1305,10 +1344,12 @@
 			{
 				alert('Discount Amount cannot be greater than Bill Amount');
 				$(this).closest('.modal').find('.discount-amount').val('');
+				$(this).closest('.modal').find('.bill-amt-after-discount').val(amnt);
 				$(this).closest('.modal').find('.actual-amount').val(amnt);
 			}
 			else{
 				var actual_amount = amnt - (amnt*(disamnt/100));
+				$(this).closest('.modal').find('.bill-amt-after-discount').val(actual_amount);
 				$(this).closest('.modal').find('.actual-amount').val(actual_amount);
 			}
 		}
@@ -1570,6 +1611,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 						$('#billMainTable tbody').append(tr);
 						$('#settleBillID').val(data.id);
 						$('.settleBilltotal').find('input').val(data.amount);
+						$('#billModal .bill-amt-after-tax').val(data.totalAmount);
+						$('#billModal .bill-amt-after-discount').val(data.amount);
 						$('#billModal .actual-amount').val(data.amount);
 						$('#billModal').modal('show');
 					}
@@ -1771,7 +1814,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 							btn.prev("disabled", true);
 						}
 						
-						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0){
+						if($(btn).closest('#billModal').length > 0 || $(btn).closest('#YoyomPaymentModal').length > 0 || $(btn).closest('#cardRechargeModal').length > 0){
 							var row = $(this).closest('tr');
 							fnChangeCashRowPrice(row, parseInt(input.val()));
 						}
@@ -2081,6 +2124,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		
 		if(paymentMode == '1'){
 			$(this).closest('.modal').find('.recharge-money-table').show();
+			var remaining = $('.recharge-amount').val();
+			var chillar = remaining % 10;
+			$('.chillarTotalRecharge').text(chillar);
 		}
 		else
 			$(this).closest('.modal').find('.recharge-money-table').hide();
@@ -2090,7 +2136,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var paymentMode = $('.payment-option option:selected').val();
 		var section = $(this).closest('.modal').find('.order-type').text();
 		var tableNo = $(this).closest('.modal').find('.settleBillTableNumber').text();
-		var total_cost = $(this).closest('.modal').find('.bill-total-cost').val();
+		var total_cost = $(this).closest('.modal').find('.actual-amount').val();
 		
 		if(paymentMode == '3'){
 			$(this).closest('.modal').find('.money-table').hide();
@@ -2105,6 +2151,9 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		}
 		else if(paymentMode == '1'){
 			$(this).closest('.modal').find('.money-table').show();
+			var remaining = $('.actual-amount').val();
+			var chillar = remaining % 10;
+			$('.chillarTotalDirect').text(chillar);
 		}
 		else
 			$(this).closest('.modal').find('.money-table').hide();
@@ -2196,10 +2245,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    $(document).on('click', '.give-order', function () {
 	    	var btn = $(this);
 	    	
-	    	
-	    	
 	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
-	    		toastr.error("Please select a waiter.");
+	    		toastr.error("Please select a waiter");
 	    		return;
 	    	}
 	    	
@@ -2264,6 +2311,12 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	$(document).ready(function () {
 	    $(document).on('click', '.add-order', function () {
 	    	var btn = $(this);
+	    		    	
+	    	if($(btn).closest('.modal').find('.waiter-select option:selected').val() == "-2"){
+	    		toastr.error("Please select a waiter");
+	    		return;
+	    	}
+	    	
 	    	var billID = $('#editBillID').val();
 	    	var tableNumber = $('.editOrderTableNumber').text();
 	    	var totalAmount = $('.editOrdertotal').find('input').val();
@@ -2387,7 +2440,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     });
     
 	$(document).on('click', '.save-settle-bill', function () {
-    	var billID = $('#settleBillID').val();
+    
+		var billID = $('#settleBillID').val();
     	var tableNumber = $('.settleBillTableNumber').text();
     	var discount = $('.discount-amount').val();
     	var totalAmount = $('.settleBilltotal').find('input').val();
@@ -2453,20 +2507,25 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         	$('#yoyoDenominationTable tbody tr').each(function() {
         		  $this = $(this);
         		  var quantity = $this.find('.spinner').find('input').val();
-        		  //if(typeof qauntity === "undefined"){
-        		  //quantity = 0;
-        		  //}
+        		  if(typeof quantity === "undefined"){
+        		  quantity = 1;
+        		  }
         		  var cost = $this.find("td.total-row-price").text();
+        		  var typeofnote = $this.find("td.type-of-note").text();
+        		  if(typeofnote == 'Chillar')
+        			{
+        			  typeofnote = cost;
+        			}
         		  totalCash = totalCash + parseInt(cost);
-        		  denomination = denomination + quantity +',' + cost + ';';
+        		  denomination = denomination + quantity +',' + typeofnote + ';';
         	});
         	if(remainingAmount > 0 && secondPayment == 'None')
         		{
-        		alert("Please select partial payment");
-    	    	return false;
+        		toastr.error("Please select partial payment");
+    	    	return;
     	    	}    		
     				if(secondPayment == 'Cash'){
-    	        		if(remainingAmount!= totalCash){
+    	        		if(remainingAmount!= parseInt(totalCash)){
     	        			alert("Cash is not matching");
     	        			return false;
     	        		}
@@ -2494,17 +2553,22 @@ $(document).on('click','.section-select-conetnt .btn',function(){
         	$('#yoyoDenominationTableDirect tbody tr').each(function() {
         		  $this = $(this);
         		  var quantity = $this.find('.spinner').find('input').val();
-        		  //if(typeof qauntity === "undefined"){
-        		  //quantity = 0;
-        		  //}
+        		  if(typeof quantity === "undefined"){
+        			  quantity = 1;
+        		  }
         		  var cost = $this.find("td.total-row-price").text();
+        		  var typeofnote = $this.find("td.type-of-note").text();
+        		  if(typeofnote == 'Chillar')
+      				{
+      			  		typeofnote = cost;
+      				}
         		  totalCash = totalCash + parseInt(cost);
-        		  denomination = denomination + quantity +',' + cost + ';';
+        		  denomination = denomination + quantity +',' + typeofnote + ';';
         	});
         	
         	if(paymentMode == 'Cash')
         	{
-    	       if(totalAmount!= totalCash)
+    	       if(totalAmount!= parseInt(totalCash))
     	        {
     	        	alert("Cash is not matching");
     	        	return false;
@@ -2526,8 +2590,8 @@ $(document).on('click','.section-select-conetnt .btn',function(){
     	}
     	else
     		{
-    		alert('Please select payment option');
-    		return false;
+    		toastr.error("Please select payment option");
+        	return;
     		}
     	
     		
@@ -2559,34 +2623,47 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var paymentMode = $('.recharge-payment-option option:selected').text();
 		var denomination = '';
     	
+		if(!rechargeAmount)
+			{
+			toastr.error("Please enter recharge amount");
+			return;
+			}
+		
     	if(paymentMode == 'Debit/Credit Card' || paymentMode == 'Cash')
 		{
 			
 	    	var totalAmount = rechargeAmount;
-	    	var totalCash = $('.save-card-recharge').closest('.modal').find('.cash-amount').val();
-	    	$('#moneyTable tbody tr').each(function() {
+	    	//var totalCash = $('.save-card-recharge').closest('.modal').find('.cash-amount').val();
+	    	var totalCash = 0;
+	    	$('#cardRechargeDenomination tbody tr').each(function() {
 	    		  $this = $(this);
 	    		  var quantity = $this.find('.spinner').find('input').val();
-	    		  
+	    		  if(typeof quantity === "undefined"){
+        			  quantity = 1;
+        		  }
 	    		  var cost = $this.find("td.total-row-price").text();
-
+	    		  var typeofnote = $this.find("td.type-of-note").text();
+	    		  if(typeofnote == 'Chillar')
+    				{
+    			  		typeofnote = cost;
+    				}
 	    		  totalCash = totalCash + parseInt(cost);
-	    		  denomination = denomination + quantity +',' + cost + ';';
+	    		  denomination = denomination + quantity +',' + typeofnote + ';';
 	    	});
 	    	
 	    	if(paymentMode == 'Cash')
 	    	{
-		       	if(totalAmount != totalCash)
+		       	if(rechargeAmount != parseInt(totalCash))
 		        {
-		        	alert("Cash is not matching" + totalAmount + " " + totalCash);
+		        	alert("Cash is not matching");
 		        	return false;
 		        }
 		    }
 		}
 		else
 		{
-			alert('Please select payment option');
-			return false;
+			toastr.error("Please select payment option");
+			return;
 		}
     	
     	var cardData = {
@@ -2595,15 +2672,15 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 	    	};
     	var billData = {
     			"tableNumber": "YOYOCard",
-	    	 	"amount": balance,
-	    	    "totalAmount": balance,
+	    	 	"amount": rechargeAmount,
+	    	    "totalAmount": rechargeAmount,
 	    	    "isActive": "false",
 	    	    "waiterID": 0
     		
     		};
     	var paymentData = {
     			"paymentMode" : paymentMode,
-    			"cost": balance,
+    			"cost": rechargeAmount,
     			"denomination": denomination
     		};
     	
@@ -2867,7 +2944,7 @@ $(document).on('click','.section-select-conetnt .btn',function(){
 		var refundAmount = $(row).find('.refund-amount').val();
 		
 		if(refundAmount == "" || refundAmount == "undefined"){
-			alert("Please enter refund amount");
+			toastr.error("Please enter refund amount");
 			return;
 		}
 			

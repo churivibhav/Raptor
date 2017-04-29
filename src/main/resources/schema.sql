@@ -229,9 +229,7 @@ ALTER TABLE Payments DROP FOREIGN KEY fk_tran_id;
 alter table Orders modify column orderItemID varchar(10) NOT NULL;
 
 
-/*for role management 16 Apr 17*/
 
-alter table Users add role varchar(30);
 
 INSERT INTO Cards(cardNumber,balance)
 VALUES ('10194',3000);
@@ -243,3 +241,15 @@ alter table CardHistory add column transactionType varchar(30);
 
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
 VALUES ('YOYOCard','Extra','5','1');
+
+
+
+
+/*for role management*/
+alter table Users add role varchar(30);
+
+INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (1,'a','a','c',NULL,'Admin,Cashier');
+INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (2,'x','y','z',NULL,NULL);
+INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (3,'m','m','a',NULL,'Podium');
+INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (4,'b','b','b',NULL,'Admin');
+INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (5,'c','c','c',NULL,'Cashier');
