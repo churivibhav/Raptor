@@ -7,11 +7,11 @@ CREATE TABLE `Tables` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
-VALUES ('43','Bar','5','1');
+VALUES ('43','Bar','5','0');
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
-VALUES ('44','Bar','5','1');
+VALUES ('44','Bar','5','0');
 INSERT INTO Tables(tableNumber,type,capacity,isActive)
-VALUES ('45','Bar','5','1');
+VALUES ('45','Bar','5','0');
 UPDATE Tables
 SET tableNumber = 42
 where id = 3;
@@ -36,11 +36,6 @@ CREATE TABLE `Users` (
   `sessionID` varchar(64) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-INSERT INTO Users(userName,userType,password)
-VALUES ('gaurav','admin','pass');
-ALTER TABLE Users
-  modify `sessionID` varchar(64) DEFAULT '';
 
 CREATE TABLE `BarMenu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -84,19 +79,7 @@ CREATE TABLE `Bill` (
   `isActive` varchar(2) NOT NULL DEFAULT '',
   PRIMARY KEY (`billID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-ALTER TABLE Bill
-  drop id;
   
-ALTER TABLE Bill
-  add billID int(11) unsigned NOT NULL AUTO_INCREMENT;
-ALTER TABLE Bill
-  add `isActive` varchar(2) NOT NULL DEFAULT '';
-UPDATE Bill
-SET isActive = 1
-where billID = 7;
-
-
 CREATE TABLE `Orders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `orderItem` varchar(20) NOT NULL DEFAULT '',
@@ -170,7 +153,7 @@ VALUES ('BAR','VAT',5);
 INSERT INTO TaxDetail(itemType,taxType,taxValue)
 VALUES ('BAR','SERVICE TAX',6);
 
-alter table Bill add column charges DOUBLE(20, 2) NOT NULL DEFAULT '0' 
+alter table Bill add column charges DOUBLE(20, 2) NOT NULL DEFAULT '0';
 
 alter table Bill drop column paymentMode;
 alter table Bill drop column cardNumber;
@@ -209,10 +192,6 @@ CREATE TABLE `DailyTransaction` (
 
 alter table Bill add column businessDay Date NOT NULL default '2017-01-01';
 
-alter table DailyTransaction add column businessDay Date NOT NULL;
-alter table DailyTransaction add column isActive int(1) unsigned NOT NULL;
-alter table DailyTransaction add column reportFile BLOB;
-
 alter table Bill add column userID int(11) unsigned NOT NULL;
 alter table Bill add column discount int(2) unsigned;
 
@@ -221,7 +200,7 @@ alter table Orders drop column orderItem;
 alter table Orders add column orderItemID int(11) unsigned NOT NULL;
 
 update Bill set Discount=0 ;
-INSERT INTO CardHistory(cardNumber,amount,transctionType,balance)
+INSERT INTO CardHistory(cardNumber,amount,transactionType,balance)
 VALUES ('10193',-1200,'DEBIT', 0.0);
 update Payments set transactionID=2 ;
 
@@ -253,3 +232,5 @@ INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) V
 INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (3,'m','m','a',NULL,'Podium');
 INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (4,'b','b','b',NULL,'Admin');
 INSERT INTO `Users` (`id`,`userName`,`password`,`userType`,`sessionID`,`role`) VALUES (5,'c','c','c',NULL,'Cashier');
+
+alter table DailyTransaction add column sequence int(40) unsigned NOT NULL;
