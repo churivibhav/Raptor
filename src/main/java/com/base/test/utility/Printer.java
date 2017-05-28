@@ -167,7 +167,7 @@ public class Printer implements Printable, ActionListener{
         f.add( printButton);
         f.add( textarea);
         f.pack();
-        f.setVisible(true);
+        //f.setVisible(true);
 		
 	}
 

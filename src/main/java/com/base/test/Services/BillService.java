@@ -191,7 +191,7 @@ public class BillService extends AbstractService<Bill> {
 				 * Add to history.
 				 */
 				long cardHistoryID = cardService.addToCardHistory(card, card.getBalance() - bal_old, card.getBalance(),
-						TransactionType.DEBIT);
+						TransactionType.DEBIT, bill.getUserID());
 				payemnt.setTransactionID(cardHistoryID);
 			}
 		}

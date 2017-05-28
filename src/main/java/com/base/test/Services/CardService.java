@@ -35,12 +35,13 @@ public class CardService extends AbstractService<Cards> {
 	}
 
 	@Override
-	public long addToCardHistory(Cards card, Double amount, Double balance, TransactionType transactionType) {
+	public long addToCardHistory(Cards card, Double amount, Double balance, TransactionType transactionType, Long userID) {
 		CardHistory cardHistory = new CardHistory();
 		cardHistory.setCardNumber(card.getCardNumber());
 		cardHistory.setTransactionType(transactionType.getId());
 		cardHistory.setAmount(amount);
 		cardHistory.setBalance(balance);
+		cardHistory.setUserID(userID);
 		return cardHistoryService.create(cardHistory);
 	}
 }

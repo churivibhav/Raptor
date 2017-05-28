@@ -34,6 +34,8 @@ public class CardHistory {
 	private String transactionType;
 	private double balance;
 
+	private long userID;
+
 	public long getId() {
 		return id;
 	}
@@ -80,5 +82,20 @@ public class CardHistory {
 
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+
+	/**
+	 * @return the userID
+	 */
+	public long getUserID() {
+		return userID;
+	}
+
+	/**
+	 * @param userID
+	 *            the userID to set
+	 */
+	public void setUserID(long userID) {
+		this.userID = userID;
 	}
 }

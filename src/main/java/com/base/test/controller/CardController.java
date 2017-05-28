@@ -64,18 +64,21 @@ public class CardController {
 			MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Cards refundBalance(@RequestBody Cards card, HttpServletRequest request,
 			HttpServletResponse response) {
-		// card.setCardNumber(card.getCardNumber().substring(14, 19));
 		card.setCardNumber(card.getCardNumber());
 		Cards card_old = cardService.getByName(card.getCardNumber());
 		Double bal_old = card_old.getBalance();
-		// card_old.setBalance(0.0);
 		card_old.setBalance(card.getBalance());
 		card = cardService.update(card_old.getId(), card_old);
+		
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("username");
+		Long userID = userService.getByName(userName).getId();
+		
 		/**
 		 * Add to history.
 		 */
 		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
-				TransactionType.REFUND);
+				TransactionType.REFUND, userID);
 		return card;
 	}
 
@@ -92,7 +95,7 @@ public class CardController {
 		 * Add to history.
 		 */
 		cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
-				TransactionType.CLEAN);
+				TransactionType.CLEAN, 0L);
 		return card;
 	}
 
@@ -109,7 +112,8 @@ public class CardController {
 		
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("username");
-		bill.setUserID(userService.getByName(userName).getId());
+		Long userID = userService.getByName(userName).getId();
+		bill.setUserID(userID);
 		
 		bill.setOrders(new ArrayList<>());
 
@@ -124,7 +128,7 @@ public class CardController {
 		 * Add to history.
 		 */
 		long cardHistoryID = cardService.addToCardHistory(card_old, card_old.getBalance() - bal_old, card_old.getBalance(),
-				TransactionType.CREDIT);
+				TransactionType.CREDIT, userID);
 
 		Long id = billService.create(bill);
 		bill.setPayments(new ArrayList<>());

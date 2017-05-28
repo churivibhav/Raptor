@@ -1,10 +1,14 @@
 package com.base.test.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Reports")
 public class Reports {
 
 	@Id
@@ -13,6 +17,7 @@ public class Reports {
 	private long id;
 
 	private String reportName;
+	private String columnsName;
 	private String query;
 	private String fileType;
 	private String fileDest;
@@ -90,5 +95,19 @@ public class Reports {
 	 */
 	public void setFileDest(String fileDest) {
 		this.fileDest = fileDest;
+	}
+
+	/**
+	 * @return the columnsName
+	 */
+	public String getColumnsName() {
+		return columnsName;
+	}
+
+	/**
+	 * @param columnsName the columnsName to set
+	 */
+	public void setColumnsName(String columnsName) {
+		this.columnsName = columnsName;
 	}
 }

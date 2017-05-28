@@ -33,7 +33,7 @@ public interface ServiceInterface<T> {
 		return null;
 	}
 
-	public default long addToCardHistory(T card, Double amount, Double balance, TransactionType transactionType) {
+	public default long addToCardHistory(T card, Double amount, Double balance, TransactionType transactionType, Long userID) {
 		return 0;
 	}
 

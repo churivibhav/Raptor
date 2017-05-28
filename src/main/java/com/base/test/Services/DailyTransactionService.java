@@ -84,7 +84,7 @@ public class DailyTransactionService extends AbstractService<DailyTransaction> {
 			/**
 			 * Add to history.
 			 */
-			cardService.addToCardHistory(card, card.getBalance() - bal_old, card.getBalance(), TransactionType.CLEAN);
+			cardService.addToCardHistory(card, card.getBalance() - bal_old, card.getBalance(), TransactionType.CLEAN, 0L);
 		}
 	}
 

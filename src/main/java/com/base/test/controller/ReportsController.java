@@ -1,5 +1,6 @@
 package com.base.test.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.base.test.DTO.ReportsDTO;
 import com.base.test.Services.SearchService;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.Bill;
+import com.base.test.model.Reports;
 
 @Controller
 public class ReportsController {
@@ -29,6 +31,9 @@ public class ReportsController {
 	ServiceInterface<Bill> billService;
 
 	@Autowired
+	ServiceInterface<Reports> reportsService;
+
+	@Autowired
 	SearchService searchService;
 
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
@@ -36,6 +41,14 @@ public class ReportsController {
 		List<Bill> billList = billService.getAll();
 		// logger.info(billList);
 		ModelAndView model = new ModelAndView("report", "bills", billList);
+		return model;
+	}
+
+	@RequestMapping(value = "/dailySummary", method = RequestMethod.GET)
+	public ModelAndView dailySummary() {
+		List<Bill> billList = billService.getAll();
+		// logger.info(billList);
+		ModelAndView model = new ModelAndView("dailySummary");
 		return model;
 	}
 
@@ -50,11 +63,19 @@ public class ReportsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/fireReport", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ReportsDTO fireReport(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value = "/fireReport", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ModelAndView fireReport(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		ReportsDTO result = null;
-		result = searchService.fireReport("select * from Bill", "id,long;TableNumber,long");
-		return result;
+		List<ReportsDTO> results = new ArrayList<>();
+		Reports report = reportsService.findByID(2L);
+		String[] queries = report.getQuery().split(";");
+		String[] columns = report.getColumnsName().split(";");
+		for (int i = 0; i < queries.length; i++) {
+			ReportsDTO fireReport = searchService.fireReport(queries[i],"a,a;b,b");
+			System.out.println(fireReport.getData());
+			results.add(fireReport);
+		}
+		ModelAndView model = new ModelAndView("report", "data", results);
+		return model;
 	}
 }
