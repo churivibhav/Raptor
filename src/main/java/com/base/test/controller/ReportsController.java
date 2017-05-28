@@ -1,7 +1,9 @@
 package com.base.test.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,11 +73,32 @@ public class ReportsController {
 		String[] queries = report.getQuery().split(";");
 		String[] columns = report.getColumnsName().split(";");
 		for (int i = 0; i < queries.length; i++) {
-			ReportsDTO fireReport = searchService.fireReport(queries[i],"a,a;b,b");
+			ReportsDTO fireReport = searchService.fireReport(queries[i], "a,a;b,b");
 			System.out.println(fireReport.getData());
 			results.add(fireReport);
 		}
-		ModelAndView model = new ModelAndView("report", "data", results);
+		processReport(report.getReportName(), results);
+		ModelAndView model = new ModelAndView("report", "reports", results);
 		return model;
+	}
+
+	private void processReport(String reportName, List<ReportsDTO> results) {
+		switch (reportName) {
+		case "Daily Reports":
+			processDailyReport(results);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void processDailyReport(List<ReportsDTO> results) {
+		Map<String, List<String>> finalData = new HashMap<>();
+		for (ReportsDTO reportsDTO : results) {
+			for (List<String> data : reportsDTO.getData()) {
+				data.get(0);
+				// finalData.
+			}
+		}
 	}
 }

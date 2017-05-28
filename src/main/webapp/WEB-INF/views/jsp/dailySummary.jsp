@@ -210,24 +210,11 @@
 								<td>2491.00</td>
 								<td>1000.00</td>
 							</tr>
-							<tr>
-								<td>CLIENT</td>
-								<td>2491.00</td>
-								<td>0.00</td>
-								<td>0.00</td>
-								<td>0.00</td>
-								<td>2491.00</td>
-								<td>1000.00</td>
-							</tr>
-							<tr>
-								<td>CLIENT</td>
-								<td>2491.00</td>
-								<td>0.00</td>
-								<td>0.00</td>
-								<td>0.00</td>
-								<td>2491.00</td>
-								<td>1000.00</td>
-							</tr>
+							<c:forEach items="${data}" var="allTables">
+												<c:if test="${allTables.type == 'Bar'}">
+
+												</c:if>
+											</c:forEach>
 						</tbody>
 						<tfoot>
 							<tr>	

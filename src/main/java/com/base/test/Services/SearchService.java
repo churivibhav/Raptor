@@ -188,5 +188,4 @@ public class SearchService {
 		}
 		return res;
 	}
-
 }
