@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.base.test.DAO.BillDao;
 import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.TaxDetailDAO;
@@ -23,7 +26,6 @@ import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
 import com.base.test.model.TaxDetail;
-
 
 @Service("billService")
 public class BillService extends AbstractService<Bill> {
@@ -58,7 +60,7 @@ public class BillService extends AbstractService<Bill> {
 
 	@Autowired
 	ServiceInterface<DailyTransaction> dailyTransactionService;
-	
+
 	@Autowired
 	ServiceInterface<BarMenu> barMenuService;
 
@@ -90,7 +92,7 @@ public class BillService extends AbstractService<Bill> {
 	@Transactional
 	public long create(Bill bill) {
 		canCreate(bill);
-		//String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
+		// String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
 		String chalanID = Integer.toString(dailyTransactionService.getActiveEntity().get(0).getSequence() + 1);
 		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		bill.setModificationDate(new Date());
@@ -119,7 +121,7 @@ public class BillService extends AbstractService<Bill> {
 		return bill.getId();
 	}
 
-	private void printOrderTicket(Bill bill, String chalanID){
+	private void printOrderTicket(Bill bill, String chalanID) {
 		/*
 		 * iterate on orders and generate KOT/Bill for all orders with given
 		 * chalanID.
@@ -130,17 +132,17 @@ public class BillService extends AbstractService<Bill> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Chalan ID " + chalanID + "\n\n");
 			for (Orders order : bill.getOrders()) {
-				if (order.getChalanID().equals(chalanID)) {    
+				if (order.getChalanID().equals(chalanID)) {
 					sb.append(getItemName(order.getOrderItemID()) + " " + order.getQuantity() + "\n");
 				}
 			}
 			writer.println(sb.toString());
-		    writer.close();
+			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	    
+
 	}
 
 	@Override
@@ -156,7 +158,7 @@ public class BillService extends AbstractService<Bill> {
 
 		if (bill.getIsActive() == true) {
 			for (Orders order : bill.getOrders()) {
-				if (order.getId()==0) {
+				if (order.getId() == 0) {
 					if (order.getType().equals(ITEM_TYPE_FOOD))
 						order.setOrderItemID("F-" + order.getOrderItemID());
 					else if (order.getType().equals(ITEM_TYPE_BAR))
@@ -176,7 +178,7 @@ public class BillService extends AbstractService<Bill> {
 		for (Payments payemnt : bill.getPayments()) {
 			bill_old.getPayments().add(payemnt);
 			payemnt.setModificationDate(new Date());
-			if(bill_old != null)
+			if (bill_old != null)
 				payemnt.setBill(bill_old);
 			if (payemnt.getCardNumber() != null) {
 				payemnt.setCardNumber(payemnt.getCardNumber().substring(14, 19));
@@ -191,11 +193,11 @@ public class BillService extends AbstractService<Bill> {
 				 * Add to history.
 				 */
 				long cardHistoryID = cardService.addToCardHistory(card, card.getBalance() - bal_old, card.getBalance(),
-						TransactionType.DEBIT, bill.getUserID());
+						TransactionType.DEBIT, bill_old.getUserID());
 				payemnt.setTransactionID(cardHistoryID);
 			}
 		}
-		
+
 		calculateTax(bill_old);
 		lazyLoadToEgar(bill_old);
 		super.update(id, bill_old);
@@ -282,20 +284,20 @@ public class BillService extends AbstractService<Bill> {
 			throw new RuntimeException("First Start New Day.....");
 		}
 	}
-	
-	public String getItemName(String orderItemID){
+
+	public String getItemName(String orderItemID) {
 		String[] s = orderItemID.split("-");
 		long id = Long.parseLong(s[1]);
 		String itemName = null;
-		if(s[0].equals("F")){
+		if (s[0].equals("F")) {
 			FoodMenu foodMenu = foodMenuService.findByID(id);
 			if (foodMenu != null) {
 				itemName = foodMenu.getItemName();
 			}
-		}else{
+		} else {
 			BarMenu barMenu = barMenuService.findByID(id);
 			if (barMenu != null) {
-				itemName =barMenu.getItemName();
+				itemName = barMenu.getItemName();
 			}
 		}
 		return itemName;

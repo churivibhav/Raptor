@@ -2,6 +2,7 @@ package com.base.test.DTO;
 
 import java.util.List;
 
+@Deprecated
 public class ReportsDTO {
 
 	private List<ColumnInfoDTO> columns;

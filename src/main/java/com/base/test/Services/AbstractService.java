@@ -41,5 +41,4 @@ public abstract class AbstractService<T> implements ServiceInterface<T> {
 		getEntityDAO().update(entity);
 		return findByID(id);
 	}
-
 }
