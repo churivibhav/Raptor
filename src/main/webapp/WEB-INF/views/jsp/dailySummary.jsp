@@ -203,7 +203,7 @@
 												<th>Refund</th>
 											</tr>
 										<tbody>
-											<c:forEach items="${reportData}" var="data">
+											<c:forEach items="${reportData.userSellReport}" var="data">
 												<tr>
 													<c:forEach items="${data}" var="column">
 														<td>${column}</td>
@@ -211,27 +211,16 @@
 												</tr>
 											</c:forEach>
 										</tbody>
-										<tfoot>
-											<tr>
-												<td>Total</td>
-												<td>7991.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>7991.00</td>
-												<td>1000.00</td>
-											</tr>
-										</tfoot>
 										</thead>
 									</table>
 								</div>
 
 								<div class="table-details">
 									<span>Refund : </span><span class="refund"
-										style="margin-left: 200px;">1000.00</span> <br /> <span>Entry
-										: </span><span class="entry" style="margin-left: 210px;">101.00</span></br/>
-									<span>Toatl Cash : </span><span class="total-cash"
-										style="margin-left: 178px;">6890.00</span></br/>
+										style="margin-left: 200px;">${reportData.refundTotal}</span> <br /> <span>Entry
+										: </span><span class="entry" style="margin-left: 210px;">?</span></br/>
+									<span>Total Cash : </span><span class="total-cash"
+										style="margin-left: 178px;">${reportData.totalCash}</span></br/>
 								</div>
 
 								<span class="border-bottom-dotted table-header">Sale

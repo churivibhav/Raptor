@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.base.test.Services.ReportsService;
+import com.base.test.Services.ReportProcessorService;
 import com.base.test.Services.SearchService;
 import com.base.test.Services.ServiceInterface;
 import com.base.test.model.Bill;
@@ -30,10 +30,14 @@ public class ReportsController {
 	@Autowired
 	ServiceInterface<Bill> billService;
 
-	ReportsService reportsService = new ReportsService();
+	@Autowired
+	ServiceInterface<Reports> reportsService;
 
 	@Autowired
 	SearchService searchService;
+
+	@Autowired
+	ReportProcessorService reportProcessorService;
 
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
 	public ModelAndView report() {
@@ -69,10 +73,10 @@ public class ReportsController {
 		String[] queries = report.getQuery().split(";");
 		String[] columns = report.getColumnsName().split(";");
 		for (int i = 0; i < queries.length; i++) {
-			List<List<String>> fireReport = reportsService.fireReport(queries[i]);
+			List<List<String>> fireReport = reportProcessorService.fireReport(queries[i]);
 			System.out.println(fireReport);
 			results.add(fireReport);
 		}
-		return reportsService.processReport(report.getReportName(), results);
+		return reportProcessorService.processReport(report.getReportName(), results);
 	}
 }
