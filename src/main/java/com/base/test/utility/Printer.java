@@ -119,8 +119,7 @@ public class Printer implements Printable, ActionListener{
         sb.append(bigLine);
         sb.append("Description      &nbsp&nbsp     Qty    &nbsp&nbsp   Amount<br>");
         sb.append(bigLine);
-        //bill.getOrders().stream().filter(b -> b.getType().equals(ITEM_TYPE_BAR))
-        for(Orders order : bill.getOrders()){
+        /*for(Orders order : bill.getOrders()){
         	if(order.getType().equals(ITEM_TYPE_BAR))
         		sb.append(order.getOrderItemID() + "    " + order.getQuantity() + "    " + order.getCost() + "<br>");
         }
@@ -133,8 +132,6 @@ public class Printer implements Printable, ActionListener{
 		System.out.println(amountBar + " " + amountFood);
 		
 		List<TaxDetail> taxList = taxDetailService.getAll();
-		//List list = Arrays.asList(taxList.stream().filter(b -> b.getTaxType().equals(ITEM_TYPE_FOOD)).toArray());
-		//taxList.stream().forEach(b -> System.out.println(b.getId()));
 		sb.append("Liquor Taxable Total : " + amountBar  + "<br>");
 		for(TaxDetail taxDetail : taxList){
 			if(taxDetail.getItemType().equals(ITEM_TYPE_BAR)){
@@ -161,7 +158,7 @@ public class Printer implements Printable, ActionListener{
 		sb.append("<br>");
 		grandTotal = totalTax + amountBar + amountFood;
 		sb.append("Grand Total : " + grandTotal + "<br>");
-		sb.append("Thank You !!<br>");
+		sb.append("Thank You !!<br>");*/
 		
         textarea.setText(sb.toString());
         f.add( printButton);
@@ -193,13 +190,13 @@ public class Printer implements Printable, ActionListener{
 	}*/
 	
 	private List<Orders> getConsolidatedOrders(List<Orders> orders) throws CloneNotSupportedException {
-		HashMap<String, Orders> consolidatedMap = new HashMap<>();
+		HashMap<Long, Orders> consolidatedMap = new HashMap<>();
 		for (Orders order : orders) {
-		String key = order.getOrderItemID() + order.getType();
+		long key = order.getOrderItemID();
 			if (consolidatedMap.containsKey(key)) {
 				Orders l_order = consolidatedMap.get(key);
 				l_order.setQuantity(l_order.getQuantity() + order.getQuantity());
-				l_order.setCost(l_order.getCost() + order.getCost());
+				l_order.addAmounts(order);
 			} 
 			else {
 				consolidatedMap.put(key, (Orders) order.clone());

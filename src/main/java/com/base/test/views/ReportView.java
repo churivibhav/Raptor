@@ -38,7 +38,7 @@ public class ReportView extends AbstractExcelView{
 	   HSSFRow row = sheet.createRow(counter++);
 	   row.createCell(0).setCellValue(e.getTableNumber());
 	   row.createCell(1).setCellValue(e.getAmount());
-	   row.createCell(2).setCellValue(e.getTaxAmount());
+	   //row.createCell(2).setCellValue(e.getTaxAmount());
 	   row.createCell(3).setCellValue(e.getTotalAmount());
 	  }
 

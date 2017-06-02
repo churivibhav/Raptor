@@ -24,29 +24,13 @@ import com.base.test.DTO.CriteriaDTO;
 import com.base.test.DTO.SearchDTO;
 import com.base.test.Services.SearchService;
 import com.base.test.Services.ServiceInterface;
-import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
-import com.base.test.model.FoodMenu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
-import com.base.test.model.Tables;
-import com.base.test.model.Waiter;
 import com.base.test.utility.DisplayUtility;
 
 @Controller
 public class SearchController {
-
-	@Autowired
-	ServiceInterface<Tables> tablesService;
-
-	@Autowired
-	ServiceInterface<Waiter> waiterService;
-
-	@Autowired
-	ServiceInterface<BarMenu> barMenuService;
-
-	@Autowired
-	ServiceInterface<FoodMenu> foodMenuService;
 
 	@Autowired
 	ServiceInterface<Bill> billService;
@@ -57,10 +41,6 @@ public class SearchController {
 	@RequestMapping(value = "/getSearch", method = RequestMethod.GET)
 	public ModelAndView getSearch(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("allTables", tablesService.getAll());
-		model.put("allWaiter", waiterService.getAll());
-		model.put("allBarMenu", barMenuService.getAll());
-		model.put("allFoodMenu", foodMenuService.getAll());
 
 		return new ModelAndView("Search", "model", model);
 	}
@@ -73,9 +53,8 @@ public class SearchController {
 		Class searchClass = Class.forName("com.base.test.model." + className);
 
 		Field[] fields = searchClass.getDeclaredFields();
-		List<ColumnInfoDTO> columnMap = Arrays.stream(fields)
-				.filter(b -> b.getType() != List.class)
-				.map(b -> new ColumnInfoDTO(b.getName(), DisplayUtility.getDisplayName(b.getName()), b.getType().getName()))
+		List<ColumnInfoDTO> columnMap = Arrays.stream(fields).filter(b -> b.getType() != List.class).map(
+				b -> new ColumnInfoDTO(b.getName(), DisplayUtility.getDisplayName(b.getName()), b.getType().getName()))
 				.collect(Collectors.toList());
 		Map<String, String> operations = new HashMap<>();
 		SearchService.addCriteriaOperations(operations);

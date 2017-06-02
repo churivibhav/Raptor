@@ -30,8 +30,7 @@ public class Bill {
 	private String tableNumber;
 	private double amount;
 	private int discount;
-	private double charges;
-	private double taxAmount;
+	private double discountAmount;
 	private double totalAmount;
 	private int isActive;
 	private long userID;
@@ -90,14 +89,6 @@ public class Bill {
 		this.creationDate = creationDate;
 	}
 
-	public double getTaxAmount() {
-		return taxAmount;
-	}
-
-	public void setTaxAmount(double taxAmount) {
-		this.taxAmount = taxAmount;
-	}
-
 	public double getTotalAmount() {
 		return totalAmount;
 	}
@@ -150,14 +141,6 @@ public class Bill {
 		this.payments = payments;
 	}
 
-	public double getCharges() {
-		return charges;
-	}
-
-	public void setCharges(double charges) {
-		this.charges = charges;
-	}
-
 	public int getDiscount() {
 		return discount;
 	}
@@ -182,11 +165,19 @@ public class Bill {
 		this.businessDay = businessDay;
 	}
 
+	public double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(double discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
 	@Override
 	public String toString() {
-		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", taxAmount=" + taxAmount
-				+ ", totalAmount=" + totalAmount + ", isActive=" + isActive + ", waiterID=" + waiterID + ", charges="
-				+ charges + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + "]";
+		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", totalAmount=" + totalAmount
+				+ ", isActive=" + isActive + ", waiterID=" + waiterID + ", creationDate=" + creationDate
+				+ ", modificationDate=" + modificationDate + "]";
 	}
 
 }

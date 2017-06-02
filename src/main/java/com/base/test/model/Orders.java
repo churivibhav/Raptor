@@ -27,13 +27,14 @@ public class Orders {
 	private long id;
 
 	@JsonSerialize(using = OrderItemSerializer.class)
-	private String orderItemID;
-	
+	private long orderItemID;
+
 	private double cost;
 	private int quantity;
-	private String type;
-	private String kot;
 	private String chalanID;
+	private double vat;
+	private double serviceTax;
+	private double serviceCharge;
 
 	@JsonSerialize(using = WaiterNameSerializer.class)
 	private long waiterID;
@@ -75,20 +76,28 @@ public class Orders {
 		this.quantity = quantity;
 	}
 
-	public String getType() {
-		return type;
+	public double getVat() {
+		return vat;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setVat(double vat) {
+		this.vat = vat;
 	}
 
-	public String getKot() {
-		return kot;
+	public double getServiceTax() {
+		return serviceTax;
 	}
 
-	public void setKot(String kot) {
-		this.kot = kot;
+	public void setServiceTax(double serviceTax) {
+		this.serviceTax = serviceTax;
+	}
+
+	public double getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(double serviceCharge) {
+		this.serviceCharge = serviceCharge;
 	}
 
 	public Bill getBill() {
@@ -123,11 +132,11 @@ public class Orders {
 		this.modificationDate = modificationDate;
 	}
 
-	public String getOrderItemID() {
+	public long getOrderItemID() {
 		return orderItemID;
 	}
 
-	public void setOrderItemID(String orderItemID) {
+	public void setOrderItemID(long orderItemID) {
 		this.orderItemID = orderItemID;
 	}
 
@@ -139,6 +148,17 @@ public class Orders {
 		this.chalanID = chalanID;
 	}
 
+	public void addAmounts(Orders order) {
+		cost = cost + order.getCost();
+		serviceCharge = serviceCharge + order.getServiceCharge();
+		serviceTax = serviceTax + order.getServiceTax();
+		vat = vat + order.getVat();
+	}
+
+	public double getTotalAmount() {
+		return cost + serviceCharge + serviceTax + vat;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return id == ((Orders) obj).getId();
@@ -147,9 +167,9 @@ public class Orders {
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", orderItemid=" + orderItemID + ", cost=" + cost + ", quantity=" + quantity
-				+ ", type=" + type + ", kot=" + kot + ", bill=" + bill + "]";
+				+ ", bill=" + bill + "]";
 	}
-	
+
 	@Override
 	public Orders clone() throws CloneNotSupportedException {
 		Orders order = new Orders();
@@ -158,12 +178,13 @@ public class Orders {
 		order.setCost(cost);
 		order.setCreationDate(creationDate);
 		order.setId(id);
-		order.setKot(kot);
 		order.setModificationDate(modificationDate);
 		order.setOrderItemID(orderItemID);
 		order.setQuantity(quantity);
-		order.setType(type);
-	
+		order.setServiceCharge(serviceCharge);
+		order.setServiceTax(serviceTax);
+		order.setVat(vat);
+
 		return order;
 	}
 }

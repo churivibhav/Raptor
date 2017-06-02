@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -17,11 +16,10 @@ import com.base.test.DAO.BillDao;
 import com.base.test.DAO.DaoInterface;
 import com.base.test.DAO.TaxDetailDAO;
 import com.base.test.enums.TransactionType;
-import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
 import com.base.test.model.Cards;
 import com.base.test.model.DailyTransaction;
-import com.base.test.model.FoodMenu;
+import com.base.test.model.Menu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
@@ -62,10 +60,7 @@ public class BillService extends AbstractService<Bill> {
 	ServiceInterface<DailyTransaction> dailyTransactionService;
 
 	@Autowired
-	ServiceInterface<BarMenu> barMenuService;
-
-	@Autowired
-	ServiceInterface<FoodMenu> foodMenuService;
+	ServiceInterface<Menu> menuService;
 
 	@Override
 	public DaoInterface<Bill> getEntityDAO() {
@@ -97,10 +92,6 @@ public class BillService extends AbstractService<Bill> {
 		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		bill.setModificationDate(new Date());
 		for (Orders order : bill.getOrders()) {
-			if (order.getType().equals(ITEM_TYPE_FOOD))
-				order.setOrderItemID("F-" + order.getOrderItemID());
-			else if (order.getType().equals(ITEM_TYPE_BAR))
-				order.setOrderItemID("B-" + order.getOrderItemID());
 			order.setModificationDate(new Date());
 			order.setBill(bill);
 			order.setChalanID(chalanID);
@@ -133,13 +124,13 @@ public class BillService extends AbstractService<Bill> {
 			sb.append("Chalan ID " + chalanID + "\n\n");
 			for (Orders order : bill.getOrders()) {
 				if (order.getChalanID().equals(chalanID)) {
-					sb.append(getItemName(order.getOrderItemID()) + " " + order.getQuantity() + "\n");
+					sb.append(
+							menuService.findByID(order.getOrderItemID()).getName() + " " + order.getQuantity() + "\n");
 				}
 			}
 			writer.println(sb.toString());
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -159,10 +150,6 @@ public class BillService extends AbstractService<Bill> {
 		if (bill.getIsActive() == true) {
 			for (Orders order : bill.getOrders()) {
 				if (order.getId() == 0) {
-					if (order.getType().equals(ITEM_TYPE_FOOD))
-						order.setOrderItemID("F-" + order.getOrderItemID());
-					else if (order.getType().equals(ITEM_TYPE_BAR))
-						order.setOrderItemID("B-" + order.getOrderItemID());
 					order.setModificationDate(new Date());
 					order.setBill(bill_old);
 					order.setChalanID(chalanID);
@@ -199,6 +186,7 @@ public class BillService extends AbstractService<Bill> {
 		}
 
 		calculateTax(bill_old);
+		applyDiscount(bill_old);
 		lazyLoadToEgar(bill_old);
 		super.update(id, bill_old);
 
@@ -222,84 +210,42 @@ public class BillService extends AbstractService<Bill> {
 	}
 
 	private Bill calculateTax(Bill bill) {
-		double amount = 0;
-		double serviceChargePercent = 0;
-		double serviceTaxPercent = 0;
-		double vatPercent = 0;
-		double serviceChargeAmount = 0;
-		double serviceTaxAmount = 0;
-		double vatAmount = 0;
-		double totalAmount = 0;
-
-		double amountFood = bill.getOrders().stream().filter(b -> b.getType().equals(ITEM_TYPE_FOOD))
-				.mapToDouble(b -> b.getCost()).sum();
-		double amountBar = bill.getOrders().stream().filter(b -> b.getType().equals(ITEM_TYPE_BAR))
-				.mapToDouble(b -> b.getCost()).sum();
-		amount = amountBar + amountFood;
-		bill.setAmount(amount);
-
-		/**
-		 * reducing amount with discount for tax and total amount calculations.
-		 */
-		double discount = bill.getDiscount();
-		amountFood = amountFood - amountFood * (discount / 100);
-		amountBar = amountBar - amountBar * (discount / 100);
-
-		/**
-		 * Calculate tax for FOOD.
-		 */
-		Map<String, TaxDetail> taxList = taxDetailDAO.getTaxList();
-		vatPercent = taxList.get(FOOD_VAT).getTaxValue();
-		serviceChargePercent = taxList.get(FOOD_SERVICE_CHARGE).getTaxValue();
-		serviceTaxPercent = taxList.get(FOOD_SERVICE_TAX).getTaxValue();
-
-		double serviceChargeFood = amountFood * (serviceChargePercent / 100);
-		serviceTaxAmount += (amountFood + serviceChargeFood) * (serviceTaxPercent / 100);
-		vatAmount += (amountFood + serviceChargeFood) * (vatPercent / 100);
-		serviceChargeAmount += serviceChargeFood;
-
-		/**
-		 * Calculate tax for BAR.
-		 */
-		vatPercent = taxList.get(BAR_VAT).getTaxValue();
-		serviceChargePercent = taxList.get(BAR_SERVICE_CHARGE).getTaxValue();
-		serviceTaxPercent = taxList.get(BAR_SERVICE_TAX).getTaxValue();
-
-		double serviceChargeBar = amountBar * (serviceChargePercent / 100);
-		serviceTaxAmount += (amountBar + serviceChargeBar) * (serviceTaxPercent / 100);
-		vatAmount += (amountBar + serviceChargeBar) * (vatPercent / 100);
-		serviceChargeAmount += serviceChargeBar;
-
-		totalAmount += vatAmount + serviceTaxAmount + amountFood + amountBar + serviceChargeAmount;
-
-		bill.setTaxAmount(vatAmount + serviceTaxAmount);
-		bill.setCharges(serviceChargeAmount);
-		bill.setTotalAmount(totalAmount);
-
+		for (Orders order : bill.getOrders()) {
+			if (order.getId() == 0) {
+				calculateTax(order);
+			}
+			bill.setAmount(bill.getAmount() + order.getCost());
+			bill.setTotalAmount(bill.getTotalAmount() + order.getTotalAmount());
+		}
 		return bill;
+	}
+
+	public void calculateTax(Orders order) {
+
+		TaxDetail taxDetail = taxDetailDAO.getTaxDetail(menuService.findByID(order.getOrderItemID()).getTaxType());
+
+		double amount = menuService.findByID(order.getOrderItemID()).getCost() * order.getQuantity();
+		double serviceCharge = amount * (taxDetail.getServiceCharge() / 100);
+		double serviceTax = (amount + serviceCharge) * (taxDetail.getServiceTax() / 100);
+		double vat = (amount + serviceCharge) * (taxDetail.getVAT() / 100);
+
+		order.setServiceCharge(serviceCharge);
+		order.setServiceTax(serviceTax);
+		order.setVat(vat);
+	}
+
+	private void applyDiscount(Bill bill_old) {
+		double discount = bill_old.getDiscount();
+		double discountAmount = bill_old.getTotalAmount() * (discount / 100);
+		double totalAmount = bill_old.getTotalAmount() - discountAmount;
+		bill_old.setDiscountAmount(discountAmount);
+		bill_old.setTotalAmount(totalAmount);
+
 	}
 
 	private void canCreate(Bill bill) {
 		if (dailyTransactionService.getActiveEntity().isEmpty()) {
 			throw new RuntimeException("First Start New Day.....");
 		}
-	}
-
-	public String getItemName(String orderItemID) {
-		String[] s = orderItemID.split("-");
-		long id = Long.parseLong(s[1]);
-		String itemName = null;
-		if (s[0].equals("F")) {
-			FoodMenu foodMenu = foodMenuService.findByID(id);
-			if (foodMenu != null) {
-				itemName = foodMenu.getItemName();
-			}
-		} else {
-			BarMenu barMenu = barMenuService.findByID(id);
-			if (barMenu != null) {
-				itemName = barMenu.getItemName();
-			}
-		}
-		return itemName;
 	}
 }

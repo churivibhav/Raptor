@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.base.test.Services.ServiceInterface;
-import com.base.test.model.BarMenu;
 import com.base.test.model.Bill;
-import com.base.test.model.FoodMenu;
+import com.base.test.model.Menu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
@@ -39,10 +38,7 @@ public class HomeController {
 	ServiceInterface<Waiter> waiterService;
 
 	@Autowired
-	ServiceInterface<BarMenu> barMenuService;
-
-	@Autowired
-	ServiceInterface<FoodMenu> foodMenuService;
+	ServiceInterface<Menu> menuService;
 
 	@Autowired
 	ServiceInterface<Bill> billService;
@@ -55,10 +51,9 @@ public class HomeController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("allTables", tablesService.getAll());
 		model.put("allWaiter", waiterService.getAll());
-		model.put("allBarMenu", barMenuService.getAll());
-		model.put("allFoodMenu", foodMenuService.getAll());
+		model.put("allMenu", menuService.getAll());
 		String roles = (String) session.getAttribute("role");
-		List<String> rolesList = Arrays.asList(roles.split(",")); 
+		List<String> rolesList = Arrays.asList(roles.split(","));
 		model.put("role", rolesList);
 
 		return new ModelAndView("homepage", "model", model);
@@ -73,18 +68,19 @@ public class HomeController {
 		clearForJsonParser(bill);
 		return bill;
 	}
-	
-	@RequestMapping(value = "/getActiveOrders", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody List<Orders> getActiveOrders(HttpServletRequest request, HttpServletResponse response){
+
+	@RequestMapping(value = "/getActiveOrders", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Orders> getActiveOrders(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---------GET ACTIVE ORDERS----------");
 		List<Orders> activeOrders = new ArrayList<Orders>();
 		List<Bill> activeBills = billService.getActiveEntity();
-		if(activeBills.size() > 0){
-			for (Bill bill : activeBills){
+		if (activeBills.size() > 0) {
+			for (Bill bill : activeBills) {
 				activeOrders.addAll(bill.getOrders());
 			}
 		}
-		for(Orders order : activeOrders){
+		for (Orders order : activeOrders) {
 			clearForJsonParser(order);
 		}
 		return activeOrders;
@@ -131,9 +127,9 @@ public class HomeController {
 			payment.setBill(null);
 		}
 	}
-	
+
 	private void clearForJsonParser(Orders order) {
 		order.setBill(null);
 	}
-	
+
 }

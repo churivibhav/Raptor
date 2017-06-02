@@ -8,38 +8,54 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TaxDetail")
+@Table(name = "TaxDetail")
 public class TaxDetail {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	String itemType;
-	String taxType;
-	Double taxValue;
-	
+	Double VAT;
+	Double serviceTax;
+	Double serviceCharge;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getItemType() {
 		return itemType;
 	}
+
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
-	public String getTaxType() {
-		return taxType;
+
+	public Double getVAT() {
+		return VAT;
 	}
-	public void setTaxType(String taxType) {
-		this.taxType = taxType;
+
+	public void setVAT(Double vAT) {
+		VAT = vAT;
 	}
-	public Double getTaxValue() {
-		return taxValue;
+
+	public Double getServiceTax() {
+		return serviceTax;
 	}
-	public void setTaxValue(Double taxValue) {
-		this.taxValue = taxValue;
+
+	public void setServiceTax(Double serviceTax) {
+		this.serviceTax = serviceTax;
+	}
+
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
 	}
 }

@@ -1,0 +1,70 @@
+YOYO CLUB
+Report : Kitchen Wise Item Consumption Report
+Reporting For : Sat 27-May-2017 To Sat 27-May-2017
+Printed On : Tue 30-May-2017 11:11:32 PM
+--------------------------------------------------------------------------------------------------------------
+
+Particulars                   |       Sale Qty|       Comp.Qty|         Amount|   % Of Section|     % Of Total
+
+Bar                           |               |               |      130937.00|               |        96.79 %
+--------------------------------------------------------------------------------------------------------------
+ABSOLUTE BLUE                 |              6|              0|        2574.00|         1.97 %|         1.90 %
+BACARDI                       |              3|              0|        1029.00|         0.79 %|         0.76 %
+BALLANTINE"S                  |              2|              0|         858.00|         0.66 %|         0.63 %
+BLACK DOG                     |              2|              0|         858.00|         0.66 %|         0.63 %
+BLENDER PRIDE                 |             27|              0|        9261.00|         7.07 %|         6.85 %
+BREEZER CRANBERRY             |              3|              0|        1029.00|         0.79 %|         0.76 %
+BREEZER JAMAICAN PASSION      |              4|              0|        1372.00|         1.05 %|         1.01 %
+BUDWEISER BEER BIG            |              0|              1|           0.00|         0.00 %|         0.00 %
+BUDWEISER MAGNUM PINT         |              3|              0|        1287.00|         0.98 %|         0.95 %
+BULL FROG                     |              5|              0|        3215.00|         2.46 %|         2.38 %
+CAPTAIN MORGAN SPICE          |              3|              0|        1029.00|         0.79 %|         0.76 %
+CARLSBERG BEER BIG            |              1|              0|         429.00|         0.33 %|         0.32 %
+CARLSBERG PINT                |              4|              0|        1372.00|         1.05 %|         1.01 %
+CHIVAS REGAL 12YRS            |              3|              0|        1545.00|         1.18 %|         1.14 %
+CIGARETTES                    |              4|              0|        1600.00|         1.22 %|         1.18 %
+COKE                          |              1|              0|          80.00|         0.06 %|         0.06 %
+DESMONDJI TEQUILLA            |             12|              0|        6180.00|         4.72 %|         4.57 %
+DIET COKE                     |              2|              0|         322.00|         0.25 %|         0.24 %
+DOMESTIC WINE GLASS           |              3|              0|        1287.00|         0.98 %|         0.95 %
+G B BEER                      |            168|              0|       50400.00|        38.49 %|        37.26 %
+G B DARK RUM                  |              5|              0|         860.00|         0.66 %|         0.64 %
+G B GIN                       |              3|              0|         900.00|         0.69 %|         0.67 %
+G B VODKA                     |             13|              0|        3900.00|         2.98 %|         2.88 %
+G B WHISKY                    |             17|              0|        5100.00|         3.90 %|         3.77 %
+JACK DANIELS                  |             11|              4|        5665.00|         4.33 %|         4.19 %
+JAMESON IRISH WHISKEY         |              3|              0|        1287.00|         0.98 %|         0.95 %
+KINGFISHER PINT               |              4|              0|        1372.00|         1.05 %|         1.01 %
+MINRAL WATER BOTTLE           |             15|              0|        1200.00|         0.92 %|         0.89 %
+MOJITO                        |              1|              0|         386.00|         0.29 %|         0.29 %
+OLD MONK                      |              2|              0|         514.00|         0.39 %|         0.38 %
+ORANGE JUICE                  |              5|              0|         805.00|         0.61 %|         0.60 %
+RED BULL                      |             13|              7|        4173.00|         3.19 %|         3.08 %
+SCREAMING ORGASM              |              1|              0|         386.00|         0.29 %|         0.29 %
+SMIRNOFF RED                  |             15|              0|        5145.00|         3.93 %|         3.80 %
+TONIC WATER                   |              3|              0|         483.00|         0.37 %|         0.36 %
+TUBORG BEER                   |              2|              0|         686.00|         0.52 %|         0.51 %
+TUBORG PINT                   |             36|              3|       12348.00|         9.43 %|         9.13 %
+
+Kitchen                       |               |               |        4345.00|               |         3.21 %
+--------------------------------------------------------------------------------------------------------------
+CHEESE CHILLI TOAST           |              1|              0|         240.00|         5.52 %|         0.18 %
+CHEESE CORN BALL              |              2|              0|         480.00|        11.05 %|         0.35 %
+CHICKEN CHILLI                |              2|              0|         642.00|        14.78 %|         0.47 %
+CHICKEN LOLLYPOP              |              1|              2|         321.00|         7.39 %|         0.24 %
+CHICKEN MASALA                |              0|              2|           0.00|         0.00 %|         0.00 %
+CRISPY CHICKEN                |              1|              0|         321.00|         7.39 %|         0.24 %
+HOUSE OF CHICKEN FRIES        |              0|              1|           0.00|         0.00 %|         0.00 %
+HOUSE OF CHICKEN KATHI ROLL   |              4|              0|         396.00|         9.11 %|         0.29 %
+HOUSE OF HALF FRY             |              1|              0|          99.00|         2.28 %|         0.07 %
+PANEER CHILLI                 |              4|              1|        1284.00|        29.55 %|         0.95 %
+VEG PIZZA                     |              2|              0|         562.00|        12.93 %|         0.42 %
+
+
+--------------------------------------------------------------------------------------------------------------
+TOTAL                         |               |               |      135282.00|               |               
+
+                END OF Kitchen Wise Item Consumption Report                
+
+
+NOTE : Amounts indicated are exclusive of taxes, discounts and complimentary sale.        
