@@ -259,3 +259,45 @@ alter table TaxDetail add VAT DOUBLE(20, 2) NOT NULL DEFAULT '0';
 alter table TaxDetail add serviceTax DOUBLE(20, 2) NOT NULL DEFAULT '0';
 alter table TaxDetail add serviceCharge DOUBLE(20, 2) NOT NULL DEFAULT '0';
 
+truncate TaxDetail;
+INSERT INTO `TaxDetail` (`id`,`itemType`,`VAT`,`serviceTax`,`serviceCharge`) VALUES (1,'FOOD',12.5,6.00,5.00);
+INSERT INTO `TaxDetail` (`id`,`itemType`,`VAT`,`serviceTax`,`serviceCharge`) VALUES (2,'Bar',5.00,6.00,5.00);
+INSERT INTO `TaxDetail` (`id`,`itemType`,`VAT`,`serviceTax`,`serviceCharge`) VALUES (3,'House of 99 Food',5.00,6.00,0.00);
+INSERT INTO `TaxDetail` (`id`,`itemType`,`VAT`,`serviceTax`,`serviceCharge`) VALUES (4,'House of 99 Bar',12.5,6.00,0.00);
+
+
+CREATE TABLE `Menu` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(30) NOT NULL DEFAULT '',
+    `taxType` int(11) unsigned NOT NULL,
+    `servingType` varchar(30) NOT NULL,
+    `cost` INT(20) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    CONSTRAINT `menu_fk1` FOREIGN KEY (taxType) REFERENCES TaxDetail(id)
+);
+
+insert into Menu (id,name,taxType,servingType,cost) values(	1,	'Chicken Tikka',	1,	'Starter',		426	);
+insert into Menu (id,name,taxType,servingType,cost) values(	2,	'Jack Daniels',		2,	'Visky',		520	);
+insert into Menu (id,name,taxType,servingType,cost) values(	3,	'Paneer Kadai',		1,	'Main Course',		563	);
+insert into Menu (id,name,taxType,servingType,cost) values(	4,	'Kheema PAV',		3,	'Starter',		99	);
+insert into Menu (id,name,taxType,servingType,cost) values(	5,	'Fosters',		4,	'Beer',			99	);
+
+alter table Orders drop type;
+alter table Orders drop kot;
+alter table Orders add `isDelivered` varchar(2) NOT NULL DEFAULT '';
+alter table Orders add `vat` DOUBLE(20, 2) DEFAULT '0';
+alter table Orders add `serviceTax` DOUBLE(20, 2) DEFAULT '0';
+alter table Orders add `serviceCharge` DOUBLE(20, 2) DEFAULT '0';
+
+truncate Orders;
+truncate Payments;
+delete from Bill where 1 = 1;
+truncate CardHistory;
+update Tables set isActive=0;
+
+alter table Bill drop taxAmount;
+alter table Bill drop charges;
+alter table Bill add `discountAmount` DOUBLE(20, 2) DEFAULT '0';
+alter table Bill add `status` varchar(30) NOT NULL DEFAULT '';
+alter table Bill add `comments` varchar(500) NOT NULL DEFAULT '';
+alter table Bill add `roundOffAmount` DOUBLE(20, 2) DEFAULT '0';

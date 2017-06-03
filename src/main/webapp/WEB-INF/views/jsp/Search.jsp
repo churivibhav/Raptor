@@ -187,7 +187,7 @@
 										<option value="6">BarMenu</option>
 										<option value="7">Orders</option>
 										<option value="8">Payments</option>
-										<option value="9">TaxDetails</option>
+										<option value="9">TaxDetail</option>
 										<option value="10">Waiter</option>
 										<option value="11">Users</option>
 									</select>

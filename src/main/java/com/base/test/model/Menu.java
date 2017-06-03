@@ -18,7 +18,7 @@ public class Menu {
 	private String name;
 	private Long taxType;
 	private String servingType;
-	private Long cost;
+	private double cost;
 
 	public Long getId() {
 		return id;
@@ -52,11 +52,11 @@ public class Menu {
 		this.servingType = servingType;
 	}
 
-	public Long getCost() {
+	public double getCost() {
 		return cost;
 	}
 
-	public void setCost(Long cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 }
