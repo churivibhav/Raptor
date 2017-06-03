@@ -35,6 +35,7 @@ public class Orders {
 	private double vat;
 	private double serviceTax;
 	private double serviceCharge;
+	private int isDelivered;
 
 	@JsonSerialize(using = WaiterNameSerializer.class)
 	private long waiterID;
@@ -146,6 +147,20 @@ public class Orders {
 
 	public void setChalanID(String chalanID) {
 		this.chalanID = chalanID;
+	}
+
+	/**
+	 * @return the isDelivered
+	 */
+	public int getIsDelivered() {
+		return isDelivered;
+	}
+
+	/**
+	 * @param isDelivered the isDelivered to set
+	 */
+	public void setIsDelivered(int isDelivered) {
+		this.isDelivered = isDelivered;
 	}
 
 	public void addAmounts(Orders order) {

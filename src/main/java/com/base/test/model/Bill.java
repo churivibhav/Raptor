@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.base.test.enums.BillStatus;
 import com.base.test.serializer.LocalDateSerializer;
 import com.base.test.serializer.WaiterNameSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -32,7 +33,9 @@ public class Bill {
 	private int discount;
 	private double discountAmount;
 	private double totalAmount;
-	private int isActive;
+	private String status;
+	private String comments;
+	private double roundOffAmount;
 	private long userID;
 
 	@JsonSerialize(using = WaiterNameSerializer.class)
@@ -109,12 +112,23 @@ public class Bill {
 		this.orders.add(order);
 	}
 
-	public boolean getIsActive() {
-		return (isActive == 1) ? true : false;
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
 	}
 
-	public void setIsActive(boolean isActive) {
-		this.isActive = (isActive == true) ? 1 : 0;
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public boolean getIsActive() {
+		return (status.equals(BillStatus.UNPAID.getId())) ? true : false;
 	}
 
 	public long getWaiterID() {
@@ -173,10 +187,38 @@ public class Bill {
 		this.discountAmount = discountAmount;
 	}
 
+	/**
+	 * @return the comments
+	 */
+	public String getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	/**
+	 * @return the roundOffAmount
+	 */
+	public double getRoundOffAmount() {
+		return roundOffAmount;
+	}
+
+	/**
+	 * @param roundOffAmount the roundOffAmount to set
+	 */
+	public void setRoundOffAmount(double roundOffAmount) {
+		this.roundOffAmount = roundOffAmount;
+	}
+
 	@Override
 	public String toString() {
 		return "Bill [id=" + id + ", tableNumber=" + tableNumber + ", amount=" + amount + ", totalAmount=" + totalAmount
-				+ ", isActive=" + isActive + ", waiterID=" + waiterID + ", creationDate=" + creationDate
+				+ ", status=" + status + ", waiterID=" + waiterID + ", creationDate=" + creationDate
 				+ ", modificationDate=" + modificationDate + "]";
 	}
 

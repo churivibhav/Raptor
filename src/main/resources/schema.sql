@@ -253,3 +253,9 @@ alter table Reports add columnsName varchar(400) NOT NULL DEFAULT '';
 update Reports set columnsName = 'User ID,Payment Mode,Cost;User ID,Amount';
 alter table Reports add fileDest varchar(100);
 
+alter table TaxDetail drop taxType;
+alter table TaxDetail drop taxValue;
+alter table TaxDetail add VAT DOUBLE(20, 2) NOT NULL DEFAULT '0';
+alter table TaxDetail add serviceTax DOUBLE(20, 2) NOT NULL DEFAULT '0';
+alter table TaxDetail add serviceCharge DOUBLE(20, 2) NOT NULL DEFAULT '0';
+

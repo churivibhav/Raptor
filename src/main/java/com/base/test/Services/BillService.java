@@ -28,22 +28,6 @@ import com.base.test.model.TaxDetail;
 @Service("billService")
 public class BillService extends AbstractService<Bill> {
 
-	private static final String BAR_SERVICE_TAX = "BAR_SERVICE_TAX";
-
-	private static final String BAR_SERVICE_CHARGE = "BAR_SERVICE_CHARGE";
-
-	private static final String BAR_VAT = "BAR_VAT";
-
-	private static final String FOOD_SERVICE_TAX = "FOOD_SERVICE_TAX";
-
-	private static final String FOOD_SERVICE_CHARGE = "FOOD_SERVICE_CHARGE";
-
-	private static final String FOOD_VAT = "FOOD_VAT";
-
-	public static final String ITEM_TYPE_BAR = "BAR";
-
-	public static final String ITEM_TYPE_FOOD = "FOOD";
-
 	@Autowired
 	private BillDao billDAO;
 
@@ -87,7 +71,6 @@ public class BillService extends AbstractService<Bill> {
 	@Transactional
 	public long create(Bill bill) {
 		canCreate(bill);
-		// String chalanID = UUID.randomUUID().toString().replaceAll("-", "");
 		String chalanID = Integer.toString(dailyTransactionService.getActiveEntity().get(0).getSequence() + 1);
 		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		bill.setModificationDate(new Date());
@@ -143,7 +126,7 @@ public class BillService extends AbstractService<Bill> {
 		dailyTransactionService.getActiveEntity().get(0).setSequence(Integer.parseInt(chalanID));
 		Bill bill_old = findByID(bill.getId());
 		bill_old.setModificationDate(new Date());
-		bill_old.setIsActive(bill.getIsActive());
+		bill_old.setStatus(bill.getStatus());
 		bill_old.setWaiterID(bill.getWaiterID());
 		bill_old.setDiscount(bill.getDiscount());
 
