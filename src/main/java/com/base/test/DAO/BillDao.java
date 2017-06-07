@@ -25,13 +25,13 @@ public class BillDao extends AbstractDao<Bill> {
 	public Bill getByTableNumber(String tableNumber) {
 		Criteria criteria = getSession().createCriteria(getEntityClass());
 		criteria.add(Restrictions.eq("tableNumber", tableNumber));
-		criteria.add(Restrictions.eq("Status", BillStatus.UNPAID.getId()));
+		criteria.add(Restrictions.eq("status", BillStatus.UNPAID.getId()));
 		return (Bill) criteria.uniqueResult();
 	}
 
 	public List<Bill> getActiveBills() {
 		Criteria criteria = getSession().createCriteria(getEntityClass());
-		criteria.add(Restrictions.eq("Status", BillStatus.UNPAID.getId()));
+		criteria.add(Restrictions.eq("status", BillStatus.UNPAID.getId()));
 		return criteria.list();
 	}
 }
