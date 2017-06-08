@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.base.test.Services.ServiceInterface;
+import com.base.test.Services.UtilityService;
 import com.base.test.model.Bill;
-import com.base.test.model.Menu;
 import com.base.test.model.Orders;
 import com.base.test.model.Payments;
 import com.base.test.model.Tables;
@@ -38,20 +38,21 @@ public class HomeController {
 	ServiceInterface<Waiter> waiterService;
 
 	@Autowired
-	ServiceInterface<Menu> menuService;
-
-	@Autowired
 	ServiceInterface<Bill> billService;
 
 	@Autowired
 	ServiceInterface<Users> userService;
 
+	@Autowired
+	UtilityService utilityService;
+
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("allTables", tablesService.getAll());
 		model.put("allWaiter", waiterService.getAll());
-		model.put("allMenu", menuService.getAll());
+		model.put("allMenu", utilityService.getDisplayMenu());
 		String roles = (String) session.getAttribute("role");
 		List<String> rolesList = Arrays.asList(roles.split(","));
 		model.put("role", rolesList);

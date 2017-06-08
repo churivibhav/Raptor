@@ -301,3 +301,32 @@ alter table Bill add `discountAmount` DOUBLE(20, 2) DEFAULT '0';
 alter table Bill add `status` varchar(30) NOT NULL DEFAULT '';
 alter table Bill add `comments` varchar(500) NOT NULL DEFAULT '';
 alter table Bill add `roundOffAmount` DOUBLE(20, 2) DEFAULT '0';
+
+CREATE TABLE `MenuSubType` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(30) NOT NULL DEFAULT '',
+    `taxType` int(11) unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `menuSubType_fk1` FOREIGN KEY (taxType) REFERENCES TaxDetail(id)
+);
+
+INSERT INTO `menusubtype`(`id`, `name`, `taxType`) VALUES (1,'Starter',1);
+INSERT INTO `menusubtype`(`id`, `name`, `taxType`) VALUES (2,'Visky',2);
+INSERT INTO `menusubtype`(`id`, `name`, `taxType`) VALUES (3,'Main Course',1);
+INSERT INTO `menusubtype`(`id`, `name`, `taxType`) VALUES (4,'Starter',3);
+INSERT INTO `menusubtype`(`id`, `name`, `taxType`) VALUES (5,'Beer',4);
+
+alter table Menu drop servingType;
+alter table Menu add `subType` int(11) unsigned NOT NULL;
+ALTER TABLE Menu ADD CONSTRAINT menu_subType_fk1 FOREIGN KEY (subType) REFERENCES MenuSubType(id);
+truncate Menu;
+
+insert into Menu (id,name,taxType,subType,cost) values(	1,	'Chicken Tikka',	1,	1,		426	);
+insert into Menu (id,name,taxType,subType,cost) values(	2,	'Jack Daniels',		2,	2,		520	);
+insert into Menu (id,name,taxType,subType,cost) values(	3,	'Paneer Kadai',		1,	3,		563	);
+insert into Menu (id,name,taxType,subType,cost) values(	4,	'Kheema PAV',		3,	4,		99	);
+insert into Menu (id,name,taxType,subType,cost) values(	5,	'Fosters',		4,	5,			99	);
+
+Drop Table barmenu;
+Drop Table foodmenu;
+

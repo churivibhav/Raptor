@@ -8,23 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Menu")
-public class Menu {
+@Table(name = "MenuSubType")
+public class MenuSubType {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	Long id;
+	String name;
+	Long taxType;
 
-	private String name;
-	private Long taxType;
-	private Long subType;
-	private double cost;
-
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -42,21 +39,5 @@ public class Menu {
 
 	public void setTaxType(Long taxType) {
 		this.taxType = taxType;
-	}
-
-	public Long getSubType() {
-		return subType;
-	}
-
-	public void setSubType(Long subType) {
-		this.subType = subType;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
 	}
 }

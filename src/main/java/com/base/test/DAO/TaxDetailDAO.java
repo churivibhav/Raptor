@@ -20,7 +20,7 @@ public class TaxDetailDAO extends AbstractDao<TaxDetail> {
 		return TaxDetail.class;
 	}
 
-	public Map<Long, TaxDetail> taxList;
+	private Map<Long, TaxDetail> taxList;
 
 	private Map<Long, TaxDetail> getTaxList() {
 		taxList = Optional.ofNullable(taxList).orElse(getAllTaxDetail());

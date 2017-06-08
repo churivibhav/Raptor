@@ -187,65 +187,81 @@
 								style="padding-right: 0px; width: 23%; padding-left: 0px;">
 								<div class="row">
 									<div class="col-sm-12 padding-left-0">
-									<c:choose>
-        								<c:when test="${model.role.contains('Cashier')}">
-											<div class="order-management box">
-												<!-- <c:out value="${model.role}"/> -->
-												
-												<div class="box-header">Order Management</div>
-												<div class="box-content clearfix">
-													
-													<div style="width: 49%; display: inline-block; float: left;">
-														<button class="btn new-order btn-default">New Order</button>
-													</div>
-														
-													<div style="display: inline-block; width: 50%;">
-														<button class="btn edit-order btn-default">Edit
-															Order</button>
+										<c:choose>
+											<c:when test="${model.role.contains('Cashier')}">
+												<div class="order-management box">
+													<!-- <c:out value="${model.role}"/> -->
+
+													<div class="box-header">Order Management</div>
+													<div class="box-content clearfix">
+
+														<div
+															style="width: 49%; display: inline-block; float: left;">
+															<button class="btn new-order btn-default">New
+																Order</button>
+														</div>
+
+														<div style="display: inline-block; width: 50%;">
+															<button class="btn edit-order btn-default">Edit
+																Order</button>
+														</div>
 													</div>
 												</div>
-											</div>
-										</c:when>
-									</c:choose>
+											</c:when>
+										</c:choose>
 									</div>
 									<c:choose>
-        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Admin')}">
+										<c:when
+											test="${model.role.contains('Cashier') or model.role.contains('Admin')}">
 											<div class="col-sm-12 padding-left-0">
 												<div class="bill-management box">
 													<div class="box-header">Bill Management</div>
 													<div class="box-content">
 														<c:choose>
-		        											<c:when test="${model.role.contains('Cashier')}">
+															<c:when test="${model.role.contains('Cashier')}">
 																<div class="clearfix">
-																	<div style="width: 49%; display: inline-block; float: left;">
-																		<button class="btn generate-bill btn-default">Print Bill</button>
+																	<div
+																		style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn generate-bill btn-default">Print
+																			Bill</button>
 																	</div>
-																	<div style="width: 50%; display: inline-block; float: left;">
-																		<button class="btn settle-bill btn-default">Settle Bill</button>
+																	<div
+																		style="width: 50%; display: inline-block; float: left;">
+																		<button class="btn settle-bill btn-default">Settle
+																			Bill</button>
 																	</div>
 																</div>
-														
+
 																<div class="clearfix">
-																	<div style="width: 49%; display: inline-block; float: left;">
-																		<button class="btn active-bills btn-default">Active Bills</button>
+																	<div
+																		style="width: 49%; display: inline-block; float: left;">
+																		<button class="btn active-bills btn-default">Active
+																			Bills</button>
 																	</div>
-																	<div style="width: 50%; display: inline-block; float: left;">
-																		<a href="#" class="btn btn-default active-orders btn-default">Active Orders</a>
+																	<div
+																		style="width: 50%; display: inline-block; float: left;">
+																		<a href="#"
+																			class="btn btn-default active-orders btn-default">Active
+																			Orders</a>
 																	</div>
 																</div>
 															</c:when>
 														</c:choose>
 														<c:choose>
-		        											<c:when test="${model.role.contains('Admin')}">
+															<c:when test="${model.role.contains('Admin')}">
 																<div class="clearfix">
-																	<div style="width: 49%; display: inline-block; float: left;">
-																		<a href="#" class="btn btn-default search-link btn-default">Search</a>
+																	<div
+																		style="width: 49%; display: inline-block; float: left;">
+																		<a href="#"
+																			class="btn btn-default search-link btn-default">Search</a>
 																	</div>
-															
-																	<div style="width: 50%; display: inline-block; float: left;">
-																		<a href="#" class="btn btn-default report-link btn-default">Report</a>
+
+																	<div
+																		style="width: 50%; display: inline-block; float: left;">
+																		<a href="#"
+																			class="btn btn-default report-link btn-default">Report</a>
 																	</div>
-																
+
 																</div>
 															</c:when>
 														</c:choose>
@@ -254,48 +270,55 @@
 											</div>
 										</c:when>
 									</c:choose>
-									
+
 									<div class="col-sm-12 padding-left-0">
-									<c:choose>
-        								<c:when test="${model.role.contains('Cashier') or model.role.contains('Podium')}">
-											<div class="bill-management box">
-											
-												<div class="box-header">YOYO Card</div>
-												<div class="box-content clearfix">
-													<div style="width: 49%; display: inline-block; float: left;">
-														<button class="btn card-recharge btn-default">Card Recharge</button>
-													</div>
-													
-												<c:choose>
-	        										<c:when test="${model.role.contains('Cashier')}">
-														<div style="width: 50%; display: inline-block; float: left;">
-															<button class="btn card-refund btn-default">Refund</button>
+										<c:choose>
+											<c:when
+												test="${model.role.contains('Cashier') or model.role.contains('Podium')}">
+												<div class="bill-management box">
+
+													<div class="box-header">YOYO Card</div>
+													<div class="box-content clearfix">
+														<div
+															style="width: 49%; display: inline-block; float: left;">
+															<button class="btn card-recharge btn-default">Card
+																Recharge</button>
 														</div>
-													</c:when>
-												</c:choose>
+
+														<c:choose>
+															<c:when test="${model.role.contains('Cashier')}">
+																<div
+																	style="width: 50%; display: inline-block; float: left;">
+																	<button class="btn card-refund btn-default">Refund</button>
+																</div>
+															</c:when>
+														</c:choose>
+													</div>
 												</div>
-											</div>
-										</c:when>
-									</c:choose>
+											</c:when>
+										</c:choose>
 									</div>
 
 									<div class="col-sm-12 padding-left-0">
-									<c:choose>
-        								<c:when test="${model.role.contains('Admin')}">
-											<div class="bod-eod box">
-												<div class="box-header">Daily(BOD/EOD)</div>
-												<div class="box-content clearfix">
-													<div style="width: 49%; display: inline-block; float: left;">
-														<button class="btn start-day btn-default">Start Day</button>
-													</div>
-	
-													<div style="width: 50%; display: inline-block; float: left;">
-														<button class="btn end-day btn-default">End Day</button>
+										<c:choose>
+											<c:when test="${model.role.contains('Admin')}">
+												<div class="bod-eod box">
+													<div class="box-header">Daily(BOD/EOD)</div>
+													<div class="box-content clearfix">
+														<div
+															style="width: 49%; display: inline-block; float: left;">
+															<button class="btn start-day btn-default">Start
+																Day</button>
+														</div>
+
+														<div
+															style="width: 50%; display: inline-block; float: left;">
+															<button class="btn end-day btn-default">End Day</button>
+														</div>
 													</div>
 												</div>
-											</div>
-										</c:when>
-									</c:choose>
+											</c:when>
+										</c:choose>
 									</div>
 
 								</div>
@@ -545,7 +568,7 @@
 							</select> <input type="text" class="form-control other-waiter-text"
 								style="display: none;" placeholder="Waiter name" />
 						</div>
-					    <!-- <div class="col-sm-6 text-right">
+						<!-- <div class="col-sm-6 text-right">
 							<label>No. Of Persons : </label>
 							<div class="input-group spinner">
 								<input type="text" class="form-control" value="1" min="0"
@@ -568,31 +591,18 @@
 							</div>-->
 
 							<select id="menu_select" multiple="multiple">
-								<optgroup label="Veg" class="group-1">
-									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
-										<c:if test="${allFoodMenu.veg == 'true'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
-												data-cost="${allFoodMenu.cost}" type="FOOD"
-												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
-										</c:if>
-									</c:forEach>
-								</optgroup>
-								<optgroup label="Non Veg" class="group-2">
-									<c:forEach items="${model.allFoodMenu}" var="allFoodMenu">
-										<c:if test="${allFoodMenu.veg == 'false'}">
-											<option value="${allFoodMenu.id}+${allFoodMenu.itemName}"
-												data-cost="${allFoodMenu.cost}" type="FOOD"
-												id="${allFoodMenu.id}">${allFoodMenu.itemName}</option>
-										</c:if>
-									</c:forEach>
-								</optgroup>
-								<optgroup label="Bar" class="group-3">
-									<c:forEach items="${model.allBarMenu}" var="allBarMenu">
-										<option value="${allBarMenu.id}+${allBarMenu.itemName}"
-											data-cost="${allBarMenu.cost}" type="BAR"
-											id="${allBarMenu.id}">${allBarMenu.itemName}</option>
-									</c:forEach>
-								</optgroup>
+								<c:forEach items="${model.allMenu}" var="all_Menu">
+									<optgroup label="${all_Menu.key}" class="group-1">
+										<c:forEach items="${all_Menu.value}" var="subMenu">
+											<optgroup label="${subMenu.key}" class="group-2">
+												<c:forEach items="${subMenu.value}" var="menu">
+														<option value="${menu.id}"
+															data-cost="${menu.cost}" id="${menu.id}">${menu.name}</option>
+												</c:forEach>
+											</optgroup>
+										</c:forEach>
+									</optgroup>
+								</c:forEach>
 							</select>
 
 							<!-- <div id="tree"></div>-->
@@ -659,7 +669,8 @@
 								class="form-control waiter-select">
 								<option value="-2">Select</option>
 								<c:forEach items="${model.allWaiter}" var="allWaiter">
-									<option value="${allWaiter.id}" waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
+									<option value="${allWaiter.id}"
+										waiter-name="${allWaiter.firstName}" class="waiter-id">${allWaiter.firstName}</option>
 								</c:forEach>
 								<option value="-1">Other</option>
 							</select> <input type="text" class="form-control other-waiter-text"
@@ -807,24 +818,27 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
+								<div class="text-right form-inline settleBilltotal"
+									style="margin-top: 10px;">
 									<label>Bill Amount : </label> <input type="text"
-										class="form-control bill-total-cost" value="900" style="margin-top: 10px;margin-right:10px" disabled />
-									<label style="margin-right:41px">Bill Amount After Tax:
-									</label> <input type="text" class="form-control bill-amt-after-tax"
-										value="0" disabled />
+										class="form-control bill-total-cost" value="900"
+										style="margin-top: 10px; margin-right: 10px" disabled /> <label
+										style="margin-right: 41px">Bill Amount After Tax: </label> <input
+										type="text" class="form-control bill-amt-after-tax" value="0"
+										disabled />
 								</div>
 								<div class="text-right form-inline" style="margin-top: 10px;">
 									<label>Discount %: </label> <input type="text"
 										class="form-control discount-amount" value="0"
-										style="margin-right: 10px;" /> <label>Bill Amount after discount:
-									</label> <input type="text" class="form-control bill-amt-after-discount"
-										value="0" disabled />
+										style="margin-right: 10px;" /> <label>Bill Amount
+										after discount: </label> <input type="text"
+										class="form-control bill-amt-after-discount" value="0"
+										disabled />
 								</div>
-								<div class="text-right form-inline settleBilltotal" style="margin-top: 10px;">
-									<label>Final Bill Amount:
-									</label> <input type="text" class="form-control actual-amount"
-										value="0" disabled />
+								<div class="text-right form-inline settleBilltotal"
+									style="margin-top: 10px;">
+									<label>Final Bill Amount: </label> <input type="text"
+										class="form-control actual-amount" value="0" disabled />
 								</div>
 							</div>
 						</div>
@@ -1262,7 +1276,7 @@
 									<td class="total-row-price">0</td>
 								</tr>
 								<tr>
-									<td  class="type-of-note">2000</td>
+									<td class="type-of-note">2000</td>
 									<td>
 										<div class="input-group spinner">
 											<input type="text" class="form-control" value="0" min="0"
@@ -1302,8 +1316,8 @@
 
 
 	<div class="menu-overlay"></div>
-	
-	
+
+
 </body>
 </html>
 

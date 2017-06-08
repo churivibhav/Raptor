@@ -34,10 +34,12 @@ public interface ServiceInterface<T> {
 		return null;
 	}
 
-	public default long addToCardHistory(T card, Double amount, Double balance, TransactionType transactionType, Long userID) {
+	public default long addToCardHistory(T card, Double amount, Double balance, TransactionType transactionType,
+			Long userID) {
 		return 0;
 	}
 
-	public List<Bill> getTodaysBills();
-
+	public default List<Bill> getTodaysBills() {
+		return null;
+	}
 }
