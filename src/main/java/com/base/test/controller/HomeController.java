@@ -96,6 +96,17 @@ public class HomeController {
 		return bills;
 	}
 
+	@RequestMapping(value = "/getTodaysBills", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Bill> getTodaysBills(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("---------GET BILLS----------");
+		List<Bill> bills = billService.getTodaysBills();
+		for (Bill bill : bills) {
+			clearForJsonParser(bill);
+		}
+		return bills;
+	}
+
 	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Bill saveOrder(@RequestBody Bill bill, HttpServletRequest request,
 			HttpServletResponse response) {

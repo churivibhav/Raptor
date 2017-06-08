@@ -46,9 +46,23 @@ public class BillService extends AbstractService<Bill> {
 	@Autowired
 	ServiceInterface<Menu> menuService;
 
+	private DailyTransaction activeDay;
+
 	@Override
 	public DaoInterface<Bill> getEntityDAO() {
 		return billDAO;
+	}
+
+	private DailyTransaction getActiveDay() {
+		if (activeDay != null) {
+			return activeDay;
+		}
+		List<DailyTransaction> activeEntity = dailyTransactionService.getActiveEntity();
+		if (activeEntity.isEmpty()) {
+			throw new RuntimeException("First Start New Day.....");
+		}
+		activeDay = activeEntity.get(0);
+		return activeDay;
 	}
 
 	@Transactional
@@ -129,6 +143,7 @@ public class BillService extends AbstractService<Bill> {
 		bill_old.setStatus(bill.getStatus());
 		bill_old.setWaiterID(bill.getWaiterID());
 		bill_old.setDiscount(bill.getDiscount());
+		bill_old.setRoundOffAmount(bill.getRoundOffAmount());
 
 		if (bill.getIsActive() == true) {
 			for (Orders order : bill.getOrders()) {
@@ -170,6 +185,7 @@ public class BillService extends AbstractService<Bill> {
 
 		calculateTax(bill_old);
 		applyDiscount(bill_old);
+		applyRoundOFF(bill_old);
 		lazyLoadToEgar(bill_old);
 		super.update(id, bill_old);
 
@@ -226,9 +242,16 @@ public class BillService extends AbstractService<Bill> {
 
 	}
 
+	private void applyRoundOFF(Bill bill_old) {
+		bill_old.setTotalAmount(bill_old.getTotalAmount() - bill_old.getRoundOffAmount());
+	}
+
 	private void canCreate(Bill bill) {
-		if (dailyTransactionService.getActiveEntity().isEmpty()) {
-			throw new RuntimeException("First Start New Day.....");
-		}
+		getActiveDay();
+	}
+
+	@Override
+	public List<Bill> getTodaysBills() {
+		return billDAO.getTodaysBills(getActiveDay().getBusinessDay());
 	}
 }

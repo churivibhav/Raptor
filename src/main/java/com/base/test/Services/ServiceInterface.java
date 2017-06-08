@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.base.test.DTO.CriteriaDTO;
 import com.base.test.enums.TransactionType;
+import com.base.test.model.Bill;
 
 public interface ServiceInterface<T> {
 
@@ -36,5 +37,7 @@ public interface ServiceInterface<T> {
 	public default long addToCardHistory(T card, Double amount, Double balance, TransactionType transactionType, Long userID) {
 		return 0;
 	}
+
+	public List<Bill> getTodaysBills();
 
 }
